@@ -1,6 +1,6 @@
 \usepackage[hidelinks]{hyperref}
-\usepackage[letterpaper, margin=1in, nohead]{geometry}
-\usepackage{longtable}
+\usepackage[letterpaper, margin=1in]{geometry} % 'nohead' eliminado para compatibilidad con fancyhdr
+\usepackage{array} % Coma inicial corregida
 \usepackage{booktabs}
 \usepackage{graphicx}
 \usepackage{pgfgantt}
@@ -15,24 +15,54 @@
 \captionsetup[figure]{name={Figura },labelsep=period}
 \captionsetup[table]{name={Tabla },labelsep=period}
 \usepackage[spanish]{babel}
-
 \usepackage{imakeidx}
 \makeindex[columns=3, title=Alphabetical Index, intoc]
 \usepackage{float}
-\usepackage{amsmath} % Añade este paquete para poder utilizar la función \text{} en las ecuaciones
-
-%\renewcommand{\thesection}{\Roman{section}}
-%\renewcommand{\thesubsection}{\thesection.\Roman{subsection}}
-
-\usepackage{comment}                % Para documentar bloques de código
-
-% Paquete para el manejo de listados de código
+\usepackage{amsmath}
+\usepackage{comment}
 \usepackage{listings}
-\usepackage{xcolor}
+\usepackage[dvipsnames]{xcolor} % Movido aquí para estar disponible para todos los paquetes
+\usepackage{tabularx}
 
+% --- PAQUETES EXTRAÍDOS DE 'electronica.cls' ---
+
+% AGREGADO: Para tablas que pueden ocupar varias páginas.
+\usepackage{longtable}
+
+% AGREGADO: Mejor control sobre la alineación de texto (izquierda, derecha, justificado).
+\usepackage{ragged2e}
+
+% AGREGADO: Herramientas de programación para LaTeX, necesarias para comandos condicionales.
+\usepackage{etoolbox}
+\usepackage{ifthen}
+
+% AGREGADO: Mayor control sobre el formato de las listas (enumerate, itemize).
+\usepackage{enumitem}
+
+% AGREGADO: Codificación de fuentes correcta para visualización en PDF y manejo de caracteres.
+\usepackage[T1]{fontenc}
+
+% AGREGADO: Para personalizar los encabezados y pies de página.
+\usepackage{fancyhdr}
+
+
+% AGREGADO: Configuración de encabezados y pies de página como en la plantilla del profesor.
+\fancyhead{} % Limpia los campos del encabezado
+\fancyhead[L]{\footnotesize Propuesta de Proyecto de Integración}
+\fancyhead[R]{\footnotesize Ingeniería en Electrónica}
+\fancyfoot[R]{\footnotesize \thepage}
+\fancyfoot[L]{\footnotesize UAM-Azcapotzalco}
+\fancyfoot[C]{}
+
+% AGREGADO: Define la ruta donde buscará las imágenes por defecto.
+\graphicspath{{./Imagenes/}}
+
+% AGREGADO: Definiciones de colores y estilo para el código fuente (paquete 'listings').
 \definecolor{verde}{rgb}{0,0.6,0}
 \definecolor{gris}{rgb}{0.5,0.5,0.5}
 \definecolor{mageta}{rgb}{0.58,0,0.82}
+\definecolor{negro}{rgb}{0.95,0.95,0.92}
+
 
 \lstset{ 
   backgroundcolor=\color{white},   % Indica el color de fondo; necesita que se añada \usepackage{color} o \usepackage{xcolor}
@@ -82,24 +112,23 @@
 \renewcommand{\lstlistlistingname}{Lista de \lstlistingname s}
 %\renewcommand{\theenumi}{\alph{enumi}}  % Cambia la numeración de los items de las listas a, b, c, ...
 
-\usepackage{tabularx}
-% Paquetes para el uso de el lenguaje Kotlin
-\usepackage[dvipsnames]{xcolor}
 
-\lstdefinelanguage{Kotlin}{
-  comment=[l]{//},
-  commentstyle={\color{gray}\ttfamily},
-  emph={filter, first, firstOrNull, forEach, lazy, map, mapNotNull, println},
-  emphstyle={\color{OrangeRed}},
-  identifierstyle=\color{black},
-  keywords={!in, !is, abstract, actual, annotation, as, as?, break, by, catch, class, companion, const, constructor, continue, crossinline, data, delegate, do, dynamic, else, enum, expect, external, false, field, file, final, finally, for, fun, get, if, import, in, infix, init, inline, inner, interface, internal, is, lateinit, noinline, null, object, open, operator, out, override, package, param, private, property, protected, public, receiver, reified, return, return@, sealed, set, setparam, super, suspend, tailrec, this, throw, true, try, typealias, typeof, val, var, vararg, when, where, while},
-  keywordstyle={\color{NavyBlue}\bfseries},
-  escapeinside={//(`}{`)},
-  morecomment=[s]{/*}{*/},
-  morestring=[b]",
-  morestring=[s]{"""*}{*"""},
-  ndkeywords={@Composable, @Preview, @Deprecated, @JvmField, @JvmName, @JvmOverloads, @JvmStatic, @JvmSynthetic, Array, Byte, Double, Float, Int, Integer, Iterable, Long, Runnable, Short, String, Any, Unit, Nothing},
-  ndkeywordstyle={\color{BurntOrange}\bfseries},
-  sensitive=true,
-  stringstyle={\color{ForestGreen}\ttfamily},
+\lstdefinestyle{mystyle}{
+    backgroundcolor=\color{negro},
+    commentstyle=\color{verde},
+    keywordstyle=\color{mageta},
+    numberstyle=\tiny\color{gris},
+    stringstyle=\color{magenta},
+    basicstyle=\ttfamily\footnotesize,
+    breakatwhitespace=false,         
+    breaklines=true,                 
+    captionpos=b,                    
+    keepspaces=true,                 
+    numbers=left,                    
+    numbersep=5pt,                  
+    showspaces=false,                
+    showstringspaces=false,
+    showtabs=false,                  
+    tabsize=2
 }
+\lstset{style=mystyle} % Aplica el estilo definido

@@ -1,34 +1,35 @@
-\setcounter{page}{1} % Iniciar la numeración de las páginas en este punto
+\setcounter{page}{1} % Iniciar la numeración de las páginas en este punto.
+\pagestyle{fancy}
 
 \section{Introducción}
-    En el contexto global actual, la eficiencia energética se ha consolidado como un pilar fundamental para el desarrollo sostenible, impulsada tanto por la necesidad de mitigar el impacto ambiental como por la optimización de los recursos económicos. El sector residencial representa una porción significativa del consumo total de energía eléctrica, sin embargo, la mayoría de los usuarios carecen de herramientas que les permitan comprender y gestionar su consumo de manera efectiva. La facturación eléctrica tradicional ofrece únicamente un resumen mensual, funcionando como un indicador tardío que no permite identificar patrones de uso específicos ni detectar fuentes de desperdicio, como el conocido "consumo fantasma" o en modo de espera (standby).
+En el contexto global actual, la eficiencia energética se ha consolidado como un pilar fundamental para el desarrollo sostenible, impulsada tanto por la necesidad de mitigar el impacto ambiental como por la optimización de los recursos económicos \cite{chevez2018energias}. El sector residencial representa una porción significativa del consumo total de energía eléctrica, sin embargo, la mayoría de los usuarios carecen de herramientas que les permitan comprender y gestionar su consumo de manera efectiva. La facturación eléctrica tradicional ofrece únicamente un resumen mensual, funcionando como un indicador tardío que no permite identificar patrones de uso específicos ni detectar fuentes de desperdicio, como el conocido "consumo fantasma" o en modo de espera (standby) \cite{iea2022standby}.
 
-    La problemática central que se aborda en este proyecto es la falta de acceso a información granular y en tiempo real sobre el consumo de energía en el hogar. Esta carencia de datos impide a los usuarios tomar decisiones informadas para modificar sus hábitos, optimizar el uso de sus aparatos y, consecuentemente, reducir su gasto energético. Para dar solución a esta necesidad, se propone el diseño y la implementación de un sistema de monitoreo de bajo costo, el cual se fundamenta en la tecnología del Internet de las Cosas (IoT).
+La problemática central que se aborda en este proyecto es la falta de acceso a información granular y en tiempo real sobre el consumo de energía en el hogar. Esta carencia de datos impide a los usuarios tomar decisiones informadas para modificar sus hábitos, optimizar el uso de sus aparatos y, consecuentemente, reducir su gasto energético. Para dar solución a esta necesidad, se propone el diseño y la implementación de un sistema de monitoreo de bajo costo, el cual se fundamenta en la tecnología del Internet de las Cosas (IoT).
 
-    El desarrollo del proyecto se basará en tres fundamentos teóricos esenciales. El primero es el sensado de corriente no invasivo, que emplea un transformador de corriente para medir el flujo eléctrico de una instalación sin necesidad de realizar modificaciones físicas en el cableado, garantizando así la seguridad e integridad del sistema eléctrico doméstico. El segundo es el uso de sistemas embebidos, donde un microcontrolador con capacidades de comunicación inalámbrica actuará como la unidad central encargada de adquirir los datos del sensor, procesarlos digitalmente y gestionar su transmisión. Finalmente, el concepto de Internet de las Cosas (IoT) servirá como el marco tecnológico para conectar el dispositivo a una plataforma en la nube, permitiendo la visualización, el almacenamiento y el análisis histórico de los datos de consumo desde cualquier lugar a través de un navegador web o un dispositivo móvil.
+El desarrollo del proyecto se basará en tres fundamentos teóricos esenciales. El primero es el sensado de corriente no invasivo, que emplea un transformador de corriente para medir el flujo eléctrico de una instalación sin necesidad de realizar modificaciones físicas en el cableado, garantizando así la seguridad e integridad del sistema eléctrico doméstico \cite{fraden2016handbook}. El segundo es el uso de sistemas embebidos, donde un microcontrolador con capacidades de comunicación inalámbrica actuará como la unidad central encargada de adquirir los datos del sensor, procesarlos digitalmente y gestionar su transmisión \cite{vahid2002embedded}. Finalmente, el concepto de Internet de las Cosas (IoT) servirá como el marco tecnológico para conectar el dispositivo a una plataforma en la nube, permitiendo la visualización, el almacenamiento y el análisis histórico de los datos de consumo desde cualquier lugar a través de un navegador web o un dispositivo móvil \cite{alaa2017smart}.
 
-    Este sistema no solo proporcionará una medición precisa y en tiempo real del consumo en Watts, sino que también sentará las bases para un análisis inteligente de los datos, permitiendo la futura implementación de alertas personalizadas y la detección de anomalías en los patrones de consumo.
+Este sistema no solo proporcionará una medición precisa y en tiempo real del consumo en Watts, sino que también sentará las bases para un análisis inteligente de los datos, permitiendo la futura implementación de alertas personalizadas y la detección de anomalías en los patrones de consumo.
     
 \newpage % Nueva página
 \section{Antecedentes}
-    El monitoreo de energía eléctrica a través de plataformas IoT es un área de investigación y desarrollo activa. Para contextualizar esta propuesta, se han seleccionado y analizado tres trabajos de titulación provenientes de los repositorios digitales de las principales instituciones de educación superior en México.
+    El monitoreo de energía eléctrica a través de plataformas IoT es un área de investigación y desarrollo activa. Para contextualizar esta propuesta, se han seleccionado y analizado algunos trabajos de titulación provenientes de los repositorios digitales de las principales instituciones de educación superior en México.
 
-    \subsection*{    Artículo Internacional: "A Low-Cost Real-Time Non-Intrusive Smart Metering System for Residential Electricity Consumption" }
+    \subsection*{    Artículo  }
 
     
 \newpage % Nueva página
 \section{Justificación}
 
-    La gestión eficiente de la energía eléctrica en el sector residencial constituye un desafío significativo, originado principalmente por la falta de acceso a información detallada y en tiempo real sobre el consumo. El problema central afecta a los usuarios domésticos, quienes reciben una facturación mensual que funciona como un indicador reactivo e insuficiente para comprender sus patrones de uso, identificar aparatos ineficientes o cuantificar el impacto del "consumo fantasma". Desde una perspectiva técnica, esta carencia de datos representa una barrera para la implementación de estrategias efectivas de ahorro energético, dejando al usuario sin herramientas para optimizar uno de sus gastos recurrentes más importantes.
+La gestión eficiente de la energía eléctrica en el sector residencial constituye un desafío significativo, originado principalmente por la falta de acceso a información detallada y en tiempo real sobre el consumo. El problema central afecta a los usuarios domésticos, quienes reciben una facturación mensual que funciona como un indicador reactivo e insuficiente para comprender sus patrones de uso, identificar aparatos ineficientes o cuantificar el impacto del "consumo fantasma". Desde una perspectiva técnica, esta carencia de datos representa una barrera para la implementación de estrategias efectivas de ahorro energético, dejando al usuario sin herramientas para optimizar uno de sus gastos recurrentes más importantes.
 
-    Resolver esta problemática mediante la ingeniería electrónica aporta beneficios directos y tangibles. La principal importancia del proyecto radica en empoderar al usuario con datos accionables, lo que se traduce en un impacto económico directo a través de la reducción del costo del servicio eléctrico y fomenta una mayor conciencia sobre el uso de los recursos energéticos, contribuyendo a la sostenibilidad ambiental. Para el campo de la Ingeniería Electrónica, este proyecto es altamente relevante pues integra disciplinas clave como el diseño de sistemas embebidos, el acondicionamiento de señales analógicas, las comunicaciones inalámbricas y el desarrollo de plataformas en el Internet de las Cosas (IoT). La aportación práctica es un prototipo funcional, seguro y de bajo costo que democratiza el acceso a la tecnología de medición inteligente, a menudo reservada para soluciones comerciales de alto precio.
+Resolver esta problemática mediante la ingeniería electrónica aporta beneficios directos y tangibles. La principal importancia del proyecto radica en empoderar al usuario con datos accionables, lo que se traduce en un impacto económico directo a través de la reducción del costo del servicio eléctrico y fomenta una mayor conciencia sobre el uso de los recursos energéticos, contribuyendo a la sostenibilidad ambiental \cite{sap2022smartmetering}. Para el campo de la Ingeniería Electrónica, este proyecto es altamente relevante pues integra disciplinas clave como el diseño de sistemas embebidos, el acondicionamiento de señales analógicas, las comunicaciones inalámbricas y el desarrollo de plataformas en el Internet de las Cosas (IoT) \cite{scielo2024iot}. La aportación práctica es un prototipo funcional, seguro y de bajo costo que democratiza el acceso a la tecnología de medición inteligente, a menudo reservada para soluciones comerciales de alto precio.
 
-    La viabilidad del proyecto está garantizada por la utilización de componentes de hardware económicos y de fácil acceso, como el microcontrolador ESP32 y el sensor de corriente no invasivo SCT-013. La implementación se basa en conocimientos y herramientas de software de código abierto, los cuales son consistentes con las competencias adquiridas a lo largo de la Licenciatura en Ingeniería Electrónica. El tiempo de desarrollo se ajusta al cronograma de una Unidad de Enseñanza Aprendizaje (UEA) de Proyecto de Integración. Los beneficiarios directos de la solución desarrollada serán los usuarios residenciales, y el prototipo resultante podrá ser utilizado como material didáctico en laboratorios del departamento para futuras prácticas de sistemas embebidos e IoT.
-
+La viabilidad del proyecto está garantizada por la utilización de componentes de hardware económicos y de fácil acceso, como el microcontrolador ESP32 y el sensor de corriente no invasivo SCT-013 \cite{programarfacil2017sct013}. La implementación se basa en conocimientos y herramientas de software de código abierto, los cuales son consistentes con las competencias adquiridas a lo largo de la Licenciatura en Ingeniería Electrónica. El tiempo de desarrollo se ajusta al cronograma de una Unidad de Enseñanza Aprendizaje (UEA) de Proyecto de Integración. Los beneficiarios directos de la solución desarrollada serán los usuarios residenciales, y el prototipo resultante podrá ser utilizado como material didáctico en laboratorios del departamento para futuras prácticas de sistemas embebidos e IoT.
 \newpage
+
 \section{Objetivos}
     \subsection{Objetivo General}
-        Desarrollar un sistema electrónico de monitoreo de consumo energético, utilizando un sensor de corriente no invasivo y un microcontrolador con conectividad al Internet de las Cosas (IoT), para proporcionar a los usuarios residenciales una herramienta de visualización y análisis de datos en tiempo real que facilite la gestión eficiente de su energía eléctrica.
+        Desarrollar un sistema electrónico de monitoreo de consumo energético, utilizando un sensor de corriente no invasivo y un microcontrolador con conectividad al Internet de las Cosas (IoT), para proporcionar a los usuarios residenciales una herramienta de visualización y análisis de datos en tiempo real que facilite la gestión eficiente de su energía eléctrica y de bajo costo.
     \subsection{Objetivos Específicos}
         \begin{itemize}
             \item Analizar y seleccionar los componentes de hardware, incluyendo el sensor de corriente no invasivo y el microcontrolador, para diseñar el circuito de acondicionamiento de señal que garantice una correcta lectura de los datos.
@@ -37,14 +38,11 @@
             \item Configurar la plataforma IoT para recibir, almacenar y visualizar los datos de consumo en un panel de control (dashboard) accesible de forma remota, implementando un sistema de alertas por consumo anómalo.
             \item Validar el correcto funcionamiento y la precisión del prototipo, comparando las mediciones obtenidas con las de un instrumento de medición comercial bajo diferentes condiciones de carga.
         \end{itemize}
-
 \newpage
-\section{Marco Teórico}
 
-\section{Metodología}
-
-
-\section{Desarrollo del proyecto}
+%\section{Marco Teórico}
+%\section{Metodología}
+%\section{Desarrollo del proyecto}
     
 
 % Comentarios de código para posibles figuras o tablas futuras
