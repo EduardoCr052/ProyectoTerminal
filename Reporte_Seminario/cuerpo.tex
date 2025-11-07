@@ -93,7 +93,6 @@
         \label{tab:comparacion_antecedentes}
     \end{table}
 \newpage % Nueva página
-
     
 \section{Justificación}
 La gestión eficiente de la energía eléctrica en el sector residencial constituye un desafío significativo, originado principalmente por la falta de acceso a información detallada y en tiempo real sobre el consumo, así como por la ausencia de mecanismos accesibles para actuar remotamente sobre el suministro. El problema central afecta a los usuarios domésticos, quienes reciben una facturación mensual insuficiente para comprender sus patrones de uso, identificar aparatos ineficientes o cuantificar el "consumo fantasma" \cite{sap2022smartmetering}. Esta carencia de datos y control representa una barrera para implementar estrategias efectivas de ahorro y gestión energética.
@@ -121,14 +120,119 @@ La viabilidad del proyecto está garantizada por el uso de componentes económic
         \end{enumerate}
 \newpage
 
-%\section{Marco Teórico}
-%\section{Metodología}
-%\section{Desarrollo del proyecto}
+\section{Metodología - Descripción Técnica}
+
+    El presente proyecto consiste en el diseño e implementación de un sistema electrónico para el monitoreo y control del consumo eléctrico residencial. El sistema se compone de un nodo de adquisición de datos basado en un microcontrolador ESP32 y un servidor local basado en una Raspberry Pi, el cual centraliza el procesamiento, almacenamiento, visualización y control del sistema. La comunicación entre el nodo de adquisición y el servidor se realiza mediante el protocolo de mensajería MQTT a través de una red WiFi local.
+
+    \subsection{Diagrama a Bloques del Sistema}
+        La arquitectura del sistema propuesto se divide en tres subsistemas funcionales principales, como se ilustra en el diagrama a bloques de la Figura \ref{fig:diagrama_bloques}. Estos subsistemas son: 1) El Nodo de Medición y Adquisición, 2) El Servidor Local de Procesamiento, y 3) El Subsistema de Control y Notificación.
+        \begin{figure}[H]
+            \centering
+            \includegraphics[width=0.8\textwidth]{img/diagrama_bloques.jpg}
+            \caption{Diagrama a bloques funcional del sistema propuesto.}
+            \label{fig:diagrama_bloques}
+        \end{figure}
+
+    \subsection{Descripción de Subsistemas}
+        \paragraph{1. Subsistema de Medición (Nodo ESP32):}
+        Es el componente encargado de la adquisición de datos.
+        \begin{itemize}
+            \item \textbf{Sensor (SCT-013):} Es un transformador de corriente no invasivo de núcleo partido. Su función es medir la corriente alterna (AC) que fluye por el conductor principal de la vivienda sin contacto eléctrico.
+                \begin{itemize}
+                    \item \textit{Entrada:} Corriente AC (0-100A) de la línea de fase.
+                    \item \textit{Salida:} Una señal de corriente AC pequeña, proporcional a la entrada (ej. 50mA).
+                \end{itemize}
+            \item \textbf{Acondicionamiento de Señal:} Este circuito (basado en resistencias y capacitores) convierte la señal de corriente AC del sensor en una señal de voltaje DC con un desfase (offset), adaptada para ser leída por el ESP32 (ej. 0-3.3V).
+                \begin{itemize}
+                    \item \textit{Entrada:} Señal de corriente AC del sensor.
+                    \item \textit{Salida:} Señal de voltaje DC (0-3.3V) al ADC del ESP32.
+                \end{itemize}
+            \item \textbf{Procesamiento (ESP32):} El microcontrolador ESP32 muestrea la señal del ADC, realiza los cálculos para obtener la Potencia instantánea (W) y la Potencia aparente (VA), y se conecta a la red WiFi local.
+                \begin{itemize}
+                    \item \textit{Entrada:} Señal de voltaje del acondicionador.
+                    \item \textit{Salida:} Paquetes de datos MQTT (Protocolo: MQTT v3.1.1).
+                \end{itemize}
+        \end{itemize}
+
+        \paragraph{2. Subsistema Servidor Local (Raspberry Pi):}
+        Es el cerebro del sistema. Centraliza la recepción, procesamiento y almacenamiento de datos.
+        \begin{itemize}
+            \item \textbf{Broker MQTT:} Se utilizará un broker (ej. Mosquitto) que actúa como intermediario de mensajería. Recibe los datos publicados por el ESP32.
+            \item \textbf{Node-RED:} Es la herramienta de programación visual que orquesta los flujos de datos. Se suscribe al broker MQTT, recibe los datos de potencia, los procesa (ej. calcula costos, detecta anomalías) y los distribuye a los demás servicios (InfluxDB, Telegram, Contactor).
+            \item \textbf{InfluxDB:} Es la base de datos optimizada para series temporales. Almacena eficientemente los datos de consumo (Watts, Amperes, Costo) con su marca de tiempo para consultas históricas.
+            \item \textbf{Grafana:} Es la plataforma de visualización. Se conecta a InfluxDB como fuente de datos y permite crear un dashboard web con gráficas, medidores e indicadores del consumo en tiempo real e histórico.
+        \end{itemize}
+
+        \paragraph{3. Subsistema de Control y Notificación:}
+        Son los componentes que interactúan con el usuario o con la instalación eléctrica.
+        \begin{itemize}
+            \item \textbf{Telegram Bot:} Configurado a través de Node-RED, enviará notificaciones de alerta al usuario (ej. "Consumo anormal detectado: 5000W sostenidos") o recibirá comandos básicos (ej. "/cortar\_suministro"). 
+            \item \textbf{Contactor Eléctrico:} Es un actuador de potencia controlado por la Raspberry Pi (a través de un módulo relay). Al recibir una señal de Node-RED (originada por una alerta o un comando del usuario), este dispositivo es capaz de interrumpir físicamente el suministro eléctrico principal de la vivienda como medida de seguridad.
+        \end{itemize}
+
+    \subsection{Especificaciones Técnicas}
+        El prototipo a desarrollar buscará cumplir con las siguientes especificaciones:
+        \begin{itemize}
+            \item \textbf{Rango de Medición:} 0 – 100 Amperes (AC).
+            \item \textbf{Voltaje de Operación (Medición):} 127V AC (Monofásico).
+            \item \textbf{Precisión Esperada (Potencia):} $\pm 5\%$ comparado con un medidor comercial.
+            \item \textbf{Frecuencia de Muestreo (ESP32):} Envío de datos al servidor cada 10 segundos.
+            \item \textbf{Plataforma (Servidor):} Raspberry Pi 3B+ o superior.
+            \item \textbf{Protocolo de Comunicación:} MQTT sobre WiFi (red local).
+            \item \textbf{Interfaz de Usuario:} Dashboard en Grafana accesible vía navegador web en la red local.
+            \item \textbf{Sistema de Control:} Activación de contactor de 2 Polos (60A) mediante relay controlado por GPIO de la Raspberry Pi.
+        \end{itemize}
+\newpage
+    
+\section{Cronograma de Actividades}
+
+    La planificación del proyecto se ha estructurado para ser completada en dos trimestres consecutivos (24 semanas), cubriendo las UEA del Trimestre 25-O y 26-I. Las actividades están directamente alineadas con los objetivos particulares definidos en la sección anterior. El seguimiento del avance se realizará mediante la siguiente tabla (Ver Tabla \ref{tab:cronograma}).
+
+    \begin{table}[H]
+    \centering
+    \caption{Cronograma de Actividades del Proyecto.}
+    \label{tab:cronograma}
+    \resizebox{\textwidth}{!}{%
+    \begin{tabular}{|l|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|}
+    \hline
+    & \multicolumn{12}{c|}{\textbf{Trimestre 25-O}} & \multicolumn{12}{c|}{\textbf{Trimestre 26-I}} \\ \hline
+    \textbf{Actividad} & \textbf{1} & \textbf{2}         & \textbf{3} & \textbf{4} & \textbf{5} & \textbf{6} & \textbf{7} & \textbf{8} & \textbf{9} & \textbf{10} & \textbf{11} & \textbf{12} & \textbf{1} & \textbf{2} & \textbf{3} & \textbf{4} & \textbf{5} & \textbf{6} & \textbf{7} & \textbf{8} & \textbf{9} & \textbf{10} & \textbf{11} & \textbf{12} \\ \hline
+    \footnotesize{1. Diseño del circuito (Obj. 1)}       & \cellcolor{gray!40} & \cellcolor{gray!40} & \cellcolor{gray!40} & & & & & & & & & & & & & & & & & & & & & \\ \hline
+    \footnotesize{2. Construcción prototipo (Obj. 2)}    & & & \cellcolor{gray!40} & \cellcolor{gray!40} & \cellcolor{gray!40} & \cellcolor{gray!40} & & & & & & & & & & & & & & & & & & \\ \hline
+    \footnotesize{3. Desarrollo firmware ESP32 (Obj. 3)} & & & & & & \cellcolor{gray!40} & \cellcolor{gray!40} & \cellcolor{gray!40} & \cellcolor{gray!40} & & & & & & & & & & & & & & & \\ \hline
+    \footnotesize{4. Establ. servidor RPi (Obj. 4)}      & & & & & & & & & \cellcolor{gray!40} & \cellcolor{gray!40} & \cellcolor{gray!40} & \cellcolor{gray!40} & & & & & & & & & & & & \\ \hline
+    \footnotesize{5. Programación Node-RED (Obj. 5)}     & & & & & & & & & & & & \cellcolor{gray!40} & \cellcolor{gray!40} & \cellcolor{gray!40} & \cellcolor{gray!40} & & & & & & & & & \\ \hline
+    \footnotesize{6. Implementar Telegram (Obj. 6)}      & & & & & & & & & & & & & & & \cellcolor{gray!40} & \cellcolor{gray!40} & \cellcolor{gray!40} & \cellcolor{gray!40} & & & & & & \\ \hline
+    \footnotesize{7. Integrar contactor (Obj. 7)}        & & & & & & & & & & & & & & & & & \cellcolor{gray!40} & \cellcolor{gray!40} & \cellcolor{gray!40} & & & & & \\ \hline
+    \footnotesize{8. Evaluación precisión (Obj. 8)}      & & & & & & & & & & & & & & & & & & & \cellcolor{gray!40} & \cellcolor{gray!40} & \cellcolor{gray!40} & & & \\ \hline
+    \footnotesize{9. Validación funcional (Obj. 9)}      & & & & & & & & & & & & & & & & & & & & & \cellcolor{gray!40} & \cellcolor{gray!40} & & \\ \hline
+    \footnotesize{Redacción de informe}                  & & \cellcolor{gray!40} & \cellcolor{gray!40} & \cellcolor{gray!40} & \cellcolor{gray!40} & \cellcolor{gray!40} & \cellcolor{gray!40} & \cellcolor{gray!40} & \cellcolor{gray!40} & \cellcolor{gray!40} & \cellcolor{gray!40} & \cellcolor{gray!40} & \cellcolor{gray!40} & \cellcolor{gray!40} & \cellcolor{gray!40} & \cellcolor{gray!40} & \cellcolor{gray!40} & \cellcolor{gray!40} & \cellcolor{gray!40} & \cellcolor{gray!40} & \cellcolor{gray!40} & \cellcolor{gray!40} & \cellcolor{gray!40} & \cellcolor{gray!40} \\ \hline
+    \footnotesize{Entrega y presentación}                & & & & & & & & & & & & & & & & & & & & & & & & \cellcolor{gray!40} \\ \hline
+    \end{tabular}%
+    }
+    \end{table}
     
 
-% Comentarios de código para posibles figuras o tablas futuras
+    % --- SECCIÓN 7: ENTREGABLES ---
+\section{Entregables}
+    Para el desarrollo del proyecto y como evidencia del cumplimiento de los objetivos, se generarán los siguientes productos:
 
+    \begin{itemize}
+        \item \textbf{Documentación de Diseño:} Diagramas esquemáticos del circuito de acondicionamiento de señal y diagrama de conexión del sistema de control (contactor).
+        \item \textbf{Prototipo Físico Funcional:} Nodo de medición (ESP32 y circuito de acondicionamiento) y el servidor local (Raspberry Pi) configurados e integrados.
+        \item \textbf{Código Fuente (Software):}
+            \begin{itemize}
+                \item Firmware del microcontrolador ESP32 (programado en C++/Arduino).
+                \item Flujos de trabajo de Node-RED (en formato JSON).
+            \end{itemize}
+        \item \textbf{Panel de Control (Dashboard):} Dashboard funcional y configurado en Grafana para la visualización de los datos de consumo.
+
+    \end{itemize}
+    \newpage
+
+ % Comentarios de código para posibles figuras o tablas futuras
 \begin{comment}
+ %imagenes
     \begin{figure}[H]
         \centering
         \includegraphics[width=0.8\textwidth]{img/PPG.png}
@@ -136,9 +240,7 @@ La viabilidad del proyecto está garantizada por el uso de componentes económic
         \label{fig:PPG}
     \end{figure}
     \footnotetext{Diagrama de la fotopletismografía. Imagen tomada de Blog da robotica. Fuente: \url{https://www.blogdarobotica.com/}}
-\end{comment}
-
-\begin{comment}
+% tablas
     \begin{table}[t]
         \begin{center}
         \begin{tabular}{ l | c | c}
