@@ -13,9 +13,9 @@
 
 \section{Antecedentes}
 
-    El monitoreo del consumo de energía eléctrica mediante tecnologías del Internet de las Cosas (IoT) ha sido abordado en diversos trabajos académicos a nivel nacional e internacional. Para contextualizar la presente propuesta y destacar su originalidad, se analizan a continuación tres trabajos relevantes.
+    El monitoreo del consumo de energía eléctrica, mediante tecnologías del Internet de las Cosas (IoT), ha sido abordado en diversos trabajos académicos a nivel nacional e internacional. Para contextualizar la presente propuesta y destacar su originalidad, se analizan a continuación tres trabajos relevantes.
 
-    \subsection{Trabajo de Grado CUC: "Diseño de un prototipo de un sistema domótico para la monitorización del consumo de energía eléctrica..." \cite{AhumadaBarros2021}}
+    \subsection{Trabajo de Grado CUC: "Diseño de un prototipo de un sistema domótico para la monitorización del consumo de energía eléctrica" \cite{AhumadaBarros2021}}
     Este trabajo, realizado en la Universidad de la Costa (CUC), Colombia, describe el diseño de un sistema domótico que incluye la monitorización del consumo eléctrico en una vivienda. El prototipo utiliza sensores conectados a un microcontrolador y visualiza los datos a través de una aplicación móvil desarrollada para tal fin, permitiendo al usuario observar el consumo de diferentes electrodomésticos \cite{AhumadaBarros2021}.
 
     \paragraph{Semejanzas:} Comparte con nuestra propuesta el enfoque en el sector residencial y el objetivo de proporcionar al usuario información sobre su consumo eléctrico a través de una interfaz accesible. Ambos proyectos reconocen la importancia de la monitorización para la gestión energética en el hogar.
@@ -95,29 +95,28 @@
 \newpage % Nueva página
     
 \section{Justificación}
-La gestión eficiente de la energía eléctrica en el sector residencial constituye un desafío significativo, originado principalmente por la falta de acceso a información detallada y en tiempo real sobre el consumo, así como por la ausencia de mecanismos accesibles para actuar remotamente sobre el suministro. El problema central afecta a los usuarios domésticos, quienes reciben una facturación mensual insuficiente para comprender sus patrones de uso, identificar aparatos ineficientes o cuantificar el "consumo fantasma" \cite{sap2022smartmetering}. Esta carencia de datos y control representa una barrera para implementar estrategias efectivas de ahorro y gestión energética.
+    La gestión eficiente de la energía eléctrica en el sector residencial constituye un desafío significativo, originado principalmente por la falta de acceso a información detallada y en tiempo real sobre el consumo, así como por la ausencia de mecanismos accesibles para actuar remotamente sobre el suministro. El problema central afecta a los usuarios domésticos, quienes reciben una facturación mensual insuficiente para comprender sus patrones de uso, identificar aparatos ineficientes o cuantificar el "consumo fantasma" \cite{sap2022smartmetering}. Esta carencia de datos y control representa una barrera para implementar estrategias efectivas de ahorro y gestión energética.
 
-Resolver esta problemática mediante la ingeniería electrónica aporta beneficios directos. La importancia del proyecto radica en empoderar al usuario con datos accionables y herramientas de control, impactando directamente en la reducción del costo del servicio eléctrico y fomentando una mayor conciencia sobre el uso de recursos energéticos. Para la Ingeniería Electrónica, este proyecto integra disciplinas clave: diseño de sistemas embebidos (ESP32), acondicionamiento de señales, comunicaciones inalámbricas (WiFi, MQTT), administración de sistemas en Linux (Raspberry Pi), programación visual (Node-RED), gestión de bases de datos de series temporales (InfluxDB), visualización de datos (Grafana) y control de potencia (contactor) \cite{scielo2024iot}. La aportación práctica es un prototipo funcional, seguro y de bajo costo de un sistema de gestión energética inteligente, utilizando software de código abierto y hardware accesible.
-
-La viabilidad del proyecto está garantizada por el uso de componentes económicos como el ESP32 y el sensor SCT-013 \cite{programarfacil2017sct013}, junto con una Raspberry Pi y herramientas de software gratuitas (MQTT broker, Node-RED, InfluxDB, Grafana). La implementación es consistente con las competencias de la Licenciatura en Ingeniería Electrónica, y el tiempo de desarrollo se ajusta al cronograma del Proyecto de Integración. Los usuarios residenciales son los beneficiarios directos, obteniendo control sobre su consumo y seguridad mediante notificaciones por Telegram y la opción de corte remoto. El prototipo puede servir como material didáctico en laboratorios para prácticas de IoT, sistemas embebidos y automatización.
+    La solución propuesta es el desarrollo de un sistema de gestión energética inteligente que resuelve esta problemática mediante la ingeniería electrónica. Su importancia radica en empoderar al usuario con datos accionables y herramientas de control, impactando directamente en la reducción del costo eléctrico y fomentando la sostenibilidad \cite{scielo2024iot}. La aportación técnica es la integración de un stack de IoT (ESP32, MQTT, Raspberry Pi, Node-RED, InfluxDB, Grafana) con un actuador de potencia (contactor). El proyecto es factible y viable, ya que se basa en componentes de bajo costo (ESP32, SCT-013) \cite{programarfacil2017sct013} y software de código abierto, consistentes con las competencias de la licenciatura y el tiempo disponible para el Proyecto de Integración. Los beneficiarios directos son los usuarios residenciales, quienes obtienen una herramienta de control y seguridad, y el prototipo podrá servir como material didáctico en los laboratorios del departamento.
     \newpage
 
 \section{Objetivos}
 
     \subsection{Objetivo General}
-        Diseñar e Implementar un sistema electrónico inteligente para el monitoreo y control del consumo energético residencial, integrando un sensor de corriente no invasivo, un microcontrolador ESP32, una Raspberry Pi como servidor local (con MQTT, Node-RED, InfluxDB, Grafana) y un contactor eléctrico, para proporcionar al usuario una herramienta accesible de visualización de datos, análisis de patrones, notificación de anomalías y gestión remota del suministro eléctrico.
-    \subsection{Objetivos Particulares}
-        \begin{enumerate}
-            \item \textbf{Diseñar} el circuito electrónico de acondicionamiento para la señal del sensor de corriente no invasivo SCT-013, garantizando la correcta adaptación a la entrada analógica del microcontrolador ESP32.
-            \item \textbf{Construir} el prototipo físico del nodo de medición, integrando el sensor, el circuito de acondicionamiento y el microcontrolador ESP32 en una unidad funcional.
-            \item \textbf{Desarrollar} el firmware para el ESP32 que adquiera las lecturas del sensor, calcule la potencia eléctrica instantánea y publique los resultados vía MQTT al servidor local.
-            \item \textbf{Establecer} el servidor local en la Raspberry Pi, instalando y configurando el broker MQTT, la base de datos InfluxDB y el sistema de visualización Grafana.
-            \item \textbf{Programar} en Node-RED los flujos de trabajo para procesar los datos MQTT, almacenarlos en InfluxDB, detectar condiciones de consumo anómalo y activar las notificaciones o el control del contactor.
-            \item \textbf{Implementar} el sistema de notificación de alertas por consumo anómalo mediante un bot de Telegram controlado desde Node-RED.
-            \item \textbf{Integrar} el control del contactor eléctrico al sistema, permitiendo su activación remota segura desde Node-RED a través de un módulo relay.
-            \item \textbf{Evaluar} la precisión del sistema de medición comparando sus resultados con los de un wattmetro comercial bajo diferentes perfiles de carga residencial.
-            \item \textbf{Validar} la funcionalidad completa del sistema, verificando la correcta operación de la visualización en Grafana, las notificaciones en Telegram y la activación del contactor.
-        \end{enumerate}
+        Diseñar e Implementar un sistema electrónico inteligente para el monitoreo y control del consumo energético residencial, para proporcionar al usuario una herramienta accesible de gestión remota del suministro eléctrico.
+
+\subsection{Objetivos Particulares}
+    \begin{enumerate}
+        \item \textbf{Diseñar} el circuito electrónico de acondicionamiento para la señal del sensor de corriente no invasivo SCT-013, asegurando que la salida de voltaje se mantenga dentro del rango operativo de 0V a 3.3V del convertidor analógico-digital (ADC) del ESP32.
+        \item \textbf{Construir} el prototipo físico del nodo de medición, ensamblando el sensor SCT-013, el circuito de acondicionamiento diseñado en el objetivo anterior y el microcontrolador ESP32.
+        \item \textbf{Desarrollar} el firmware para el ESP32 que adquiera las lecturas del sensor, calcule la potencia eléctrica instantánea y publique los resultados vía MQTT al servidor local.
+        \item \textbf{Establecer} el servidor local en la Raspberry Pi, instalando y configurando el broker MQTT, la base de datos InfluxDB y el sistema de visualización Grafana.
+        \item \textbf{Programar} en Node-RED los flujos de trabajo para procesar los datos MQTT, almacenarlos en InfluxDB, detectar condiciones de consumo anómalo y activar las notificaciones o el control del contactor.
+        \item \textbf{Implementar} el sistema de notificación de alertas por consumo anómalo mediante un bot de Telegram controlado desde Node-RED.
+        \item \textbf{Integrar} el control del contactor eléctrico al sistema, permitiendo su activación remota segura desde Node-RED a través de un módulo relay.
+        \item \textbf{Verificar} que la precisión del sistema de medición se encuentre dentro de un margen de error del $\pm 5\%$ en comparación con un wattmetro comercial, bajo diferentes perfiles de carga residencial.
+        \item \textbf{Validar} la funcionalidad completa del sistema, verificando la correcta operación de la visualización en Grafana, las notificaciones en Telegram y la activación del contactor.
+    \end{enumerate}
 \newpage
 
 \section{Metodología - Descripción Técnica}
@@ -128,10 +127,12 @@ La viabilidad del proyecto está garantizada por el uso de componentes económic
         La arquitectura del sistema propuesto se divide en tres subsistemas funcionales principales, como se ilustra en el diagrama a bloques de la Figura \ref{fig:diagrama_bloques}. Estos subsistemas son: 1) El Nodo de Medición y Adquisición, 2) El Servidor Local de Procesamiento, y 3) El Subsistema de Control y Notificación.
         \begin{figure}[H]
             \centering
-            \includegraphics[width=0.8\textwidth]{img/diagrama_bloques.jpg}
+            \includegraphics[width=0.8\textwidth]{img/diagrama_bloques.png}
             \caption{Diagrama a bloques funcional del sistema propuesto.}
             \label{fig:diagrama_bloques}
         \end{figure}
+
+         \newpage
 
     \subsection{Descripción de Subsistemas}
         \paragraph{1. Subsistema de Medición (Nodo ESP32):}
@@ -186,7 +187,7 @@ La viabilidad del proyecto está garantizada por el uso de componentes económic
     
 \section{Cronograma de Actividades}
 
-    La planificación del proyecto se ha estructurado para ser completada en dos trimestres consecutivos (24 semanas), cubriendo las UEA del Trimestre 25-O y 26-I. Las actividades están directamente alineadas con los objetivos particulares definidos en la sección anterior. El seguimiento del avance se realizará mediante la siguiente tabla (Ver Tabla \ref{tab:cronograma}).
+    La planificación del proyecto se ha estructurado para ser completada en dos trimestres consecutivos (24 semanas), cubriendo las UEA del Trimestre 26-I y 26-P. Las actividades están directamente alineadas con los objetivos particulares definidos en la sección anterior. El seguimiento del avance se realizará mediante la siguiente tabla (Ver Tabla \ref{tab:cronograma}).
 
     \begin{table}[H]
     \centering
@@ -195,7 +196,7 @@ La viabilidad del proyecto está garantizada por el uso de componentes económic
     \resizebox{\textwidth}{!}{%
     \begin{tabular}{|l|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|}
     \hline
-    & \multicolumn{12}{c|}{\textbf{Trimestre 25-O}} & \multicolumn{12}{c|}{\textbf{Trimestre 26-I}} \\ \hline
+    & \multicolumn{12}{c|}{\textbf{Trimestre 26-I}} & \multicolumn{12}{c|}{\textbf{Trimestre 26-P}} \\ \hline
     \textbf{Actividad} & \textbf{1} & \textbf{2}         & \textbf{3} & \textbf{4} & \textbf{5} & \textbf{6} & \textbf{7} & \textbf{8} & \textbf{9} & \textbf{10} & \textbf{11} & \textbf{12} & \textbf{1} & \textbf{2} & \textbf{3} & \textbf{4} & \textbf{5} & \textbf{6} & \textbf{7} & \textbf{8} & \textbf{9} & \textbf{10} & \textbf{11} & \textbf{12} \\ \hline
     \footnotesize{1. Diseño del circuito (Obj. 1)}       & \cellcolor{gray!40} & \cellcolor{gray!40} & \cellcolor{gray!40} & & & & & & & & & & & & & & & & & & & & & \\ \hline
     \footnotesize{2. Construcción prototipo (Obj. 2)}    & & & \cellcolor{gray!40} & \cellcolor{gray!40} & \cellcolor{gray!40} & \cellcolor{gray!40} & & & & & & & & & & & & & & & & & & \\ \hline
