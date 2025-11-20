@@ -4,7 +4,9 @@
 \usepackage{booktabs}
 \usepackage{graphicx}
 \usepackage{pgfgantt}
-\usepackage{soul}
+% --- EVITAR EL CORTE DE PALABRAS (GUIONES) ---
+\usepackage[none]{hyphenat} % Desactiva la separación de sílabas
+\sloppy % Permite a LaTeX ser más flexible con los espacios para evitar que el texto se salga del margen
 \usepackage[bottom]{footmisc}
 \usepackage{titlesec}
 \titleformat*{\section}{\large\bfseries}
