@@ -3,105 +3,136 @@
 
 % --- SECCIÓN 1: INTRODUCCIÓN ---
 \section{Introducción}
+    En el contexto global actual, la eficiencia energética se ha consolidado como un pilar fundamental para el desarrollo sostenible, impulsada tanto por la necesidad de mitigar el impacto ambiental como por la optimización de los recursos económicos \cite{chevez2018energias}. El sector residencial representa una porción significativa del consumo total de energía eléctrica, sin embargo, la mayoría de los usuarios carecen de herramientas que les permitan comprender y gestionar su consumo de manera efectiva. La facturación eléctrica tradicional ofrece únicamente un resumen mensual, funcionando como un indicador tardío que no permite identificar patrones de uso específicos ni detectar fuentes de desperdicio, como el conocido "consumo fantasma" o en modo de espera (*standby*) \cite{iea2022standby}.
 
-En el contexto global actual, la eficiencia energética se ha consolidado como un pilar fundamental para el desarrollo sostenible, impulsada tanto por la necesidad de mitigar el impacto ambiental como por la optimización de los recursos económicos \cite{chevez2018energias}. El sector residencial representa una porción significativa del consumo total de energía eléctrica, sin embargo, la mayoría de los usuarios carecen de herramientas que les permitan comprender y gestionar su consumo de manera efectiva. La facturación eléctrica tradicional ofrece únicamente un resumen mensual, funcionando como un indicador tardío que no permite identificar patrones de uso específicos ni detectar fuentes de desperdicio, como el conocido "consumo fantasma" o en modo de espera (*standby*) \cite{iea2022standby}.
+    La problemática central que se aborda es la falta de acceso a información granular y en tiempo real sobre el consumo de energía en el hogar, así como la ausencia de mecanismos accesibles para actuar sobre dicho consumo en caso de anomalías o necesidades de gestión remota. Esta carencia impide a los usuarios tomar decisiones informadas y acciones directas para optimizar el uso de sus aparatos y reducir su gasto energético. Para dar solución a esta necesidad, se propone el diseño y la implementación de un \textbf{sistema inteligente de monitoreo y control energético residencial}, basado en hardware de bajo costo y software de código abierto.
 
-La problemática central que se aborda es la falta de acceso a información granular y en tiempo real sobre el consumo de energía en el hogar, así como la ausencia de mecanismos accesibles para actuar sobre dicho consumo en caso de anomalías o necesidades de gestión remota. Esta carencia impide a los usuarios tomar decisiones informadas y acciones directas para optimizar el uso de sus aparatos y reducir su gasto energético. Para dar solución a esta necesidad, se propone el diseño y la implementación de un \textbf{sistema inteligente de monitoreo y control energético residencial}, basado en hardware de bajo costo y software de código abierto.
+    El desarrollo del proyecto se fundamentará en la integración de varias tecnologías clave. En primer lugar, el \textbf{sensado de corriente no invasivo} \cite{fraden2016handbook}, que utiliza un transformador de corriente (SCT-013) para medir el flujo eléctrico de forma segura. En segundo lugar, un \textbf{sistema embebido} (ESP32) \cite{vahid2002embedded} actuará como nodo de adquisición, procesando la señal del sensor y transmitiendo los datos a través del protocolo de mensajería \textbf{MQTT}, estándar en el Internet de las Cosas (IoT) por su eficiencia. Finalmente, se configurará un \textbf{servidor local en una Raspberry Pi} que centralizará la gestión del sistema: el broker \textbf{Mosquitto} recibirá los datos, \textbf{Node-RED} orquestará el flujo de información para su procesamiento, detección de anomalías y envío de \textbf{notificaciones vía Telegram}, una base de datos \textbf{InfluxDB} almacenará las series temporales de consumo, y \textbf{Grafana} proporcionará una interfaz web alojada en la misma \textbf{Raspberry Pi} para la \textbf{visualización} de los datos en tiempo real e históricos.
 
-El desarrollo del proyecto se fundamentará en la integración de varias tecnologías clave. En primer lugar, el \textbf{sensado de corriente no invasivo} \cite{fraden2016handbook}, que utiliza un transformador de corriente (SCT-013) para medir el flujo eléctrico de forma segura. En segundo lugar, un \textbf{sistema embebido} (ESP32) \cite{vahid2002embedded} actuará como nodo de adquisición, procesando la señal del sensor y transmitiendo los datos a través del protocolo de mensajería \textbf{MQTT}, estándar en el Internet de las Cosas (IoT) por su eficiencia. Finalmente, se configurará un \textbf{servidor local en una Raspberry Pi} que centralizará la gestión del sistema: el broker \textbf{Mosquitto} recibirá los datos, \textbf{Node-RED} orquestará el flujo de información para su procesamiento, detección de anomalías y envío de \textbf{notificaciones vía Telegram}, una base de datos \textbf{InfluxDB} almacenará las series temporales de consumo, y \textbf{Grafana} proporcionará una interfaz web alojada en la misma \textbf{Raspberry Pi} para la \textbf{visualización} de los datos en tiempo real e históricos.
+    Este sistema no solo proporcionará una medición precisa del consumo, sino que, a través del análisis de patrones en Node-RED, permitirá la \textbf{detección inteligente de anomalías} y ofrecerá al usuario la capacidad de \textbf{controlar remotamente el suministro eléctrico} principal mediante un \textbf{contactor}, añadiendo una capa de gestión activa y seguridad al monitoreo energético del hogar.
+    \newpage
 
-Este sistema no solo proporcionará una medición precisa del consumo, sino que, a través del análisis de patrones en Node-RED, permitirá la \textbf{detección inteligente de anomalías} y ofrecerá al usuario la capacidad de \textbf{controlar remotamente el suministro eléctrico} principal mediante un \textbf{contactor}, añadiendo una capa de gestión activa y seguridad al monitoreo energético del hogar.
-\newpage
-\newpage
-\newpage % Nueva página
-
+% --- SECCIÓN 2: ANTECEDENTES ---
 \section{Antecedentes}
 
-    El monitoreo del consumo de energía eléctrica, mediante tecnologías del IoT, ha sido abordado en diversos trabajos académicos a nivel nacional e internacional. Para contextualizar la presente propuesta y destacar su originalidad, se analizan a continuación tres trabajos relevantes.
+    El monitoreo del consumo de energía eléctrica mediante tecnologías del Internet de las Cosas (IoT) ha sido abordado en diversos trabajos académicos a nivel nacional e internacional. Para contextualizar la presente propuesta y destacar su originalidad, se analizan a continuación cinco trabajos relevantes que representan el estado actual de la tecnología.
 
-    \subsection{Trabajo de Grado CUC: Diseño de un prototipo de un sistema domótico para la monitorización del consumo de energía eléctrica}
-    Este trabajo, realizado en la Universidad de la Costa (CUC), Colombia, describe el diseño de un sistema domótico que incluye la monitorización del consumo eléctrico en una vivienda. El prototipo utiliza sensores conectados a un microcontrolador y visualiza los datos a través de una aplicación móvil desarrollada para tal fin, permitiendo al usuario observar el consumo de diferentes electrodomésticos \cite{AhumadaBarros2021}.
+    \subsection{Trabajo de Grado CUC: Diseño de un prototipo de un sistema domótico}
+    Este trabajo describe el diseño de un sistema domótico que incluye la monitorización del consumo eléctrico en una vivienda. El prototipo utiliza sensores conectados a un microcontrolador y visualiza los datos a través de una aplicación móvil desarrollada específicamente para el proyecto. \cite{AhumadaBarros2021}
 
-    \paragraph{Semejanzas:} Comparte con nuestra propuesta el enfoque en el sector residencial y el objetivo de proporcionar al usuario información sobre su consumo eléctrico a través de una interfaz accesible. Ambos proyectos reconocen la importancia de la monitorización para la gestión energética en el hogar.
+        \paragraph{Semejanzas:} Comparte el enfoque residencial y el uso de una interfaz gráfica para que el usuario visualice su consumo.
 
-    \paragraph{Diferencias y Aportación del Proyecto:} Las diferencias clave residen en la arquitectura del sistema y el alcance funcional. Mientras que el trabajo de Ahumada y Barros se centra en la visualización a través de una app móvil, posiblemente conectada a una nube o a un sistema domótico específico, nuestra propuesta implementa una arquitectura de procesamiento local robusta basada en una Raspberry Pi. La aportación distintiva de nuestro proyecto es la integración de herramientas de código abierto como Node-RED, InfluxDB y Grafana en un servidor local, lo que permite no solo la visualización sino también el almacenamiento eficiente de series temporales, el procesamiento avanzado de datos, la detección de anomalías y el envío de notificaciones proactivas a través de Telegram. Adicionalmente, nuestro sistema incorpora una capacidad de control activo, permitiendo la interrupción remota del suministro eléctrico mediante un contactor, funcionalidad orientada a la seguridad y gestión que no se detalla en el antecedente.
+        \paragraph{Diferencias y Aportación:} El trabajo se centra en la medición y visualización mediante una app a medida. Nuestra propuesta se diferencia al implementar una arquitectura de servidor local (Raspberry Pi) con un stack de software industrial (Grafana/InfluxDB) y añade capacidades de control activo (corte de suministro) y notificaciones por Telegram, ausentes en este antecedente.
 
-    \subsection{Trabajo Final UNLP: Diseño e Implementación de un Sistema de Medición y Visualización del Consumo Eléctrico Residencial}
-    Este trabajo final de la Universidad Nacional de La Plata (UNLP), Argentina, detalla el desarrollo de un sistema para medir y visualizar el consumo eléctrico residencial utilizando hardware de código abierto y sensores de corriente. Los datos son procesados y presentados al usuario a través de una interfaz web local o una plataforma de visualización \cite{Cicutti2019}.
+    \subsection{Paper IEEE ROPEC 2021: Smart IoT Device For Energy Consumption Monitoring}
+    Este trabajo propone un dispositivo IoT basado en ESP8266 que transmite datos a un servidor web (PHP/MySQL). Su característica principal es el uso de redes neuronales para identificar qué electrodoméstico específico está consumiendo energía (técnica NILM). \cite{LopezAlfaro2021}
 
-    \paragraph{Semejanzas:} Al igual que nuestra propuesta, este proyecto emplea hardware accesible (posiblemente microcontroladores y sensores similares) y busca ofrecer una herramienta de visualización del consumo para usuarios residenciales como alternativa económica.
+        \paragraph{Semejanzas:} Uso de microcontroladores ESP y monitoreo en tiempo real vía WiFi.
 
-    \paragraph{Diferencias y Aportación del Proyecto:} Aunque ambos proyectos pueden utilizar interfaces web locales, nuestra propuesta se distingue por la orquestación explícita del flujo de datos mediante Node-RED, el almacenamiento en una base de datos de series temporales como InfluxDB y la visualización especializada con Grafana, herramientas estándar en entornos industriales y de IoT. La aportación central de nuestro trabajo no es solo la medición, sino la creación de un sistema inteligente local capaz de analizar patrones, generar alertas contextualizadas vía Telegram y ejecutar acciones de control sobre el suministro eléctrico, conformando un ecosistema de gestión energética más completo y proactivo que una simple interfaz de visualización.
+        \paragraph{Diferencias y Aportación:} Este paper se enfoca en la identificación de cargas mediante IA. Nuestro proyecto prioriza la gestión y seguridad: detección de anomalías de consumo general y la capacidad de actuación remota (corte de energía). Además, utilizamos una base de datos de series de tiempo (InfluxDB), más eficiente que la base SQL del paper.
+
+    \subsection{Paper IEEE ROPEC 2019: Energy Monitoring Consumption at IoT-Edge}
+    Este trabajo propone un circuito de monitoreo con sensor SCT-013 y ESP8266. Implementa una red neuronal en el propio microcontrolador para detectar consumos inusuales, enviando los datos a una base de datos MySQL en una Raspberry Pi. \cite{AguirreNunez2019}
+
+        \paragraph{Semejanzas:} Coincide plenamente en el hardware (SCT-013, ESP, RPi) y el objetivo de detectar anomalías.
+
+        \paragraph{Diferencias y Aportación:} La diferencia es el método de detección y almacenamiento. El paper usa IA embebida y MySQL. Nosotros delegamos la lógica a Node-RED en el servidor (facilitando la configuración de reglas) y usamos InfluxDB. Aportamos la capacidad crítica de control remoto (contactor) que este trabajo no contempla.
+
+    \subsection{Trabajo Final UNLP: Diseño e Implementación de un Sistema de Medición...}
+    Este proyecto detalla un sistema de medición residencial utilizando hardware de código abierto. Los datos son procesados para su presentación al usuario mediante una interfaz web local. \cite{Cicutti2019}
+
+        \paragraph{Semejanzas:} Uso de hardware accesible y filosofía de bajo costo.
+
+        \paragraph{Diferencias y Aportación:} Nuestra propuesta expande este concepto integrando la orquestación de flujos de datos con Node-RED y un sistema de alertas proactivas. A diferencia de la visualización pasiva de este trabajo, nuestro sistema permite al usuario intervenir físicamente en la instalación a través del contactor.
 
     \subsection{Proyecto de Código Abierto: OpenEnergyMonitor}
-    OpenEnergyMonitor es un proyecto internacional de hardware y software de código abierto para el monitoreo de energía. Su plataforma permite medir consumo, generación y controlar cargas, utilizando hardware modular y su software EmonCMS, una potente plataforma web auto-alojable \cite{openenergymonitor}.
+    Plataforma de referencia mundial en hardware y software abierto. Permite monitorear consumo, generación y controlar cargas mediante su software EmonCMS. \cite{openenergymonitor}
 
-    \paragraph{Semejanzas:} Comparte la filosofía de código abierto, el uso de sensores no invasivos y el objetivo de proporcionar herramientas para entender el uso de la energía. La capacidad de auto-alojamiento de EmonCMS es conceptualmente similar a nuestro enfoque de servidor local.
+        \paragraph{Semejanzas:} Base de inspiración para el uso de sensores no invasivos y la filosofía de código abierto.
 
-    \paragraph{Diferencias y Aportación del Proyecto:} OpenEnergyMonitor, con EmonCMS, ofrece una solución muy completa pero también compleja, orientada a usuarios con conocimientos técnicos avanzados. La aportación de nuestra propuesta radica en utilizar una combinación diferente y muy popular de herramientas de código abierto (MQTT, Node-RED, InfluxDB, Grafana) que, si bien puede no tener todas las funcionalidades de EmonCMS, ofrece una curva de aprendizaje más accesible y una gran flexibilidad para la integración con otros sistemas domóticos o de notificación (como Telegram). Nuestro enfoque se centra en construir un sistema de monitoreo y control inteligente, funcional y fácil de replicar, utilizando un stack de software ampliamente adoptado en la comunidad IoT actual.
+        \paragraph{Diferencias y Aportación:} OpenEnergyMonitor es un ecosistema complejo y modular. Nuestra aportación es la integración de una solución "todo en uno" más accesible, utilizando herramientas genéricas y populares (Telegram, Grafana) en lugar de un CMS especializado.
 
-    \begin{table}[H] % The [H] option (requires 'float' package) tries to place the table exactly here
+    \newpage 
+
+    \subsection{Comparación Cualitativa de Trabajos Relacionados}
+    
+     La Tabla \ref{tab:comparacion_antecedentes} resume las similitudes y diferencias clave entre los trabajos analizados y la propuesta presentada, destacando las contribuciones originales de este proyecto en el contexto del monitoreo y control energético residencial.
+    \begin{table}[H] 
         \centering
-
-        \small % Use smaller font size if needed to fit
-        \begin{tabular}{>{\centering\arraybackslash}p{1.5cm} p{6.5cm} p{6.5cm}} % Adjust p{} widths as needed
-            \toprule
-            \textbf{Ref.} & \textbf{Similitudes} & \textbf{Diferencias} \\
-            \midrule
-
-            \cite{AhumadaBarros2021} & 
-            \begin{itemize}[leftmargin=*, topsep=0pt, itemsep=0pt, parsep=0pt, partopsep=0pt]
-                \item Enfoque en sector residencial.
-                \item Proporciona información de consumo al usuario.
-                \item Utiliza interfaz gráfica (App móvil vs. Web/Grafana).
-            \end{itemize} & 
-            \begin{itemize}[leftmargin=*, topsep=0pt, itemsep=0pt, parsep=0pt, partopsep=0pt]
-                \item Medición individual vs. Medición total no invasiva (SCT-013).
-                \item Arquitectura: No especificada vs. Servidor local definido (RPi, MQTT, Node-RED, InfluxDB, Grafana).
-                \item Funcionalidad: Solo visualización vs. Visualización + Análisis + Alertas (Telegram) + Control (Contactor).
-            \end{itemize} \\
-            
-            \midrule
-
-            \cite{Cicutti2019} & 
-            \begin{itemize}[leftmargin=*, topsep=0pt, itemsep=0pt, parsep=0pt, partopsep=0pt]
-                \item Enfoque residencial.
-                \item Uso de hardware accesible (código abierto).
-                \item Ofrece visualización de consumo (posiblemente local).
-            \end{itemize} & 
-            \begin{itemize}[leftmargin=*, topsep=0pt, itemsep=0pt, parsep=0pt, partopsep=0pt]
-                \item Arquitectura: No detallada vs. Servidor local completo (RPi, MQTT, Node-RED, InfluxDB, Grafana).
-                \item Funcionalidad: Principalmente visualización vs. Visualización + Análisis + Alertas + Control.
-                \item Software: No especificado vs. Herramientas estándar y flexibles.
-            \end{itemize} \\
-            
-            \midrule
-
-            \cite{openenergymonitor} & 
-            \begin{itemize}[leftmargin=*, topsep=0pt, itemsep=0pt, parsep=0pt, partopsep=0pt]
-                \item Filosofía de código abierto.
-                \item Uso de sensado no invasivo.
-                \item Opción de auto-alojamiento (EmonCMS vs. RPi stack).
-                \item Objetivo de entender el uso de energía.
-            \end{itemize} & 
-            \begin{itemize}[leftmargin=*, topsep=0pt, itemsep=0pt, parsep=0pt, partopsep=0pt]
-                \item Complejidad: Nivel profesional, modular vs. Simplificado, integrado.
-                \item Software: EmonCMS vs. Stack MQTT/Node-RED/InfluxDB/Grafana.
-                \item Usuario objetivo: Técnico avanzado vs. Usuario no técnico.
-                \item Funcionalidad: Medición/Generación vs. Monitoreo + Control básico + Notificaciones (Telegram).
-            \end{itemize} \\
-
-            \bottomrule
-        \end{tabular}
-        \caption{Comparación cualitativa de los trabajos relacionados con el proyecto.}
+        \caption{Comparación cualitativa de los trabajos relacionados.}
         \label{tab:comparacion_antecedentes}
+        \small 
+        \resizebox{\textwidth}{!}{%
+        \begin{tabular}{>{\centering\arraybackslash}p{2cm} p{5.5cm} p{5.5cm}} 
+        \toprule
+        \textbf{Ref.} & \textbf{Similitudes} & \textbf{Diferencias} \\
+        \midrule
+
+        \cite{AhumadaBarros2021} & 
+        \begin{itemize}[leftmargin=*, topsep=0pt, itemsep=0pt, parsep=0pt, partopsep=0pt]
+            \item Enfoque residencial.
+            \item Interfaz en App móvil.
+        \end{itemize} & 
+        \begin{itemize}[leftmargin=*, topsep=0pt, itemsep=0pt, parsep=0pt, partopsep=0pt]
+            \item Software a medida vs. Stack estándar.
+            \item Sin control activo.
+        \end{itemize} \\
+        \midrule
+
+        \cite{LopezAlfaro2021} & 
+        \begin{itemize}[leftmargin=*, topsep=0pt, itemsep=0pt, parsep=0pt, partopsep=0pt]
+            \item Uso de ESP y WiFi.
+            \item Monitoreo tiempo real.
+        \end{itemize} & 
+        \begin{itemize}[leftmargin=*, topsep=0pt, itemsep=0pt, parsep=0pt, partopsep=0pt]
+            \item Enfoque en IA (Identificación) vs. Control/Seguridad.
+            \item SQL vs. InfluxDB.
+        \end{itemize} \\
+        \midrule
+
+        \cite{AguirreNunez2019} & 
+        \begin{itemize}[leftmargin=*, topsep=0pt, itemsep=0pt, parsep=0pt, partopsep=0pt]
+            \item Hardware idéntico (SCT, ESP, RPi).
+            \item Detección anomalías.
+        \end{itemize} & 
+        \begin{itemize}[leftmargin=*, topsep=0pt, itemsep=0pt, parsep=0pt, partopsep=0pt]
+            \item IA embebida vs. Lógica Node-RED.
+            \item Solo monitoreo vs. Monitoreo + Control.
+        \end{itemize} \\
+        \midrule
+
+        \cite{Cicutti2019} & 
+        \begin{itemize}[leftmargin=*, topsep=0pt, itemsep=0pt, parsep=0pt, partopsep=0pt]
+            \item Hardware abierto.
+            \item Visualización web local.
+        \end{itemize} & 
+        \begin{itemize}[leftmargin=*, topsep=0pt, itemsep=0pt, parsep=0pt, partopsep=0pt]
+            \item Visualización pasiva vs. Gestión activa.
+            \item Sin notificaciones.
+        \end{itemize} \\
+        \midrule
+
+        \cite{openenergymonitor} & 
+        \begin{itemize}[leftmargin=*, topsep=0pt, itemsep=0pt, parsep=0pt, partopsep=0pt]
+            \item Sensado no invasivo.
+            \item Plataforma auto-alojable.
+        \end{itemize} & 
+        \begin{itemize}[leftmargin=*, topsep=0pt, itemsep=0pt, parsep=0pt, partopsep=0pt]
+            \item Complejo/modular vs. Integrado.
+            \item EmonCMS vs. Stack MQTT/Node-RED.
+        \end{itemize} \\
+
+        \bottomrule
+        \end{tabular}%
+        }
     \end{table}
-\newpage % Nueva página
+\newpage
     
 \section{Justificación}
-    La gestión eficiente de la energía eléctrica en el sector residencial constituye un desafío significativo, originado principalmente por la falta de acceso a información detallada y en tiempo real sobre el consumo, así como por la ausencia de mecanismos accesibles para actuar remotamente sobre el suministro. El problema central afecta a los usuarios domésticos, quienes reciben una facturación mensual insuficiente para comprender sus patrones de uso, identificar aparatos ineficientes o cuantificar el consumo fantasma \cite{sap2022smartmetering}. Esta carencia de datos y control representa una barrera para implementar estrategias efectivas de ahorro y gestión energética.
 
-    La solución propuesta es el desarrollo de un sistema de gestión energética inteligente que resuelve esta problemática mediante la ingeniería electrónica. Su importancia radica en empoderar al usuario con datos accionables y herramientas de control, impactando directamente en la reducción del costo eléctrico y fomentando la sostenibilidad \cite{scielo2024iot}. La aportación técnica es la integración de un stack de IoT (ESP32, MQTT, Raspberry Pi, Node-RED, InfluxDB, Grafana) con un actuador de potencia (contactor). El proyecto es factible y viable, ya que se basa en componentes de bajo costo (ESP32, SCT-013) \cite{programarfacil2017sct013} y software de código abierto, consistentes con las competencias de la licenciatura y el tiempo disponible para el Proyecto de Integración. Los beneficiarios directos son los usuarios residenciales, quienes obtienen una herramienta de control y seguridad, y el prototipo podrá servir como material didáctico en los laboratorios del departamento.
+    El análisis de las opciones actuales para el monitoreo energético residencial revela una limitación significativa: la mayoría de las herramientas se restringen a una visualización pasiva de datos o presentan barreras de alto costo y complejidad técnica. Esta carencia deja al usuario promedio sin capacidad de respuesta ante anomalías o desperdicios en su consumo. La propuesta justifica su realización al cubrir este vacío mediante un sistema que trasciende la simple observación para integrar el control activo. A diferencia de los medidores convencionales, este proyecto cierra el lazo de gestión permitiendo al usuario no solo ver su consumo, sino actuar sobre él mediante el corte remoto del suministro y la recepción de alertas automáticas.
+
+    La implementación de una arquitectura basada en un servidor local es clave para resolver los problemas de privacidad y dependencia de servicios externos, garantizando que los datos sensibles permanezcan bajo el control del usuario. Desde la perspectiva de la ingeniería, el proyecto demuestra la viabilidad de democratizar tecnologías avanzadas de gestión energética utilizando hardware accesible y software de código abierto. Esta solución equilibra la robustez técnica con la economía, entregando a los hogares una herramienta efectiva de seguridad y eficiencia que supera las limitaciones funcionales de los sistemas puramente informativos.
     \newpage
 
 \section{Objetivos}
@@ -125,14 +156,14 @@ Este sistema no solo proporcionará una medición precisa del consumo, sino que,
 
 \section{Metodología - Descripción Técnica}
 
-    El presente proyecto consiste en el diseño e implementación de un sistema electrónico para el monitoreo y control del consumo eléctrico residencial. El sistema se compone de un nodo de adquisición de datos basado en un microcontrolador ESP32 y un servidor local basado en una Raspberry Pi, el cual centraliza el procesamiento, almacenamiento, visualización y control del sistema. La comunicación entre el nodo de adquisición y el servidor se realiza mediante el protocolo de mensajería MQTT a través de una red WiFi local.
+    La propuesta consiste en el diseño e implementación de un sistema electrónico para el monitoreo y control del consumo eléctrico residencial. El sistema se compone de un nodo de adquisición de datos basado en un microcontrolador ESP32 y un servidor local basado en una Raspberry Pi, el cual centraliza el procesamiento, almacenamiento, visualización y control del sistema. La comunicación entre el nodo de adquisición y el servidor se realiza mediante el protocolo de mensajería MQTT a través de una red WiFi local.
 
     \subsection{Diagrama a Bloques del Sistema}
         La arquitectura del sistema propuesto se divide en tres subsistemas funcionales principales, como se ilustra en el diagrama a bloques de la Figura \ref{fig:diagrama_bloques}. Estos subsistemas son: 1) El Nodo de Medición y Adquisición, 2) El Servidor Local de Procesamiento, y 3) El Subsistema de Control y Notificación.
         \begin{figure}[H]
             \centering
             \includegraphics[width=0.8\textwidth]{img/diagrama_bloques.png}
-            \caption{Diagrama a bloques funcional del sistema propuesto.}
+            \caption{Diagrama a bloques del sistema propuesto.}
             \label{fig:diagrama_bloques}
         \end{figure}
 
@@ -152,7 +183,7 @@ Este sistema no solo proporcionará una medición precisa del consumo, sino que,
                     \item \textit{Entrada:} Señal de corriente AC del sensor.
                     \item \textit{Salida:} Señal de voltaje DC (0-3.3V) al ADC del ESP32.
                 \end{itemize}
-            \item \textbf{Procesamiento (ESP32):} El microcontrolador ESP32 muestrea la señal del ADC, realiza los cálculos para obtener la Potencia instantánea (W) y la Potencia aparente (VA), y se conecta a la red WiFi local.
+            \item \textbf{Procesamiento (ESP32):} El microcontrolador ESP32 muestrea la señal del ADC, realiza los cálculos para obtener la potencia instantánea (W) y la potencia aparente (VA), y se conecta a la red WiFi local.
                 \begin{itemize}
                     \item \textit{Entrada:} Señal de voltaje del acondicionador.
                     \item \textit{Salida:} Paquetes de datos MQTT (Protocolo: MQTT v3.1.1).
