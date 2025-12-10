@@ -1,57 +1,50 @@
 \setcounter{page}{1} % Iniciar la numeración de las páginas en este punto.
 \pagestyle{fancy}
 
-% --- SECCIÓN 1: INTRODUCCIÓN ---
 \section{Introducción}
-    En el contexto global actual, la eficiencia energética se ha consolidado como un pilar fundamental para el desarrollo sostenible, impulsada tanto por la necesidad de mitigar el impacto ambiental como por la optimización de los recursos económicos \cite{chevez2018energias}. El sector residencial representa una porción significativa del consumo total de energía eléctrica, sin embargo, la mayoría de los usuarios carecen de herramientas que les permitan comprender y gestionar su consumo de manera efectiva. La facturación eléctrica tradicional ofrece únicamente un resumen mensual, funcionando como un indicador tardío que no permite identificar patrones de uso específicos ni detectar fuentes de desperdicio, como el conocido consumo fantasma o en modo de espera (standby) \cite{iea2022standby}.
+    En el contexto global actual, la eficiencia energética se ha consolidado como un pilar fundamental para el desarrollo sostenible, impulsada tanto por la necesidad de mitigar el impacto ambiental como por la optimización de los recursos económicos \cite{chevez2018energias}. El sector residencial representa una porción significativa del consumo total de energía eléctrica, sin embargo, la mayoría de los usuarios carecen de herramientas que les permitan comprender y gestionar su consumo de manera efectiva. La facturación eléctrica tradicional ofrece únicamente un resumen mensual, funcionando como un indicador tardío que no permite identificar patrones de uso específicos ni detectar fuentes de desperdicio, como el conocido consumo fantasma o en modo de espera (standby) \cite{iea2022standby}. La problemática central que se aborda es la falta de acceso a información granular y en tiempo real sobre el consumo de energía en el hogar, así como la ausencia de mecanismos accesibles para actuar sobre dicho consumo en caso de anomalías o necesidades de gestión remota. Esta carencia impide a los usuarios tomar decisiones informadas y acciones directas para optimizar el uso de sus aparatos y reducir su gasto energético. Para dar solución a esta necesidad, se propone el diseño y la implementación de un \textbf{sistema inteligente de monitoreo y control energético residencial}, basado en hardware de bajo costo y software de código abierto. El desarrollo del proyecto se fundamentará en la integración de varias tecnologías clave. En primer lugar, el \textbf{sensado de corriente no invasivo} \cite{fraden2016handbook}, que utiliza un transformador de corriente (SCT-013) para medir el flujo eléctrico de forma segura. En segundo lugar, se implementará una arquitectura de \textbf{medición distribuida} mediante una red de \textbf{nodos embebidos} (ESP32) \cite{vahid2002embedded}. Cada nodo actuará como punto de adquisición independiente en distintas zonas o habitaciones, procesando la señal de su respectivo sensor y transmitiendo los datos simultáneamente a través del protocolo de mensajería \textbf{MQTT}, estándar en el Internet de las Cosas (IoT) por su eficiencia. Finalmente, se configurará un \textbf{servidor local en una Raspberry Pi} que centralizará la gestión del sistema: el broker \textbf{EMQX} recibirá los datos, \textbf{Node-RED} orquestará el flujo de información para su procesamiento, detección de anomalías y gestión de horarios automatizados, enviando \textbf{notificaciones vía Telegram} cuando sea necesario. Una base de datos \textbf{InfluxDB} almacenará las series temporales de consumo, y \textbf{Grafana} proporcionará una interfaz web alojada en la misma \textbf{Raspberry Pi} para la \textbf{visualización} de los datos en tiempo real e históricos. Este sistema no solo proporcionará una medición precisa y desagregada del consumo, sino que permitirá la \textbf{detección inteligente de anomalías} y ofrecerá al usuario la capacidad de \textbf{controlar remotamente el suministro eléctrico} por zonas mediante \textbf{actuadores inteligentes WiFi}, añadiendo una capa de gestión activa, automatización y seguridad al monitoreo energético del hogar. \newpage
 
-    La problemática central que se aborda es la falta de acceso a información granular y en tiempo real sobre el consumo de energía en el hogar, así como la ausencia de mecanismos accesibles para actuar sobre dicho consumo en caso de anomalías o necesidades de gestión remota. Esta carencia impide a los usuarios tomar decisiones informadas y acciones directas para optimizar el uso de sus aparatos y reducir su gasto energético. Para dar solución a esta necesidad, se propone el diseño y la implementación de un \textbf{sistema inteligente de monitoreo y control energético residencial}, basado en hardware de bajo costo y software de código abierto.
-
-    El desarrollo del proyecto se fundamentará en la integración de varias tecnologías clave. En primer lugar, el \textbf{sensado de corriente no invasivo} \cite{fraden2016handbook}, que utiliza un transformador de corriente (SCT-013) para medir el flujo eléctrico de forma segura. En segundo lugar, un \textbf{sistema embebido} (ESP32) \cite{vahid2002embedded} actuará como nodo de adquisición, procesando la señal del sensor y transmitiendo los datos a través del protocolo de mensajería \textbf{MQTT}, estándar en el Internet de las Cosas (IoT) por su eficiencia. Finalmente, se configurará un \textbf{servidor local en una Raspberry Pi} que centralizará la gestión del sistema: el broker \textbf{EMQX} recibirá los datos, \textbf{Node-RED} orquestará el flujo de información para su procesamiento, detección de anomalías y envío de \textbf{notificaciones vía Telegram}, una base de datos \textbf{InfluxDB} almacenará las series temporales de consumo, y \textbf{Grafana} proporcionará una interfaz web alojada en la misma \textbf{Raspberry Pi} para la \textbf{visualización} de los datos en tiempo real e históricos.
-
-    Este sistema no solo proporcionará una medición precisa del consumo, sino que, a través del análisis de patrones en Node-RED, permitirá la \textbf{detección inteligente de anomalías} y ofrecerá al usuario la capacidad de \textbf{controlar remotamente el suministro eléctrico} principal mediante un \textbf{contactor}, añadiendo una capa de gestión activa y seguridad al monitoreo energético del hogar.
-    \newpage
-
-% --- SECCIÓN 2: ANTECEDENTES ---
 \section{Antecedentes}
 
-    El monitoreo del consumo de energía eléctrica mediante tecnologías del IoT ha sido abordado en diversos trabajos académicos a nivel nacional e internacional. Para contextualizar la presente propuesta y destacar su originalidad, se analizan a continuación cinco trabajos relevantes que representan el estado actual de la tecnología.
-
-    \subsection{Trabajo de Grado CUC: Diseño de un prototipo de un sistema domótico}
-    Este trabajo describe el diseño de un sistema domótico que incluye la monitorización del consumo eléctrico en una vivienda. El prototipo utiliza sensores conectados a un microcontrolador y visualiza los datos a través de una aplicación móvil desarrollada específicamente para el proyecto. \cite{AhumadaBarros2021}
+    El monitoreo del consumo de energía eléctrica mediante tecnologías del IoT ha sido abordado en diversos trabajos académicos a nivel nacional e internacional. Para contextualizar la presente propuesta y destacar su originalidad, se analizan a continuación cinco trabajos relevantes que representan el estado actual de la tecnología. \subsection{Trabajo de Grado CUC: Diseño de un prototipo de un sistema domótico} Este trabajo describe el diseño de un sistema domótico que incluye la monitorización del consumo eléctrico en una vivienda. El prototipo utiliza sensores conectados a un microcontrolador y visualiza los datos a través de una aplicación móvil desarrollada específicamente para el proyecto. \cite{AhumadaBarros2021} 
 
         \paragraph{Semejanzas:} Comparte el enfoque residencial y el uso de una interfaz gráfica para que el usuario visualice su consumo.
-
-        \paragraph{Diferencias y Aportación:} El trabajo se centra en la medición y visualización mediante una app a medida. Nuestra propuesta se diferencia al implementar una arquitectura de servidor local (Raspberry Pi) con un stack de software industrial (Grafana/InfluxDB) y añade capacidades de control activo (corte de suministro) y notificaciones por Telegram, ausentes en este antecedente.
-
+        \paragraph{Diferencias y Aportación:} El trabajo se centra en la medición y visualización mediante una app a medida.
+        Nuestra propuesta se diferencia al implementar una arquitectura de servidor local (Raspberry Pi) con un stack de software industrial (Grafana/InfluxDB) y añade capacidades de control activo (corte de suministro) y notificaciones por Telegram, ausentes en este antecedente.
     \subsection{Paper IEEE ROPEC 2021: Smart IoT Device For Energy Consumption Monitoring}
-    Este trabajo propone un dispositivo IoT basado en ESP8266 que transmite datos a un servidor web (PHP/MySQL). Su característica principal es el uso de redes neuronales para identificar qué electrodoméstico específico está consumiendo energía (técnica NILM). \cite{LopezAlfaro2021}
+    Este trabajo propone un dispositivo IoT basado en ESP8266 que transmite datos a un servidor web (PHP/MySQL).
+    Su característica principal es el uso de redes neuronales para identificar qué electrodoméstico específico está consumiendo energía (técnica NILM).
+    \cite{LopezAlfaro2021}
 
         \paragraph{Semejanzas:} Uso de microcontroladores ESP y monitoreo en tiempo real vía WiFi.
-
-        \paragraph{Diferencias y Aportación:} Este paper se enfoca en la identificación de cargas mediante IA. Nuestro proyecto prioriza la gestión y seguridad: detección de anomalías de consumo general y la capacidad de actuación remota (corte de energía). Además, utilizamos una base de datos de series de tiempo (InfluxDB), más eficiente que la base SQL del paper.
-
+        \paragraph{Diferencias y Aportación:} Este paper se enfoca en la identificación de cargas mediante IA.
+        Nuestro proyecto prioriza la gestión y seguridad: detección de anomalías de consumo general y la capacidad de actuación remota (corte de energía).
+        Además, utilizamos una base de datos de series de tiempo (InfluxDB), más eficiente que la base SQL del paper.
     \subsection{Paper IEEE ROPEC 2019: Energy Monitoring Consumption at IoT-Edge}
-    Este trabajo propone un circuito de monitoreo con sensor SCT-013 y ESP8266. Implementa una red neuronal en el propio microcontrolador para detectar consumos inusuales, enviando los datos a una base de datos MySQL en una Raspberry Pi. \cite{AguirreNunez2019}
+    Este trabajo propone un circuito de monitoreo con sensor SCT-013 y ESP8266.
+    Implementa una red neuronal en el propio microcontrolador para detectar consumos inusuales, enviando los datos a una base de datos MySQL en una Raspberry Pi.
+    \cite{AguirreNunez2019}
 
         \paragraph{Semejanzas:} Coincide plenamente en el hardware (SCT-013, ESP, RPi) y el objetivo de detectar anomalías.
-
-        \paragraph{Diferencias y Aportación:} La diferencia es el método de detección y almacenamiento. El paper usa IA embebida y MySQL. Nosotros delegamos la lógica a Node-RED en el servidor (facilitando la configuración de reglas) y usamos InfluxDB. Aportamos la capacidad crítica de control remoto (contactor) que este trabajo no contempla.
-
+        \paragraph{Diferencias y Aportación:} La diferencia es el método de detección y almacenamiento. El paper usa IA embebida y MySQL.
+        Nosotros delegamos la lógica a Node-RED en el servidor (facilitando la configuración de reglas) y usamos InfluxDB.
+        Aportamos la capacidad crítica de control remoto que este trabajo no contempla.
     \subsection{Trabajo Final UNLP: Diseño e Implementación de un Sistema de Medición...}
-    Este proyecto detalla un sistema de medición residencial utilizando hardware de código abierto. Los datos son procesados para su presentación al usuario mediante una interfaz web local. \cite{Cicutti2019}
+    Este proyecto detalla un sistema de medición residencial utilizando hardware de código abierto.
+    Los datos son procesados para su presentación al usuario mediante una interfaz web local.
+    \cite{Cicutti2019}
 
         \paragraph{Semejanzas:} Uso de hardware accesible y filosofía de bajo costo.
-
-        \paragraph{Diferencias y Aportación:} Nuestra propuesta expande este concepto integrando la orquestación de flujos de datos con Node-RED y un sistema de alertas proactivas. A diferencia de la visualización pasiva de este trabajo, nuestro sistema permite al usuario intervenir físicamente en la instalación a través del contactor.
-
+        \paragraph{Diferencias y Aportación:} Nuestra propuesta expande este concepto integrando la orquestación de flujos de datos con Node-RED y un sistema de alertas proactivas.
+        A diferencia de la visualización pasiva de este trabajo, nuestro sistema permite al usuario intervenir físicamente en la instalación a través de actuadores distribuidos.
     \subsection{Proyecto de Código Abierto: OpenEnergyMonitor}
-    Plataforma de referencia mundial en hardware y software abierto. Permite monitorear consumo, generación y controlar cargas mediante su software EmonCMS. \cite{openenergymonitor}
+    Plataforma de referencia mundial en hardware y software abierto.
+    Permite monitorear consumo, generación y controlar cargas mediante su software EmonCMS.
+    \cite{openenergymonitor}
 
         \paragraph{Semejanzas:} Base de inspiración para el uso de sensores no invasivos y la filosofía de código abierto.
-
-        \paragraph{Diferencias y Aportación:} OpenEnergyMonitor es un ecosistema complejo y modular. Nuestra aportación es la integración de una solución "todo en uno" más accesible, utilizando herramientas genéricas y populares (Telegram, Grafana) en lugar de un CMS especializado.
-
+        \paragraph{Diferencias y Aportación:} OpenEnergyMonitor es un ecosistema complejo y modular.
+        Nuestra aportación es la integración de una solución 'todo en uno' más accesible, utilizando herramientas genéricas y populares (Telegram, Grafana) en lugar de un CMS especializado.
     \newpage 
 
     \subsection{Comparación Cualitativa de Trabajos Relacionados}
@@ -69,6 +62,7 @@
         \midrule
 
         \cite{AhumadaBarros2021} & 
+   
         \begin{itemize}[leftmargin=*, topsep=0pt, itemsep=0pt, parsep=0pt, partopsep=0pt]
             \item Enfoque residencial.
             \item Interfaz en App móvil.
@@ -123,146 +117,158 @@
         \end{itemize} \\
 
         \bottomrule
-        \end{tabular}%
+        \end{tabular}
         }
     \end{table}
 \newpage
     
 \section{Justificación}
 
-    El análisis de las opciones actuales para el monitoreo energético residencial revela una limitación significativa: la mayoría de las herramientas se restringen a una visualización pasiva de datos o presentan barreras de alto costo y complejidad técnica. Esta carencia deja al usuario promedio sin capacidad de respuesta ante anomalías o desperdicios en su consumo. La propuesta justifica su realización al cubrir este vacío mediante un sistema que trasciende la simple observación para integrar el control activo. A diferencia de los medidores convencionales, este proyecto cierra el lazo de gestión permitiendo al usuario no solo ver su consumo, sino actuar sobre él mediante el corte remoto del suministro y la recepción de alertas automáticas.
-
-    La implementación de una arquitectura basada en un servidor local es clave para resolver los problemas de privacidad y dependencia de servicios externos, garantizando que los datos sensibles permanezcan bajo el control del usuario. Desde la perspectiva de la ingeniería, el proyecto demuestra la viabilidad de democratizar tecnologías avanzadas de gestión energética utilizando hardware accesible y software de código abierto. Esta solución equilibra la robustez técnica con la economía, entregando a los hogares una herramienta efectiva de seguridad y eficiencia que supera las limitaciones funcionales de los sistemas puramente informativos.
-    \newpage
+    El análisis de las opciones actuales para el monitoreo energético residencial revela una limitación significativa: la mayoría de las herramientas se restringen a una visualización pasiva de datos o presentan barreras de alto costo y complejidad técnica.
+    Esta carencia deja al usuario promedio sin capacidad de respuesta ante anomalías o desperdicios en su consumo.
+    La propuesta justifica su realización al cubrir este vacío mediante un sistema que trasciende la simple observación para integrar el control activo.
+    A diferencia de los medidores convencionales, este proyecto cierra el lazo de gestión permitiendo al usuario no solo ver su consumo, sino actuar sobre él mediante el corte remoto del suministro y la recepción de alertas automáticas.
+    La implementación de una arquitectura basada en un servidor local es clave para resolver los problemas de privacidad y dependencia de servicios externos, garantizando que los datos sensibles permanezcan bajo el control del usuario.
+    Desde la perspectiva de la ingeniería, el proyecto demuestra la viabilidad de democratizar tecnologías avanzadas de gestión energética utilizando hardware accesible y software de código abierto.
+    Esta solución equilibra la robustez técnica con la economía, entregando a los hogares una herramienta efectiva de seguridad y eficiencia que supera las limitaciones funcionales de los sistemas puramente informativos.
+\newpage
 
 \section{Objetivos}
 
     \subsection{Objetivo General}
         Diseñar e Implementar un sistema electrónico inteligente para el monitoreo y control del consumo energético residencial, para proporcionar al usuario una herramienta accesible de gestión remota del suministro eléctrico.
-
-\subsection{Objetivos Particulares}
+    \subsection{Objetivos Particulares}
     \begin{enumerate}
         \item \textbf{Diseñar} el circuito electrónico de acondicionamiento para la señal del sensor de corriente no invasivo SCT-013, asegurando que la salida de voltaje se mantenga dentro del rango operativo de 0V a 3.3V del convertidor analógico-digital (ADC) del ESP32.
-        \item \textbf{Construir} el nodo de medición, ensamblando el sensor SCT-013, el circuito de acondicionamiento diseñado en el objetivo anterior y el microcontrolador ESP32.
+        \item \textbf{Construir} los nodos de medición distribuidos, ensamblando para cada uno su respectivo sensor SCT-013, el circuito de acondicionamiento y el microcontrolador ESP32, permitiendo así la monitorización independiente de dos zonas (habitaciones) en el prototipo.
         \item \textbf{Diseñar e implementar} el firmware para el ESP32 que adquiera las lecturas del sensor, calcule la potencia eléctrica instantánea y publique los resultados vía MQTT al servidor local.
         \item \textbf{Establecer} el servidor local en la Raspberry Pi, instalando y configurando el broker MQTT, la base de datos InfluxDB y el sistema de visualización Grafana.
-        \item \textbf{Programar} en Node-RED los flujos de trabajo para procesar los datos MQTT, almacenarlos en InfluxDB, detectar condiciones de consumo anómalo y activar las notificaciones o el control del contactor.
+        \item \textbf{Programar} en Node-RED los flujos de trabajo para procesar los datos MQTT, almacenarlos en InfluxDB, detectar condiciones de consumo anómalo y ejecutar rutinas de automatización, incluyendo la programación de horarios de corte y reconexión del suministro.
         \item \textbf{Implementar} el sistema de notificación de alertas por consumo anómalo mediante un bot de Telegram controlado desde Node-RED.
-        \item \textbf{Integrar} el control del contactor eléctrico al sistema, permitiendo su activación remota segura desde Node-RED a través de un módulo relay.
+        \item \textbf{Integrar} actuadores inteligentes WiFi al sistema, configurando su comunicación MQTT con el servidor local para permitir el corte de suministro remoto, ya sea por alertas de seguridad, comandos manuales o itinerarios programados automáticamente.
         \item \textbf{Verificar} que la precisión del sistema de medición se encuentre dentro de un margen de error del $\pm 5\%$ en comparación con un wattmetro comercial, bajo diferentes perfiles de carga residencial.
-        \item \textbf{Validar} la funcionalidad completa del sistema, verificando la correcta operación de la visualización en Grafana, las notificaciones en Telegram y la activación del contactor.
+        \item \textbf{Validar} la funcionalidad completa del sistema, verificando la correcta operación de la visualización en Grafana, las notificaciones en Telegram y la activación inalámbrica de los actuadores.
     \end{enumerate}
 \newpage
 
 \section{Metodología - Descripción Técnica}
 
-    La propuesta consiste en el diseño e implementación de un sistema electrónico para el monitoreo y control del consumo eléctrico residencial. El sistema se compone de un nodo de adquisición de datos basado en un microcontrolador ESP32 y un servidor local basado en una Raspberry Pi, el cual centraliza el procesamiento, almacenamiento, visualización y control del sistema. La comunicación entre el nodo de adquisición y el servidor se realiza mediante el protocolo de mensajería MQTT a través de una red WiFi local.
-
+    El sistema evoluciona hacia una arquitectura IoT distribuida para el monitoreo y control del consumo eléctrico residencial. A diferencia de los sistemas centralizados que miden únicamente la acometida principal, esta propuesta implementa una topología de \textbf{nodos distribuidos por habitación}.
+    El prototipo se compone de \textbf{dos nodos de adquisición independientes} basados en microcontroladores ESP32 y un servidor local centralizado en una Raspberry Pi. Esta configuración permite desagregar el consumo por zonas, facilitando la identificación puntual de cargas fantasma que quedarían enmascaradas en una medición general.
+    El servidor centraliza el procesamiento, almacenamiento, visualización y control del sistema. La comunicación entre los nodos de adquisición, los actuadores y el servidor se realiza mediante el protocolo de mensajería MQTT a través de una red WiFi local.
     \subsection{Diagrama a Bloques del Sistema}
-        La arquitectura del sistema propuesto se divide en tres subsistemas funcionales principales, como se ilustra en el diagrama a bloques de la Figura \ref{fig:diagrama_bloques}. Estos subsistemas son: 1) El Nodo de Medición y Adquisición, 2) El Servidor Local de Procesamiento, y 3) El Subsistema de Control y Notificación.
+        La arquitectura del sistema propuesto se divide en tres subsistemas funcionales principales, como se ilustra en el diagrama a bloques de la Figura \ref{fig:diagrama_bloques}.
+        Estos subsistemas son: 1) Los Nodos de Medición y Adquisición, 2) El Servidor Local de Procesamiento, y 3) El Subsistema de Control y Notificación.
         \begin{figure}[H]
             \centering
-            \includegraphics[width=0.8\textwidth]{img/diagrama_bloques.png}
-            \caption{Diagrama a bloques del sistema propuesto.}
+            \includegraphics[width=0.7\textwidth]{img/diagrama_bloques.png}
+            \caption{Diagrama a bloques del sistema propuesto (Representación de la arquitectura general).}
             \label{fig:diagrama_bloques}
         \end{figure}
 
          \newpage
 
     \subsection{Descripción de Subsistemas}
-        \paragraph{1. Subsistema de Medición (Nodo ESP32):}
-        Es el componente encargado de la adquisición de datos.
+        \paragraph{1. Subsistema de Medición Distribuido (Nodos ESP32):}
+        Es el componente encargado de la adquisición de datos en el borde. Para este prototipo, se implementan \textbf{dos nodos idénticos}, cada uno asignado a un circuito o habitación específica. Cada nodo opera de forma autónoma y consta de:
         \begin{itemize}
-            \item \textbf{Sensor (SCT-013):} Es un transformador de corriente no invasivo de núcleo partido. Su función es medir la corriente alterna (AC) que fluye por el conductor principal de la vivienda sin contacto eléctrico.
-                \begin{itemize}
+            \item \textbf{Sensor (SCT-013):} Es un transformador de corriente no invasivo de núcleo partido.
+            Su función es medir la corriente alterna (AC) que fluye por el conductor de la zona asignada sin contacto eléctrico.
+            \begin{itemize}
                     \item \textit{Entrada:} Corriente AC (0-100A) de la línea de fase.
                     \item \textit{Salida:} Una señal de corriente AC pequeña, proporcional a la entrada (ej. 50mA).
-                \end{itemize}
+            \end{itemize}
             \item \textbf{Acondicionamiento de Señal:} Este circuito convierte la señal de corriente AC del sensor en una señal de voltaje DC con un desfase (offset), adaptada para ser leída por el ESP32 (ej. 0-3.3V).
-                \begin{itemize}
+            \begin{itemize}
                     \item \textit{Entrada:} Señal de corriente AC del sensor.
                     \item \textit{Salida:} Señal de voltaje DC (0-3.3V) al ADC del ESP32.
-                \end{itemize}
+            \end{itemize}
             \item \textbf{Procesamiento (ESP32):} El microcontrolador ESP32 muestrea la señal del ADC, realiza los cálculos para obtener la potencia instantánea (W) y la potencia aparente (VA), y se conecta a la red WiFi local.
-                \begin{itemize}
+            \begin{itemize}
                     \item \textit{Entrada:} Señal de voltaje del acondicionador.
                     \item \textit{Salida:} Paquetes de datos MQTT (Protocolo: MQTT v3.1.1).
                 \end{itemize}
         \end{itemize}
 
         \paragraph{2. Subsistema Servidor Local (Raspberry Pi):}
-        Es el cerebro del sistema. Centraliza la recepción, procesamiento y almacenamiento de datos.
+        Es el cerebro del sistema.
+        Centraliza la recepción, procesamiento y almacenamiento de datos.
         \begin{itemize}
-            \item \textbf{Broker MQTT:} Se utilizará un broker (EMQX) que actúa como intermediario de mensajería. Recibe los datos publicados por el ESP32.
-            \item \textbf{Node-RED:} Es la herramienta de programación visual que orquesta los flujos de datos. Se suscribe al broker MQTT, recibe los datos de potencia, los procesa (ej. calcula costos, detecta anomalías) y los distribuye a los demás servicios (InfluxDB, Telegram, Contactor).
-            \item \textbf{InfluxDB:} Es la base de datos optimizada para series temporales. Almacena eficientemente los datos de consumo (Watts, Amperes, Costo) con su marca de tiempo para consultas históricas.
-            \item \textbf{Grafana:} Es la plataforma de visualización. Se conecta a InfluxDB como fuente de datos y permite crear un dashboard web con gráficas, medidores e indicadores del consumo en tiempo real e histórico.
+            \item \textbf{Broker MQTT:} Se utilizará un broker (EMQX) que actúa como intermediario de mensajería.
+            Recibe los datos publicados por los nodos distribuidos.
+            \item \textbf{Node-RED:} Es la herramienta de programación visual que orquesta los flujos de datos y la lógica de control. Se suscribe al broker MQTT para recibir los datos de potencia y los procesa según reglas predefinidas. Además de detectar anomalías, este servicio gestiona la \textbf{automatización temporal}: mediante nodos de inyección cronológica (timers), envía comandos de encendido o apagado a los actuadores en horarios específicos (ej. corte de energía en horario laboral o nocturno) para optimizar el consumo.
+            \item \textbf{InfluxDB:} Es la base de datos optimizada para series temporales.
+            Almacena eficientemente los datos de consumo desagregados por nodo (Habitación 1, Habitación 2) con su marca de tiempo para consultas históricas.
+            \item \textbf{Grafana:} Es la plataforma de visualización. Se conecta a InfluxDB como fuente de datos y permite crear un dashboard web con gráficas, medidores e indicadores del consumo en tiempo real e histórico por zona.
         \end{itemize}
 
         \paragraph{3. Subsistema de Control y Notificación:}
-        Son los componentes que interactúan con el usuario o con la instalación eléctrica.
+        Son los componentes que interactúan con el usuario o con la instalación eléctrica de forma activa.
         \begin{itemize}
-            \item \textbf{Telegram Bot:} La integración se realiza directamente desde el servidor local utilizando la API de Bots de Telegram (mediante nodos específicos en Node-RED). La Raspberry Pi procesa los datos localmente y decide cuándo enviar una alerta; de esta manera, la conexión a internet se utiliza únicamente para transmitir mensajes puntuales de notificación o recibir comandos (ej. /cortar\_suministro), asegurando que el registro histórico de consumo no se almacene en nubes de terceros.
-            \item \textbf{Contactor Eléctrico:} Es un actuador de potencia controlado por la Raspberry Pi (a través de un módulo relay). Al recibir una señal de Node-RED (originada por una alerta o un comando del usuario), este dispositivo es capaz de interrumpir físicamente el suministro eléctrico principal de la vivienda como medida de seguridad.
+            \item \textbf{Comunicación por Telegram:} La integración se realiza directamente desde el servidor local utilizando la comunicación mediante Telegram. La Raspberry Pi procesa los datos y envía alertas puntuales o recibe comandos de usuario, manteniendo la privacidad de los datos históricos.
+            
+            \item \textbf{Actuadores Inteligentes (Smart Switches):}
+            En sustitución de un esquema centralizado, se implementan módulos de interrupción WiFi basados en microcontroladores (tipo Sonoff Basic) instalados en cada habitación. Estos dispositivos actúan como relevadores inalámbricos conectados al servidor. Su función es ejecutar las órdenes de corte o reconexión provenientes de Node-RED, ya sean disparadas por una alerta de seguridad, una decisión manual del usuario o una \textbf{rutina de horario programado}, permitiendo una gestión eficiente y granular de la energía por zonas.
         \end{itemize}
 
     \subsection{Especificaciones Técnicas}
         El prototipo a desarrollar buscará cumplir con las siguientes especificaciones:
         \begin{itemize}
-            \item \textbf{Rango de Medición:} 0 – 100 Amperes (AC).
+            \item \textbf{Rango de Medición:} 0 – 100 Amperes (AC) por nodo.
             \item \textbf{Voltaje de Operación (Medición):} 127V AC (Monofásico).
             \item \textbf{Precisión Esperada (Potencia):} $\pm 5\%$ comparado con un medidor comercial.
             \item \textbf{Frecuencia de Muestreo (ESP32):} Envío de datos al servidor cada 10 segundos.
             \item \textbf{Plataforma (Servidor):} Raspberry Pi 3B+ o superior.
             \item \textbf{Protocolo de Comunicación:} MQTT sobre WiFi (red local).
             \item \textbf{Interfaz de Usuario:} Dashboard en Grafana accesible vía navegador web en la red local.
-            \item \textbf{Sistema de Control:} Activación de contactor de 2 Polos (60A) mediante relay controlado por GPIO de la Raspberry Pi.
+            \item \textbf{Sistema de Control:} Actuación distribuida mediante interruptores WiFi (Smart Switches) de 10A, controlados vía Wi-Fi.
+            \item \textbf{Automatización:} Capacidad de programación de horarios de encendido y apagado automático por nodos (Habitación).
         \end{itemize}
 \newpage
     
 \section{Cronograma de Actividades}
 
-    La planificación del proyecto se ha estructurado para ser completada en dos trimestres consecutivos (24 semanas), cubriendo las UEA del Trimestre 26-I y 26-P. Las actividades están directamente alineadas con los objetivos particulares definidos en la sección anterior. El seguimiento del avance se realizará mediante la siguiente tabla (Ver Tabla \ref{tab:cronograma}).
-
+    La planificación del proyecto se ha estructurado para ser completada en un periodo intensivo de un trimestre (12 semanas), correspondiente a la UEA del Trimestre 26-I.
+    Lo cual, conlleva a varias fases de desarrollo se ejecutarán de manera paralela para asegurar la integración total del sistema.
+    Las actividades están directamente alineadas con los objetivos particulares definidos en la sección anterior.
+    El seguimiento del avance se realizará mediante la siguiente tabla (Ver Tabla \ref{tab:cronograma}).
     \begin{table}[H]
     \centering
-    \caption{Cronograma de Actividades del Proyecto.}
+    \caption{Cronograma de Actividades del Proyecto (Trimestre 26-I).}
     \label{tab:cronograma}
     \resizebox{\textwidth}{!}{%
-    \begin{tabular}{|l|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|}
+    \begin{tabular}{|l|c|c|c|c|c|c|c|c|c|c|c|c|}
     \hline
-    & \multicolumn{12}{c|}{\textbf{Trimestre 26-I}} & \multicolumn{12}{c|}{\textbf{Trimestre 26-P}} \\ \hline
-    \textbf{Actividad} & \textbf{1} & \textbf{2}         & \textbf{3} & \textbf{4} & \textbf{5} & \textbf{6} & \textbf{7} & \textbf{8} & \textbf{9} & \textbf{10} & \textbf{11} & \textbf{12} & \textbf{1} & \textbf{2} & \textbf{3} & \textbf{4} & \textbf{5} & \textbf{6} & \textbf{7} & \textbf{8} & \textbf{9} & \textbf{10} & \textbf{11} & \textbf{12} \\ \hline
-    \footnotesize{1. Diseño del circuito }       & \cellcolor{gray!40} & \cellcolor{gray!40} & \cellcolor{gray!40} & & & & & & & & & & & & & & & & & & & & & \\ \hline
-    \footnotesize{2. Construcción prototipo }    & & & \cellcolor{gray!40} & \cellcolor{gray!40} & \cellcolor{gray!40} & \cellcolor{gray!40} & & & & & & & & & & & & & & & & & & \\ \hline
-    \footnotesize{3. Desarrollo firmware ESP32 } & & & & & & \cellcolor{gray!40} & \cellcolor{gray!40} & \cellcolor{gray!40} & \cellcolor{gray!40} & & & & & & & & & & & & & & & \\ \hline
-    \footnotesize{4. Establ. servidor RPi }      & & & & & & & & & \cellcolor{gray!40} & \cellcolor{gray!40} & \cellcolor{gray!40} & \cellcolor{gray!40} & & & & & & & & & & & & \\ \hline
-    \footnotesize{5. Programación Node-RED }     & & & & & & & & & & & & \cellcolor{gray!40} & \cellcolor{gray!40} & \cellcolor{gray!40} & \cellcolor{gray!40} & & & & & & & & & \\ \hline
-    \footnotesize{6. Implementar Telegram }      & & & & & & & & & & & & & & & \cellcolor{gray!40} & \cellcolor{gray!40} & \cellcolor{gray!40} & \cellcolor{gray!40} & & & & & & \\ \hline
-    \footnotesize{7. Integrar contactor }        & & & & & & & & & & & & & & & & & \cellcolor{gray!40} & \cellcolor{gray!40} & \cellcolor{gray!40} & & & & & \\ \hline
-    \footnotesize{8. Evaluación precisión }      & & & & & & & & & & & & & & & & & & & \cellcolor{gray!40} & \cellcolor{gray!40} & \cellcolor{gray!40} & & & \\ \hline
-    \footnotesize{9. Validación funcional }      & & & & & & & & & & & & & & & & & & & & & \cellcolor{gray!40} & \cellcolor{gray!40} & & \\ \hline
-    \footnotesize{Redacción de informe}                  & & \cellcolor{gray!40} & \cellcolor{gray!40} & \cellcolor{gray!40} & \cellcolor{gray!40} & \cellcolor{gray!40} & \cellcolor{gray!40} & \cellcolor{gray!40} & \cellcolor{gray!40} & \cellcolor{gray!40} & \cellcolor{gray!40} & \cellcolor{gray!40} & \cellcolor{gray!40} & \cellcolor{gray!40} & \cellcolor{gray!40} & \cellcolor{gray!40} & \cellcolor{gray!40} & \cellcolor{gray!40} & \cellcolor{gray!40} & \cellcolor{gray!40} & \cellcolor{gray!40} & \cellcolor{gray!40} & \cellcolor{gray!40} & \cellcolor{gray!40} \\ \hline
-    \footnotesize{Entrega y presentación}                & & & & & & & & & & & & & & & & & & & & & & & & \cellcolor{gray!40} \\ \hline
+    & \multicolumn{12}{c|}{\textbf{Semanas del Trimestre 26-I}} \\ \hline
+    \textbf{Actividad} & \textbf{1} & \textbf{2} & \textbf{3} & \textbf{4} & \textbf{5} & \textbf{6} & \textbf{7} & \textbf{8} & \textbf{9} & \textbf{10} & \textbf{11} & \textbf{12} \\ \hline
+    \footnotesize{1. Diseño del circuito}        & \cellcolor{gray!40} & \cellcolor{gray!40} & & & & & & & & & & \\ \hline
+    \footnotesize{2. Construcción nodos}         & & \cellcolor{gray!40} & \cellcolor{gray!40} & \cellcolor{gray!40} & & & & & & & & \\ \hline
+    \footnotesize{3. Desarrollo firmware ESP32}  & & & \cellcolor{gray!40} & \cellcolor{gray!40} & \cellcolor{gray!40} & & & & & & & \\ \hline
+    \footnotesize{4. Establ. servidor RPi}       & & & & \cellcolor{gray!40} & \cellcolor{gray!40} & \cellcolor{gray!40} & & & & & & \\ \hline
+    \footnotesize{5. Programación Node-RED}      & & & & & & \cellcolor{gray!40} & \cellcolor{gray!40} & \cellcolor{gray!40} & & & & \\ \hline
+    \footnotesize{6. Implementar Telegram}       & & & & & & & \cellcolor{gray!40} & \cellcolor{gray!40} & & & & \\ \hline
+    \footnotesize{7. Integrar actuadores}        & & & & & & & & \cellcolor{gray!40} & \cellcolor{gray!40} & & & \\ \hline
+    \footnotesize{8. Evaluación precisión}       & & & & & & & & & \cellcolor{gray!40} & \cellcolor{gray!40} & & \\ \hline
+    \footnotesize{9. Validación funcional}       & & & & & & & & & & \cellcolor{gray!40} & \cellcolor{gray!40} & \\ \hline
+    \footnotesize{Redacción de informe}          & \cellcolor{gray!40} & \cellcolor{gray!40} & \cellcolor{gray!40} & \cellcolor{gray!40} & \cellcolor{gray!40} & \cellcolor{gray!40} & \cellcolor{gray!40} & \cellcolor{gray!40} & \cellcolor{gray!40} & \cellcolor{gray!40} & \cellcolor{gray!40} & \cellcolor{gray!40} \\ \hline
+    \footnotesize{Entrega y presentación}        & & & & & & & & & & & & \cellcolor{gray!40} \\ \hline
     \end{tabular}%
     }
     \end{table}
-    
 
-    % --- SECCIÓN 7: ENTREGABLES ---
 \section{Entregables}
-    Para el desarrollo del proyecto y como evidencia del cumplimiento de los objetivos, se generarán los siguientes productos:
+    Para el desarrollo del proyecto y como evidencia del cumplimiento de los objetivos, se generarán los 
+    siguientes productos:
 
     \begin{itemize}
-        \item \textbf{Documentación de Diseño:} Diagramas esquemáticos del circuito de acondicionamiento de señal y diagrama de conexión del sistema de control (contactor).
-        \item \textbf{Prototipo Físico Funcional:} Nodo de medición (ESP32 y circuito de acondicionamiento) y el servidor local (Raspberry Pi) configurados e integrados.
+        \item \textbf{Documentación de Diseño:} Diagramas esquemáticos del circuito de acondicionamiento de señal.
+        \item \textbf{Prototipo Físico Funcional:} Dos nodos de medición (ESP32), el servidor local (Raspberry Pi) y los actuadores de control (Switches Wi-Fi), integrados y operativos.
         \item \textbf{Código Fuente (Software):}
             \begin{itemize}
                 \item Firmware del microcontrolador ESP32 (programado en C++/Arduino).
                 \item Flujos de trabajo de Node-RED (en formato JSON).
             \end{itemize}
-        \item \textbf{Panel de Control (Dashboard):} Dashboard funcional y configurado en Grafana para la visualización de los datos de consumo.
-
+        \item \textbf{Panel de Control (Dashboard):} Dashboard funcional y configurado en Grafana para la visualización de los datos de consumo desagregados por zona.
     \end{itemize}
     \newpage
 
