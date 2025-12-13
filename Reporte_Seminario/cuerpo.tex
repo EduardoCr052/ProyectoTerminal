@@ -144,7 +144,7 @@
         \item \textbf{Diseñar e implementar} el firmware para el ESP32 que adquiera las lecturas del sensor, calcule la potencia eléctrica instantánea y publique los resultados vía MQTT al servidor local.
         \item \textbf{Establecer} el servidor local en la Raspberry Pi, instalando y configurando el broker MQTT, la base de datos InfluxDB y el sistema de visualización Grafana.
         \item \textbf{Programar} en Node-RED los flujos de trabajo para procesar los datos MQTT, almacenarlos en InfluxDB, detectar condiciones de consumo anómalo y ejecutar rutinas de automatización, incluyendo la programación de horarios de corte y reconexión del suministro.
-        \item \textbf{Implementar} el sistema de notificación de alertas por consumo anómalo mediante un bot de Telegram controlado desde Node-RED.
+        \item \textbf{Implementar} el sistema de notificación de alertas por consumo anómalo mediante una comunicación con Telegram controlado desde Node-RED.
         \item \textbf{Integrar} actuadores inteligentes WiFi al sistema, configurando su comunicación MQTT con el servidor local para permitir el corte de suministro remoto, ya sea por alertas de seguridad, comandos manuales o itinerarios programados automáticamente.
         \item \textbf{Verificar} que la precisión del sistema de medición se encuentre dentro de un margen de error del $\pm 5\%$ en comparación con un wattmetro comercial, bajo diferentes perfiles de carga residencial.
         \item \textbf{Validar} la funcionalidad completa del sistema, verificando la correcta operación de la visualización en Grafana, las notificaciones en Telegram y la activación inalámbrica de los actuadores.
@@ -156,12 +156,13 @@
     El sistema evoluciona hacia una arquitectura IoT distribuida para el monitoreo y control del consumo eléctrico residencial. A diferencia de los sistemas centralizados que miden únicamente la acometida principal, esta propuesta implementa una topología de \textbf{nodos distribuidos por habitación}.
     El prototipo se compone de \textbf{dos nodos de adquisición independientes} basados en microcontroladores ESP32 y un servidor local centralizado en una Raspberry Pi. Esta configuración permite desagregar el consumo por zonas, facilitando la identificación puntual de cargas fantasma que quedarían enmascaradas en una medición general.
     El servidor centraliza el procesamiento, almacenamiento, visualización y control del sistema. La comunicación entre los nodos de adquisición, los actuadores y el servidor se realiza mediante el protocolo de mensajería MQTT a través de una red WiFi local.
+
     \subsection{Diagrama a Bloques del Sistema}
         La arquitectura del sistema propuesto se divide en tres subsistemas funcionales principales, como se ilustra en el diagrama a bloques de la Figura \ref{fig:diagrama_bloques}.
-        Estos subsistemas son: 1) Los Nodos de Medición y Adquisición, 2) El Servidor Local de Procesamiento, y 3) El Subsistema de Control y Notificación.
+        Estos subsistemas son: 1) Los Nodos de Medición y Adquisición, 2) El Servidor Local de Procesamiento, y 3) El Subsistema de Control.
         \begin{figure}[H]
             \centering
-            \includegraphics[width=0.7\textwidth]{img/diagrama_bloques.png}
+            \includegraphics[width=1.1\textwidth]{img/diagrama_bloques.png}
             \caption{Diagrama a bloques del sistema propuesto (Representación de la arquitectura general).}
             \label{fig:diagrama_bloques}
         \end{figure}
@@ -244,14 +245,14 @@
     \footnotesize{1. Diseño del circuito}        & \cellcolor{gray!40} & \cellcolor{gray!40} & & & & & & & & & & \\ \hline
     \footnotesize{2. Construcción nodos}         & & \cellcolor{gray!40} & \cellcolor{gray!40} & \cellcolor{gray!40} & & & & & & & & \\ \hline
     \footnotesize{3. Desarrollo firmware ESP32}  & & & \cellcolor{gray!40} & \cellcolor{gray!40} & \cellcolor{gray!40} & & & & & & & \\ \hline
-    \footnotesize{4. Establ. servidor RPi}       & & & & \cellcolor{gray!40} & \cellcolor{gray!40} & \cellcolor{gray!40} & & & & & & \\ \hline
+    \footnotesize{4. Establecer el ESP32 al servidor RPi}       & & & & \cellcolor{gray!40} & \cellcolor{gray!40} & \cellcolor{gray!40} & & & & & & \\ \hline
     \footnotesize{5. Programación Node-RED}      & & & & & & \cellcolor{gray!40} & \cellcolor{gray!40} & \cellcolor{gray!40} & & & & \\ \hline
     \footnotesize{6. Implementar Telegram}       & & & & & & & \cellcolor{gray!40} & \cellcolor{gray!40} & & & & \\ \hline
     \footnotesize{7. Integrar actuadores}        & & & & & & & & \cellcolor{gray!40} & \cellcolor{gray!40} & & & \\ \hline
     \footnotesize{8. Evaluación precisión}       & & & & & & & & & \cellcolor{gray!40} & \cellcolor{gray!40} & & \\ \hline
     \footnotesize{9. Validación funcional}       & & & & & & & & & & \cellcolor{gray!40} & \cellcolor{gray!40} & \\ \hline
     \footnotesize{Redacción de informe}          & \cellcolor{gray!40} & \cellcolor{gray!40} & \cellcolor{gray!40} & \cellcolor{gray!40} & \cellcolor{gray!40} & \cellcolor{gray!40} & \cellcolor{gray!40} & \cellcolor{gray!40} & \cellcolor{gray!40} & \cellcolor{gray!40} & \cellcolor{gray!40} & \cellcolor{gray!40} \\ \hline
-    \footnotesize{Entrega y presentación}        & & & & & & & & & & & & \cellcolor{gray!40} \\ \hline
+    \footnotesize{Entrega}        & & & & & & & & & & & & \cellcolor{gray!40} \\ \hline
     \end{tabular}%
     }
     \end{table}
