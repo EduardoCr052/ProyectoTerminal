@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.27 (MiKTeX 25.4) (preloaded format=pdflatex 2025.11.17)  27 JAN 2026 13:48
+This is pdfTeX, Version 3.141592653-2.6-1.40.27 (MiKTeX 25.4) (preloaded format=pdflatex 2025.11.17)  27 JAN 2026 15:47
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -1057,11 +1057,6 @@ LaTeX Info: Redefining \% on input line 1.
 ] (main.lof
 LaTeX Info: Redefining \. on input line 1.
 LaTeX Info: Redefining \% on input line 1.
-
-Underfull \hbox (badness 4403) in paragraph at lines 2--2
- [][] [][]\T1/ppl/m/n/12 Diagrama a blo-ques del sis-te-ma pro-pues-to (Re-pre-sen-ta-ción de la 
- []
-
 )
 \tf@lof=\write8
 \openout8 = `main.lof'.
@@ -1078,130 +1073,138 @@ LaTeX Info: Redefining \% on input line 1.
 \openout10 = `main.lol'.
 
  [4]) (cuerpo.tex
+Underfull \hbox (badness 2042) in paragraph at lines 8--9
+\T1/ppl/m/n/12 in-de-pen-dien-tes, ba-sa-dos en mi-cro-con-tro-la-do-res ESP32, que per-mi-ten la me-di-ción
+ []
+
+
 pdfTeX warning (ext4): destination with the same identifier (name{page.1}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.5 ...l monitoreo energÃ©tico del hogar. \newpage
-                                                   [1]
-Underfull \hbox (badness 2119) in paragraph at lines 9--9
+l.9 \newpage
+             [1]
+pdfTeX warning (ext4): destination with the same identifier (name{page.2}) has been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.12 ... monitoreo energÃ©tico del hogar. \newpage
+                                                   [2]
+Underfull \hbox (badness 2119) in paragraph at lines 16--16
 \T1/ppl/m/n/12 si-do abor-da-do en di-ver-sos tra-ba-jos aca-dé-mi-cos a ni-vel na-cio-nal e in-ter-na-cio-nal.
  []
 
 
-Underfull \hbox (badness 1275) in paragraph at lines 15--18
+Underfull \hbox (badness 1275) in paragraph at lines 22--25
 \T1/ppl/m/n/12 pa-ra iden-ti-fi-car qué elec-tro-do-més-ti-co es-pe-cí-fi-co es-tá con-su-mien-do ener-gía (téc-ni-ca
  []
 
 
-pdfTeX warning (ext4): destination with the same identifier (name{page.2}) has been already used, duplicate ignored
-<to be read again> 
-                   \relax 
-l.32 ...ementaciÃ³n de un Sistema de MediciÃ³n...}
-                                                   [2]
 pdfTeX warning (ext4): destination with the same identifier (name{page.3}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.48     \newpage
-                  [3]
-Underfull \hbox (badness 10000) in paragraph at lines 121--121
+l.39 ...ementaciÃ³n de un Sistema de MediciÃ³n...}
+                                                   [3]
+pdfTeX warning (ext4): destination with the same identifier (name{page.4}) has been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.55     \newpage
+                  [4]
+Underfull \hbox (badness 10000) in paragraph at lines 128--128
 []\T1/ppl/m/n/10.95 IA em-be-bi-da vs. Ló-gi-ca
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 121--121
+Underfull \hbox (badness 10000) in paragraph at lines 128--128
 []\T1/ppl/m/n/10.95 Visualización pa-si-va vs.
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 121--121
+Underfull \hbox (badness 10000) in paragraph at lines 128--128
 []\T1/ppl/m/n/10.95 Complejo/modular vs.
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 121--121
+Underfull \hbox (badness 10000) in paragraph at lines 128--128
 []\T1/ppl/m/n/10.95 EmonCMS vs. Stack
  []
 
-
-pdfTeX warning (ext4): destination with the same identifier (name{page.4}) has been already used, duplicate ignored
-<to be read again> 
-                   \relax 
-l.123 \newpage
-               [4] [5]
-Underfull \hbox (badness 10000) in paragraph at lines 143--144
+[5] [6]
+Underfull \hbox (badness 10000) in paragraph at lines 150--151
 []\T1/ppl/b/n/12 Construir \T1/ppl/m/n/12 los no-dos de me-di-ción dis-tri-bui-dos, en-sam-blan-do pa-ra ca-da
  []
 
 
-Underfull \hbox (badness 4229) in paragraph at lines 143--144
+Underfull \hbox (badness 4229) in paragraph at lines 150--151
 \T1/ppl/m/n/12 uno su res-pec-ti-vo sen-sor SCT-013, el cir-cui-to de acon-di-cio-na-mien-to y el
  []
 
 
-Underfull \hbox (badness 1448) in paragraph at lines 143--144
+Underfull \hbox (badness 1448) in paragraph at lines 150--151
 \T1/ppl/m/n/12 mi-cro-con-tro-la-dor ESP32, per-mi-tien-do así la mo-ni-to-ri-za-ción in-de-pen-dien-te de
  []
 
 
-Underfull \hbox (badness 1067) in paragraph at lines 148--149
+Underfull \hbox (badness 1067) in paragraph at lines 155--156
 \T1/ppl/m/n/12 sea por aler-tas de se-gu-ri-dad, co-man-dos ma-nua-les o iti-ne-ra-rios pro-gra-ma-dos
  []
 
-[6]
-Underfull \hbox (badness 2285) in paragraph at lines 156--159
-\T1/ppl/m/n/12 en-mas-ca-ra-das en una me-di-ción ge-ne-ral. El ser-vi-dor cen-tra-li-za el pro-ce-sa-mien-to,
- []
-
-<img/diagrama_bloques.png, id=186, 1731.5892pt x 904.3386pt>
-File: img/diagrama_bloques.png Graphic file (type png)
-<use img/diagrama_bloques.png>
-Package pdftex.def Info: img/diagrama_bloques.png  used on input line 165.
-(pdftex.def)             Requested size: 516.73338pt x 269.86856pt.
-
-Overfull \hbox (46.97836pt too wide) in paragraph at lines 165--166
- [][] 
- []
-
-[7 <./img/diagrama_bloques.png>]
-LaTeX Font Info:    Trying to load font information for TS1+ppl on input line 179.
- (C:\Program Files\MiKTeX\tex/latex/psnfss\ts1ppl.fd
-File: ts1ppl.fd 2001/06/04 font definitions for TS1/ppl.
-)
-Underfull \hbox (badness 1038) in paragraph at lines 201--203
-[]\T1/ppl/b/n/12 InfluxDB: \T1/ppl/m/n/12 Es la ba-se de da-tos op-ti-mi-za-da pa-ra se-ries tem-po-ra-les. Al-ma-ce-na
+[7]
+Underfull \hbox (badness 1072) in paragraph at lines 166--167
+[]\T1/ppl/m/n/12 Para ges-tio-nar efi-cien-te-men-te la ener-gía eléc-tri-ca, es im-pe-ra-ti-vo com-pren-der la
  []
 
 
-Underfull \hbox (badness 1577) in paragraph at lines 201--203
-\T1/ppl/m/n/12 efi-cien-te-men-te los da-tos de con-su-mo des-agre-ga-dos por no-do (Ha-bi-ta-ción 1,
- []
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `math shift' on input line 194.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `math shift' on input line 194.
 
 [8]
-Underfull \hbox (badness 1655) in paragraph at lines 209--210
-\T1/ppl/m/n/12 pro-ce-sa los da-tos y en-vía aler-tas pun-tua-les o re-ci-be co-man-dos de usua-rio,
+Underfull \hbox (badness 2753) in paragraph at lines 197--198
+[]\T1/ppl/m/n/12 Matemáticamente, se ob-tie-ne del pro-duc-to de los va-lo-res efi-ca-ces cal-cu-la-dos
  []
 
 
-Underfull \hbox (badness 3942) in paragraph at lines 211--213
-[]\T1/ppl/b/n/12 Actuadores In-te-li-gen-tes (Smart Swit-ches): \T1/ppl/m/n/12 En sus-ti-tu-ción de un es-que-ma
+LaTeX Warning: Citation `naylamp2023sct' on page 9 undefined on input line 206.
+
+
+LaTeX Warning: Citation `naylamp2023sct' on page 9 undefined on input line 212.
+
+
+Underfull \hbox (badness 3158) in paragraph at lines 212--213
+[]\T1/ppl/b/n/12 Salida de Vol-ta-je (SCT-013-030): \T1/ppl/m/n/12 In-clu-ye una re-sis-ten-cia de car-ga in-ter-na,
  []
 
 
-Underfull \hbox (badness 7047) in paragraph at lines 211--213
-\T1/ppl/m/n/12 cen-tra-li-za-do, se im-ple-men-tan mó-du-los de in-te-rrup-ción Wi-Fi ba-sa-dos en
+LaTeX Warning: Citation `naylamp2023sct' on page 9 undefined on input line 218.
+
+
+Underfull \hbox (badness 1024) in paragraph at lines 218--219
+[]\T1/ppl/m/n/12 Este cir-cui-to de-be aña-dir un vol-ta-je de des-pla-za-mien-to (\T1/ppl/m/it/12 DC Off-set\T1/ppl/m/n/12 ) a la se-ñal,
  []
 
 
-Underfull \hbox (badness 3049) in paragraph at lines 211--213
-\T1/ppl/m/n/12 mi-cro-con-tro-la-do-res (ti-po So-noff Ba-sic) ins-ta-la-dos en ca-da ha-bi-ta-ción. Es-tos
+Underfull \hbox (badness 1796) in paragraph at lines 220--221
+[]\T1/ppl/m/n/12 Para el mo-de-lo SCT-013-000 se-lec-cio-na-do (100A), la re-sis-ten-cia \T1/ppl/m/it/12 bur-den \T1/ppl/m/n/12 ($\OML/cmm/m/it/12 R[]$\T1/ppl/m/n/12 )
  []
 
 [9]
-Underfull \hbox (badness 10000) in paragraph at lines 265--266
-[]\T1/ppl/b/n/12 Documentación de Di-se-ño: \T1/ppl/m/n/12 Dia-gra-mas es-que-má-ti-cos del cir-cui-to de
+Underfull \hbox (badness 10000) in paragraph at lines 232--233
+[]\T1/ppl/b/n/12 Actuadores In-te-li-gen-tes (Smart Swit-ches): \T1/ppl/m/n/12 Dis-po-si-ti-vos ba-sa-dos en
  []
 
-[10] Excluding 'comment' comment.) (main.bbl) [11] (main.aux (portada.aux)
+
+Underfull \hbox (badness 4132) in paragraph at lines 239--240
+[]\T1/ppl/b/n/12 Grafana: \T1/ppl/m/n/12 Pla-ta-for-ma de vi-sua-li-za-ción que per-mi-te crear ta-ble-ros de con-trol
+ []
+
+[10] [11] [12] [13] Excluding 'comment' comment.) [14] (main.bbl)
+
+Package caption Warning: Unused \captionsetup[figure] on input line 17.
+See the caption package documentation for explanation.
+
+[15] (main.aux (portada.aux)
 LaTeX Info: Redefining \. on input line 12.
 LaTeX Info: Redefining \% on input line 12.
  (declaratoria.aux))
@@ -1209,21 +1212,25 @@ LaTeX Info: Redefining \% on input line 12.
 LaTeX2e <2025-11-01>
 L3 programming layer <2025-10-24>
  ***********
+
+
+LaTeX Warning: There were undefined references.
+
 Package rerunfilecheck Info: File `main.out' has not changed.
-(rerunfilecheck)             Checksum: A99ADC2AFC707FCD0C7A62025848A081;4177.
+(rerunfilecheck)             Checksum: 725F66E13B3D507BD5703F51E716B45F;5271.
  ) 
 Here is how much of TeX's memory you used:
- 29469 strings out of 467871
- 551737 string characters out of 5428442
- 995184 words of memory out of 5000000
- 57768 multiletter control sequences out of 15000+600000
- 648308 words of font info for 78 fonts, out of 8000000 for 9000
+ 29460 strings out of 467871
+ 551461 string characters out of 5428442
+ 979988 words of memory out of 5000000
+ 57750 multiletter control sequences out of 15000+600000
+ 647754 words of font info for 76 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  104i,15n,121p,3421b,609s stack positions out of 10000i,1000n,20000p,200000b,200000s
-<C:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmr12.pfb><C:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Program Files/MiKTeX/fonts/type1/urw/palatino/uplb8a.pfb><C:/Program Files/MiKTeX/fonts/type1/urw/palatino/uplr8a.pfb><C:/Program Files/MiKTeX/fonts/type1/urw/palatino/uplri8a.pfb>
-Output written on main.pdf (16 pages, 2773482 bytes).
+<C:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmex10.pfb><C:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi12.pfb><C:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi8.pfb><C:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmr12.pfb><C:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmr8.pfb><C:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy8.pfb><C:/Program Files/MiKTeX/fonts/type1/urw/palatino/uplb8a.pfb><C:/Program Files/MiKTeX/fonts/type1/urw/palatino/uplr8a.pfb><C:/Program Files/MiKTeX/fonts/type1/urw/palatino/uplri8a.pfb>
+Output written on main.pdf (20 pages, 203128 bytes).
 PDF statistics:
- 250 PDF objects out of 1000 (max. 8388607)
- 51 named destinations out of 1000 (max. 500000)
- 162 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 324 PDF objects out of 1000 (max. 8388607)
+ 65 named destinations out of 1000 (max. 500000)
+ 213 words of extra memory for PDF output out of 10000 (max. 10000000)
 

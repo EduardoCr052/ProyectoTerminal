@@ -1,6 +1,13 @@
 \setcounter{page}{1} % Iniciar la numeración de las páginas en este punto.
 \pagestyle{fancy}
 
+\section{Resumen}
+
+El consumo eléctrico residencial suele gestionarse de manera reactiva debido a la falta de herramientas que permitan desglosar y analizar el gasto energético en tiempo real. Este Proyecto presenta el diseño e implementación de un sistema de gestión inteligente basado en el Internet de las Cosas (IoT), cuyo propósito es dotar al usuario de capacidades de monitoreo granular y control activo sobre su instalación.
+
+La solución técnica consiste en una arquitectura distribuida de nodos de adquisición independientes, basados en microcontroladores ESP32, que permiten la medición desagregada de corriente por habitaciones o circuitos específicos para la detección de consumo fantasma. La comunicación del sistema se fundamenta en el protocolo MQTT, centralizando el flujo de información en un servidor local desplegado en una Raspberry Pi, donde se integran servicios de lógica de control (Node-RED), bases de datos de series temporales (InfluxDB) y visualización web (Grafana). Adicionalmente, el sistema cierra el lazo de gestión mediante la integración de actuadores WiFi (Smart Switches) y algoritmos de automatización, permitiendo la ejecución de horarios programados y el corte remoto del suministro, validando así una alternativa accesible y privada para la eficiencia energética en el hogar.
+\newpage
+
 \section{Introducción}
     En el contexto global actual, la eficiencia energética se ha consolidado como un pilar fundamental para el desarrollo sostenible, impulsada tanto por la necesidad de mitigar el impacto ambiental como por la optimización de los recursos económicos \cite{chevez2018energias}. El sector residencial representa una porción significativa del consumo total de energía eléctrica, sin embargo, la mayoría de los usuarios carecen de herramientas que les permitan comprender y gestionar su consumo de manera efectiva. La facturación eléctrica tradicional ofrece únicamente un resumen mensual, funcionando como un indicador tardío que no permite identificar patrones de uso específicos ni detectar fuentes de desperdicio, como el conocido consumo fantasma o en modo de espera (standby) \cite{iea2022standby}. La problemática central que se aborda es la falta de acceso a información granular y en tiempo real sobre el consumo de energía en el hogar, así como la ausencia de mecanismos accesibles para actuar sobre dicho consumo en caso de anomalías o necesidades de gestión remota. Esta carencia impide a los usuarios tomar decisiones informadas y acciones directas para optimizar el uso de sus aparatos y reducir su gasto energético. Para dar solución a esta necesidad, se propone el diseño y la implementación de un \textbf{sistema inteligente de monitoreo y control energético residencial}, basado en hardware de bajo costo y software de código abierto. El desarrollo del proyecto se fundamentará en la integración de varias tecnologías clave. En primer lugar, el \textbf{sensado de corriente no invasivo} \cite{fraden2016handbook}, que utiliza un transformador de corriente (SCT-013) para medir el flujo eléctrico de forma segura. En segundo lugar, se implementará una arquitectura de \textbf{medición distribuida} mediante una red de \textbf{nodos embebidos} (ESP32) \cite{vahid2002embedded}. Cada nodo actuará como punto de adquisición independiente en distintas zonas o habitaciones, procesando la señal de su respectivo sensor y transmitiendo los datos simultáneamente a través del protocolo de mensajería \textbf{MQTT}, estándar en el Internet de las Cosas (IoT) por su eficiencia. Finalmente, se configurará un \textbf{servidor local en una Raspberry Pi} que centralizará la gestión del sistema: el broker \textbf{EMQX} recibirá los datos, \textbf{Node-RED} orquestará el flujo de información para su procesamiento, detección de anomalías y gestión de horarios automatizados, enviando \textbf{notificaciones vía Telegram} cuando sea necesario. Una base de datos \textbf{InfluxDB} almacenará las series temporales de consumo, y \textbf{Grafana} proporcionará una interfaz web alojada en la misma \textbf{Raspberry Pi} para la \textbf{visualización} de los datos en tiempo real e históricos. Este sistema no solo proporcionará una medición precisa y desagregada del consumo, sino que permitirá la \textbf{detección inteligente de anomalías} y ofrecerá al usuario la capacidad de \textbf{controlar remotamente el suministro eléctrico} por zonas mediante \textbf{actuadores inteligentes WiFi}, añadiendo una capa de gestión activa, automatización y seguridad al monitoreo energético del hogar. \newpage
 
@@ -151,127 +158,97 @@
     \end{enumerate}
 \newpage
 
-\section{Metodología - Descripción Técnica}
+\section{Marco Teórico}
 
-    El sistema evoluciona hacia una arquitectura IoT distribuida para el monitoreo y control del consumo eléctrico residencial. A diferencia de los sistemas centralizados que miden únicamente la acometida principal, esta propuesta implementa una topología de \textbf{nodos distribuidos por habitación}.
-    El prototipo se compone de \textbf{dos nodos de adquisición independientes} basados en microcontroladores ESP32 y un servidor local centralizado en una Raspberry Pi. Esta configuración permite desagregar el consumo por zonas, facilitando la identificación puntual de cargas fantasma que quedarían enmascaradas en una medición general.
-    El servidor centraliza el procesamiento, almacenamiento, visualización y control del sistema. La comunicación entre los nodos de adquisición, los actuadores y el servidor se realiza mediante el protocolo de mensajería MQTT a través de una red WiFi local.
+    El desarrollo de sistemas de monitoreo energético requiere una comprensión profunda de la interacción entre la teoría de circuitos de corriente alterna, la instrumentación electrónica y las arquitecturas de comunicación en red. En este apartado se establecen los fundamentos teóricos necesarios para el diseño del sistema, abarcando desde los principios matemáticos de la medición de potencia hasta los protocolos de comunicación estándar en el Internet de las Cosas.
 
-    \subsection{Diagrama a Bloques del Sistema}
-        La arquitectura del sistema propuesto se divide en tres subsistemas funcionales principales, como se ilustra en el diagrama a bloques de la Figura \ref{fig:diagrama_bloques}.
-        Estos subsistemas son: 1) Los Nodos de Medición y Adquisición, 2) El Servidor Local de Procesamiento, y 3) El Subsistema de Control.
-        \begin{figure}[H]
-            \centering
-            \includegraphics[width=1.1\textwidth]{img/diagrama_bloques.png}
-            \caption{Diagrama a bloques del sistema propuesto (Representación de la arquitectura general).}
-            \label{fig:diagrama_bloques}
-        \end{figure}
+    \subsection{Fundamentos de Medición Eléctrica en Corriente Alterna}
+        Para gestionar eficientemente la energía eléctrica, es imperativo comprender la naturaleza dinámica de las variables físicas involucradas en un sistema residencial monofásico, donde la tensión y la corriente varían constantemente en el tiempo.
 
-         \newpage
+        \subsubsection{Potencia Instantánea}
+        En un circuito de corriente alterna (AC), la potencia no es un valor estático, sino una función del tiempo. Se define la potencia instantánea $p(t)$ como el producto del voltaje instantáneo $v(t)$ y la corriente instantánea $i(t)$ en un momento dado:
 
-    \subsection{Descripción de Subsistemas}
-        \paragraph{1. Subsistema de Medición Distribuido (Nodos ESP32):}
-        Es el componente encargado de la adquisición de datos en el borde. Para este prototipo, se implementan \textbf{dos nodos idénticos}, cada uno asignado a un circuito o habitación específica. Cada nodo opera de forma autónoma y consta de:
+        \begin{equation}
+            p(t) = v(t) \cdot i(t)
+        \end{equation}
+
+        Considerando que en la red eléctrica de México el voltaje se comporta como una señal sinusoidal $v(t) = V_{pico} \sin(\omega t)$ y asumiendo una carga lineal donde la corriente tiene un desfase $\phi$, la ecuación se expande a:
+
+        \begin{equation}
+            p(t) = V_{pico} I_{pico} \sin(\omega t) \sin(\omega t - \phi)
+        \end{equation}
+
+        Esta variable es crítica para el algoritmo del microcontrolador, ya que el ESP32 debe realizar la multiplicación de estas muestras discretas miles de veces por segundo para obtener una representación fiel del consumo real antes de promediar.
+
+        \subsubsection{Valor Eficaz (RMS)}
+        Dado que el promedio de una onda sinusoidal pura es cero, la potencia instantánea por sí sola es difícil de interpretar para el usuario final. Para cuantificar la capacidad efectiva de la corriente para realizar trabajo (disipar calor), se utiliza el valor de la Raíz Cuadrática Media (RMS). 
+        
+        El sistema propuesto implementa el algoritmo digital para calcular el voltaje y corriente RMS a partir de $N$ muestras tomadas durante un ciclo de red (16.6 ms a 60Hz):
+
+        \begin{equation}
+            I_{RMS} = \sqrt{\frac{1}{N} \sum_{n=0}^{N-1} i^2[n]}
+        \end{equation}
+
+        Este valor RMS es el estándar utilizado por la Comisión Federal de Electricidad (CFE) y los multímetros comerciales, permitiendo validar la precisión del prototipo.
+
+        \subsubsection{Potencia Aparente ($S$)}
+        La Potencia Aparente es la magnitud total de potencia que debe suministrar la red eléctrica a la vivienda, independientemente de si se consume útilmente o se regresa a la red (reactiva). Se representa con la letra $S$ y su unidad es el Volt-Ampere (VA).
+
+        Matemáticamente, se obtiene del producto de los valores eficaces calculados previamente:
+
+        \begin{equation}
+            S = V_{RMS} \cdot I_{RMS}
+        \end{equation}
+
+        En el contexto de este proyecto, la medición de Potencia Aparente es la métrica principal para el monitoreo, ya que representa la "carga" total que los electrodomésticos imponen al sistema, siendo ideal para detectar consumos anómalos o dispositivos encendidos innecesariamente (consumo fantasma).
+
+    \subsection{Instrumentación y Sensores (SCT-013)}
+        La medición de corriente se realiza mediante el método no invasivo utilizando sensores de la serie SCT-013, los cuales operan bajo el principio de los Transformadores de Corriente (CT). En esta configuración, el conductor de la instalación eléctrica actúa como el **devanado primario** (una sola espira), mientras que el sensor integra un núcleo de ferrita partido y un **devanado secundario** con un número elevado de vueltas (típicamente 2000), lo que establece la relación de transformación de corriente \cite{naylamp2023sct}.
+
+        \textbf{Principio de Transducción:}
+        La corriente que circula por el primario induce un flujo magnético en el núcleo, el cual genera una corriente proporcionalmente menor en el secundario. Existen dos variantes principales en esta familia de sensores:
         \begin{itemize}
-            \item \textbf{Sensor (SCT-013):} Es un transformador de corriente no invasivo de núcleo partido.
-            Su función es medir la corriente alterna (AC) que fluye por el conductor de la zona asignada sin contacto eléctrico.
-            \begin{itemize}
-                    \item \textit{Entrada:} Corriente AC (0-100A) de la línea de fase.
-                    \item \textit{Salida:} Una señal de corriente AC pequeña, proporcional a la entrada (ej. 50mA).
-            \end{itemize}
-            \item \textbf{Acondicionamiento de Señal:} Este circuito convierte la señal de corriente AC del sensor en una señal de voltaje DC con un desfase (offset), adaptada para ser leída por el ESP32 (ej. 0-3.3V).
-            \begin{itemize}
-                    \item \textit{Entrada:} Señal de corriente AC del sensor.
-                    \item \textit{Salida:} Señal de voltaje DC (0-3.3V) al ADC del ESP32.
-            \end{itemize}
-            \item \textbf{Procesamiento (ESP32):} El microcontrolador ESP32 muestrea la señal del ADC, realiza los cálculos para obtener la potencia instantánea (W) y la potencia aparente (VA), y se conecta a la red WiFi local.
-            \begin{itemize}
-                    \item \textit{Entrada:} Señal de voltaje del acondicionador.
-                    \item \textit{Salida:} Paquetes de datos MQTT (Protocolo: MQTT v3.1.1).
-                \end{itemize}
+            \item \textbf{Salida de Corriente (SCT-013-000):} Entrega una señal de corriente (ej. 50 mA por cada 100 A). Requiere una resistencia de carga externa (\textit{Burden Resistor}) para convertir esta corriente en una señal de voltaje legible por el microcontrolador.
+            \item \textbf{Salida de Voltaje (SCT-013-030):} Incluye una resistencia de carga interna, entregando directamente una señal de voltaje (ej. 1 V por cada 30 A) \cite{naylamp2023sct}.
         \end{itemize}
 
-        \paragraph{2. Subsistema Servidor Local (Raspberry Pi):}
-        Es el cerebro del sistema.
-        Centraliza la recepción, procesamiento y almacenamiento de datos.
-        \begin{itemize}
-            \item \textbf{Broker MQTT:} Se utilizará un broker (EMQX) que actúa como intermediario de mensajería.
-            Recibe los datos publicados por los nodos distribuidos.
-            \item \textbf{Node-RED:} Es la herramienta de programación visual que orquesta los flujos de datos y la lógica de control. Se suscribe al broker MQTT para recibir los datos de potencia y los procesa según reglas predefinidas. Además de detectar anomalías, este servicio gestiona la \textbf{automatización temporal}: mediante nodos de inyección cronológica (timers), envía comandos de encendido o apagado a los actuadores en horarios específicos (ej. corte de energía en horario laboral o nocturno) para optimizar el consumo.
-            \item \textbf{InfluxDB:} Es la base de datos optimizada para series temporales.
-            Almacena eficientemente los datos de consumo desagregados por nodo (Habitación 1, Habitación 2) con su marca de tiempo para consultas históricas.
-            \item \textbf{Grafana:} Es la plataforma de visualización. Se conecta a InfluxDB como fuente de datos y permite crear un dashboard web con gráficas, medidores e indicadores del consumo en tiempo real e histórico por zona.
-        \end{itemize}
+        \textbf{Acondicionamiento de Señal (Offset DC):}
+        Dado que la salida del sensor es una señal de corriente alterna (AC) que oscila entre valores positivos y negativos, y considerando que el convertidor analógico-digital (ADC) del ESP32 opera únicamente con voltajes positivos (0V a 3.3V), es necesario implementar un circuito de acondicionamiento.
+        
+        Este circuito debe añadir un voltaje de desplazamiento (\textit{DC Offset}) a la señal, típicamente de $V_{CC}/2$ (1.65V para el ESP32), centrando la onda sinusoidal en el rango dinámico del ADC. Sin este acondicionamiento, los semiciclos negativos de la corriente alterna serían recortados o podrían dañar la entrada del microcontrolador \cite{naylamp2023sct}.
 
-        \paragraph{3. Subsistema de Control y Notificación:}
-        Son los componentes que interactúan con el usuario o con la instalación eléctrica de forma activa.
-        \begin{itemize}
-            \item \textbf{Comunicación por Telegram:} La integración se realiza directamente desde el servidor local utilizando la comunicación mediante Telegram. La Raspberry Pi procesa los datos y envía alertas puntuales o recibe comandos de usuario, manteniendo la privacidad de los datos históricos.
-            
-            \item \textbf{Actuadores Inteligentes (Smart Switches):}
-            En sustitución de un esquema centralizado, se implementan módulos de interrupción WiFi basados en microcontroladores (tipo Sonoff Basic) instalados en cada habitación. Estos dispositivos actúan como relevadores inalámbricos conectados al servidor. Su función es ejecutar las órdenes de corte o reconexión provenientes de Node-RED, ya sean disparadas por una alerta de seguridad, una decisión manual del usuario o una \textbf{rutina de horario programado}, permitiendo una gestión eficiente y granular de la energía por zonas.
-        \end{itemize}
+        Para el modelo SCT-013-000 seleccionado (100A), la resistencia \textit{burden} ($R_{carga}$) necesaria para obtener un voltaje pico deseado ($V_{pico}$) se calcula mediante la Ley de Ohm aplicada al secundario:
+        \begin{equation}
+            R_{carga} = \frac{V_{pico}}{I_{secundario}}
+        \end{equation}
+        Donde $I_{secundario}$ es la corriente de salida nominal del sensor (0.05 A).
+        
 
-    \subsection{Especificaciones Técnicas}
-        El prototipo a desarrollar buscará cumplir con las siguientes especificaciones:
-        \begin{itemize}
-            \item \textbf{Rango de Medición:} 0 – 100 Amperes (AC) por nodo.
-            \item \textbf{Voltaje de Operación (Medición):} 127V AC (Monofásico).
-            \item \textbf{Precisión Esperada (Potencia):} $\pm 5\%$ comparado con un medidor comercial.
-            \item \textbf{Frecuencia de Muestreo (ESP32):} Envío de datos al servidor cada 10 segundos.
-            \item \textbf{Plataforma (Servidor):} Raspberry Pi 3B+ o superior.
-            \item \textbf{Protocolo de Comunicación:} MQTT sobre WiFi (red local).
-            \item \textbf{Interfaz de Usuario:} Dashboard en Grafana accesible vía navegador web en la red local.
-            \item \textbf{Sistema de Control:} Actuación distribuida mediante interruptores WiFi (Smart Switches) de 10A, controlados vía Wi-Fi.
-            \item \textbf{Automatización:} Capacidad de programación de horarios de encendido y apagado automático por nodos (Habitación).
-        \end{itemize}
+    \subsection{Hardware del Sistema}
+        \textbf{Microcontrolador ESP32:} Se selecciona este SoC (System on Chip) por su capacidad de procesamiento dual-core y conectividad WiFi integrada. Su convertidor analógico-digital (ADC) de 12 bits permite una resolución suficiente para digitalizar la señal proveniente de los sensores de corriente.
+        
+        \textbf{Raspberry Pi:} Actúa como el servidor de borde (\textit{Edge Server}). Es una computadora de placa reducida basada en Linux capaz de ejecutar el stack de software del servidor (Broker, Base de Datos y Dashboard) las 24 horas con un consumo energético mínimo.
+        
+        \textbf{Actuadores Inteligentes (Smart Switches):} Dispositivos basados en microcontroladores (tipo Sonoff Basic R4) que integran un relevador electromecánico y conectividad WiFi. Su función es interrumpir físicamente el circuito eléctrico al recibir un comando digital, permitiendo el control ON/OFF remoto.
+
+        \subsection{Plataformas de Software}
+        \textbf{Node-RED:} Herramienta de programación visual basada en flujos. Actúa como el orquestador lógico del sistema, procesando los mensajes MQTT, gestionando las reglas de automatización (horarios) y enrutando los datos.
+        
+        \textbf{InfluxDB:} Base de datos de series temporales (TSDB) optimizada para almacenar datos con marcas de tiempo precisas, ideal para registrar el historial de consumo eléctrico.
+        
+        \textbf{Grafana:} Plataforma de visualización que permite crear tableros de control (\textit{dashboards}) interactivos para que el usuario final monitoree las variables eléctricas y el estado de los actuadores en tiempo real.
 \newpage
-    
-\section{Cronograma de Actividades}
 
-    La planificación del proyecto se ha estructurado para ser completada en un periodo intensivo de un trimestre (12 semanas), correspondiente a la UEA del Trimestre 26-I.
-    Lo cual, conlleva a varias fases de desarrollo se ejecutarán de manera paralela para asegurar la integración total del sistema.
-    Las actividades están directamente alineadas con los objetivos particulares definidos en la sección anterior.
-    El seguimiento del avance se realizará mediante la siguiente tabla (Ver Tabla \ref{tab:cronograma}).
-    \begin{table}[H]
-    \centering
-    \caption{Cronograma de Actividades del Proyecto (Trimestre 26-I).}
-    \label{tab:cronograma}
-    \resizebox{\textwidth}{!}{%
-    \begin{tabular}{|l|c|c|c|c|c|c|c|c|c|c|c|c|}
-    \hline
-    & \multicolumn{12}{c|}{\textbf{Semanas del Trimestre 26-I}} \\ \hline
-    \textbf{Actividad} & \textbf{1} & \textbf{2} & \textbf{3} & \textbf{4} & \textbf{5} & \textbf{6} & \textbf{7} & \textbf{8} & \textbf{9} & \textbf{10} & \textbf{11} & \textbf{12} \\ \hline
-    \footnotesize{1. Diseño del circuito}        & \cellcolor{gray!40} & \cellcolor{gray!40} & & & & & & & & & & \\ \hline
-    \footnotesize{2. Construcción nodos}         & & \cellcolor{gray!40} & \cellcolor{gray!40} & \cellcolor{gray!40} & & & & & & & & \\ \hline
-    \footnotesize{3. Desarrollo firmware ESP32}  & & & \cellcolor{gray!40} & \cellcolor{gray!40} & \cellcolor{gray!40} & & & & & & & \\ \hline
-    \footnotesize{4. Establecer el ESP32 al servidor RPi}       & & & & \cellcolor{gray!40} & \cellcolor{gray!40} & \cellcolor{gray!40} & & & & & & \\ \hline
-    \footnotesize{5. Programación Node-RED}      & & & & & & \cellcolor{gray!40} & \cellcolor{gray!40} & \cellcolor{gray!40} & & & & \\ \hline
-    \footnotesize{6. Implementar Telegram}       & & & & & & & \cellcolor{gray!40} & \cellcolor{gray!40} & & & & \\ \hline
-    \footnotesize{7. Integrar actuadores}        & & & & & & & & \cellcolor{gray!40} & \cellcolor{gray!40} & & & \\ \hline
-    \footnotesize{8. Evaluación precisión}       & & & & & & & & & \cellcolor{gray!40} & \cellcolor{gray!40} & & \\ \hline
-    \footnotesize{9. Validación funcional}       & & & & & & & & & & \cellcolor{gray!40} & \cellcolor{gray!40} & \\ \hline
-    \footnotesize{Redacción de informe}          & \cellcolor{gray!40} & \cellcolor{gray!40} & \cellcolor{gray!40} & \cellcolor{gray!40} & \cellcolor{gray!40} & \cellcolor{gray!40} & \cellcolor{gray!40} & \cellcolor{gray!40} & \cellcolor{gray!40} & \cellcolor{gray!40} & \cellcolor{gray!40} & \cellcolor{gray!40} \\ \hline
-    \footnotesize{Entrega}        & & & & & & & & & & & & \cellcolor{gray!40} \\ \hline
-    \end{tabular}%
-    }
-    \end{table}
+\section{Desarrollo del proyecto}
+\newpage
 
-\section{Entregables}
-    Para el desarrollo del proyecto y como evidencia del cumplimiento de los objetivos, se generarán los 
-    siguientes productos:
+\section{Resultados}
+\newpage
 
-    \begin{itemize}
-        \item \textbf{Documentación de Diseño:} Diagramas esquemáticos del circuito de acondicionamiento de señal.
-        \item \textbf{Prototipo Físico Funcional:} Dos nodos de medición (ESP32), el servidor local (Raspberry Pi) y los actuadores de control (Switches Wi-Fi), integrados y operativos.
-        \item \textbf{Código Fuente (Software):}
-            \begin{itemize}
-                \item Firmware del microcontrolador ESP32 (programado en C++/Arduino).
-                \item Flujos de trabajo de Node-RED (en formato JSON).
-            \end{itemize}
-        \item \textbf{Panel de Control (Dashboard):} Dashboard funcional y configurado en Grafana para la visualización de los datos de consumo desagregados por zona.
-    \end{itemize}
-    \newpage
+\section{Análisis de resultados}
+\newpage
+
+\section{Conclusiones}
 
  % Comentarios de código para posibles figuras o tablas futuras
 \begin{comment}
