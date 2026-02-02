@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.27 (MiKTeX 25.4) (preloaded format=pdflatex 2025.11.17)  27 JAN 2026 15:47
+This is pdfTeX, Version 3.141592653-2.6-1.40.27 (MiKTeX 25.4) (preloaded format=pdflatex 2025.11.17)  31 JAN 2026 20:42
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -1148,63 +1148,80 @@ Underfull \hbox (badness 1067) in paragraph at lines 155--156
  []
 
 [7]
-Underfull \hbox (badness 1072) in paragraph at lines 166--167
+<img/AC.png, id=231, 652.4375pt x 401.5pt>
+File: img/AC.png Graphic file (type png)
+<use img/AC.png>
+Package pdftex.def Info: img/AC.png  used on input line 174.
+(pdftex.def)             Requested size: 328.82707pt x 202.36073pt.
+<img/AC_amplitud.png, id=234, 652.4375pt x 401.5pt>
+File: img/AC_amplitud.png Graphic file (type png)
+<use img/AC_amplitud.png>
+Package pdftex.def Info: img/AC_amplitud.png  used on input line 184.
+(pdftex.def)             Requested size: 328.82707pt x 202.36073pt.
+
+Underfull \hbox (badness 1072) in paragraph at lines 180--187
 []\T1/ppl/m/n/12 Para ges-tio-nar efi-cien-te-men-te la ener-gía eléc-tri-ca, es im-pe-ra-ti-vo com-pren-der la
+ []
+
+[8 <./img/AC.png>]
+<img/AC_voltaje.png, id=244, 652.4375pt x 401.5pt>
+File: img/AC_voltaje.png Graphic file (type png)
+<use img/AC_voltaje.png>
+Package pdftex.def Info: img/AC_voltaje.png  used on input line 192.
+(pdftex.def)             Requested size: 328.82707pt x 202.36073pt.
+ [9 <./img/AC_amplitud.png> <./img/AC_voltaje.png>]
+Underfull \hbox (badness 1675) in paragraph at lines 210--211
+\T1/ppl/m/n/12 ad-qui-ri-das por el mi-cro-con-tro-la-dor ESP32. La ecua-ción dis-cre-ta pa-ra la po-ten-cia
  []
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `math shift' on input line 194.
+(hyperref)                removing `math shift' on input line 235.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `math shift' on input line 194.
+(hyperref)                removing `math shift' on input line 235.
 
-[8]
-Underfull \hbox (badness 2753) in paragraph at lines 197--198
+[10]
+Underfull \hbox (badness 2753) in paragraph at lines 239--240
 []\T1/ppl/m/n/12 Matemáticamente, se ob-tie-ne del pro-duc-to de los va-lo-res efi-ca-ces cal-cu-la-dos
  []
 
 
-LaTeX Warning: Citation `naylamp2023sct' on page 9 undefined on input line 206.
+LaTeX Warning: Citation `naylamp2023sct' on page 11 undefined on input line 248.
 
 
-LaTeX Warning: Citation `naylamp2023sct' on page 9 undefined on input line 212.
+LaTeX Warning: Citation `naylamp2023sct' on page 11 undefined on input line 254.
 
 
-Underfull \hbox (badness 3158) in paragraph at lines 212--213
+Underfull \hbox (badness 3158) in paragraph at lines 254--255
 []\T1/ppl/b/n/12 Salida de Vol-ta-je (SCT-013-030): \T1/ppl/m/n/12 In-clu-ye una re-sis-ten-cia de car-ga in-ter-na,
  []
 
 
-LaTeX Warning: Citation `naylamp2023sct' on page 9 undefined on input line 218.
+LaTeX Warning: Citation `naylamp2023sct' on page 11 undefined on input line 260.
 
 
-Underfull \hbox (badness 1024) in paragraph at lines 218--219
+Underfull \hbox (badness 1024) in paragraph at lines 260--261
 []\T1/ppl/m/n/12 Este cir-cui-to de-be aña-dir un vol-ta-je de des-pla-za-mien-to (\T1/ppl/m/it/12 DC Off-set\T1/ppl/m/n/12 ) a la se-ñal,
  []
 
 
-Underfull \hbox (badness 1796) in paragraph at lines 220--221
+Underfull \hbox (badness 1796) in paragraph at lines 262--263
 []\T1/ppl/m/n/12 Para el mo-de-lo SCT-013-000 se-lec-cio-na-do (100A), la re-sis-ten-cia \T1/ppl/m/it/12 bur-den \T1/ppl/m/n/12 ($\OML/cmm/m/it/12 R[]$\T1/ppl/m/n/12 )
  []
 
-[9]
-Underfull \hbox (badness 10000) in paragraph at lines 232--233
+[11]
+Underfull \hbox (badness 10000) in paragraph at lines 274--275
 []\T1/ppl/b/n/12 Actuadores In-te-li-gen-tes (Smart Swit-ches): \T1/ppl/m/n/12 Dis-po-si-ti-vos ba-sa-dos en
  []
 
 
-Underfull \hbox (badness 4132) in paragraph at lines 239--240
+Underfull \hbox (badness 4132) in paragraph at lines 281--282
 []\T1/ppl/b/n/12 Grafana: \T1/ppl/m/n/12 Pla-ta-for-ma de vi-sua-li-za-ción que per-mi-te crear ta-ble-ros de con-trol
  []
 
-[10] [11] [12] [13] Excluding 'comment' comment.) [14] (main.bbl)
-
-Package caption Warning: Unused \captionsetup[figure] on input line 17.
-See the caption package documentation for explanation.
-
-[15] (main.aux (portada.aux)
+[12] [13] [14] [15] Excluding 'comment' comment.) [16] (main.bbl) [17] (main.aux (portada.aux)
 LaTeX Info: Redefining \. on input line 12.
 LaTeX Info: Redefining \% on input line 12.
  (declaratoria.aux))
@@ -1217,20 +1234,29 @@ L3 programming layer <2025-10-24>
 LaTeX Warning: There were undefined references.
 
 Package rerunfilecheck Info: File `main.out' has not changed.
-(rerunfilecheck)             Checksum: 725F66E13B3D507BD5703F51E716B45F;5271.
+(rerunfilecheck)             Checksum: 36BD52BD554A2DA5BF348A175AEAB10C;5435.
  ) 
 Here is how much of TeX's memory you used:
- 29460 strings out of 467871
- 551461 string characters out of 5428442
- 979988 words of memory out of 5000000
- 57750 multiletter control sequences out of 15000+600000
- 647754 words of font info for 76 fonts, out of 8000000 for 9000
+ 29501 strings out of 467871
+ 552213 string characters out of 5428442
+ 980213 words of memory out of 5000000
+ 57780 multiletter control sequences out of 15000+600000
+ 649360 words of font info for 78 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  104i,15n,121p,3421b,609s stack positions out of 10000i,1000n,20000p,200000b,200000s
+
+pdfTeX warning (dest): name{Hfootnote.6} has been referenced but does not exist, replaced by a fixed one
+
+
+pdfTeX warning (dest): name{Hfootnote.4} has been referenced but does not exist, replaced by a fixed one
+
+
+pdfTeX warning (dest): name{Hfootnote.2} has been referenced but does not exist, replaced by a fixed one
+
 <C:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmex10.pfb><C:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi12.pfb><C:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi8.pfb><C:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmr12.pfb><C:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmr8.pfb><C:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy8.pfb><C:/Program Files/MiKTeX/fonts/type1/urw/palatino/uplb8a.pfb><C:/Program Files/MiKTeX/fonts/type1/urw/palatino/uplr8a.pfb><C:/Program Files/MiKTeX/fonts/type1/urw/palatino/uplri8a.pfb>
-Output written on main.pdf (20 pages, 203128 bytes).
+Output written on main.pdf (22 pages, 240877 bytes).
 PDF statistics:
- 324 PDF objects out of 1000 (max. 8388607)
- 65 named destinations out of 1000 (max. 500000)
- 213 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 362 PDF objects out of 1000 (max. 8388607)
+ 75 named destinations out of 1000 (max. 500000)
+ 236 words of extra memory for PDF output out of 10000 (max. 10000000)
 

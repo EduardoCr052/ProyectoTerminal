@@ -160,12 +160,41 @@ La solución técnica consiste en una arquitectura distribuida de nodos de adqui
 
 \section{Marco Teórico}
 
-    El desarrollo de sistemas de monitoreo energético requiere una comprensión profunda de la interacción entre la teoría de circuitos de corriente alterna, la instrumentación electrónica y las arquitecturas de comunicación en red. En este apartado se establecen los fundamentos teóricos necesarios para el diseño del sistema, abarcando desde los principios matemáticos de la medición de potencia hasta los protocolos de comunicación estándar en el Internet de las Cosas.
+    El desarrollo de sistemas de monitoreo energético requiere una comprensión profunda de la interacción entre la teoría de circuitos de corriente alterna, la instrumentación electrónica y las arquitecturas de comunicación en red.
+
+    \subsection{La corriente alterna}
+        La corriente alterna (AC) es el tipo de corriente eléctrica predominante en las redes de distribución residencial a nivel mundial. A diferencia de la corriente continua (DC), donde el flujo de electrones es unidireccional y constante, en la corriente alterna la magnitud y dirección del flujo varían periódicamente con el tiempo, siguiendo una forma de onda sinusoidal. Esto da forma a la funcion trigonometrica del seno, eso es debido a dos factores, a que se consigue una transmisión más eficiente de la energía y a como se genera la electricidad en su origen.
+
+        En México, la red eléctrica suministra una tensión nominal de 127V a 60Hz para instalaciones monofásicas residenciales. Esta frecuencia indica que la señal completa se repite 60 veces por segundo, lo que implica que cada ciclo tiene una duración de aproximadamente 16.67 milisegundos.
+
+        La naturaleza oscilatoria de la corriente alterna introduce complejidades adicionales en la medición y análisis del consumo eléctrico, ya que las variables involucradas (voltaje, corriente y potencia) no son constantes sino funciones del tiempo. Por ello, es fundamental emplear técnicas adecuadas para capturar y procesar estas señales de manera precisa.
+
+        \begin{figure}[H]
+            \centering
+            \includegraphics[width=0.7\textwidth]{img/AC.png}
+            \caption[Representación de una señal de corriente alterna]{Representación de una señal de corriente alterna\footnotemark}
+            \label{fig:AC}
+        \end{figure}
 
     \subsection{Fundamentos de Medición Eléctrica en Corriente Alterna}
-        Para gestionar eficientemente la energía eléctrica, es imperativo comprender la naturaleza dinámica de las variables físicas involucradas en un sistema residencial monofásico, donde la tensión y la corriente varían constantemente en el tiempo.
+        Para gestionar eficientemente la energía eléctrica, es imperativo comprender la naturaleza dinámica de las variables físicas involucradas en un sistema residencial monofásico, donde la tensión y la corriente varían constantemente en el tiempo. Lo cual el máximo es un número positivo y el minimo es un número negativo. La frecuencia de esta variación es de 50 o 60 Hz, dependiendo del país. 
+        La amplitud nos indica el valor máximo y el valor mínimo de la señal. En el caso de la corriente nos indica el valor máximo de corriente en amperios (A).
+        \begin{figure}[H]
+            \centering
+            \includegraphics[width=0.7\textwidth]{img/AC_amplitud.png}
+            \caption[Amplitud de una señal de corriente alterna]{Amplitud de una señal de corriente alterna\footnotemark}
+            \label{fig:AC_amplitud}
+        \end{figure}
 
-        \subsubsection{Potencia Instantánea}
+        Además, el voltaje también varía de la misma manera, lo cual se representa de la siguiente manera las dos magnitudes:
+        \begin{figure}[H]
+            \centering
+            \includegraphics[width=0.7\textwidth]{img/AC_voltaje.png}
+            \caption[Voltaje de una señal de corriente alterna]{Voltaje de una señal de corriente alterna\footnotemark}
+            \label{fig:AC_voltaje}
+        \end{figure}
+%%    
+    \subsubsection{Potencia Instantánea}
         En un circuito de corriente alterna (AC), la potencia no es un valor estático, sino una función del tiempo. Se define la potencia instantánea $p(t)$ como el producto del voltaje instantáneo $v(t)$ y la corriente instantánea $i(t)$ en un momento dado:
 
         \begin{equation}
@@ -178,9 +207,18 @@ La solución técnica consiste en una arquitectura distribuida de nodos de adqui
             p(t) = V_{pico} I_{pico} \sin(\omega t) \sin(\omega t - \phi)
         \end{equation}
 
-        Esta variable es crítica para el algoritmo del microcontrolador, ya que el ESP32 debe realizar la multiplicación de estas muestras discretas miles de veces por segundo para obtener una representación fiel del consumo real antes de promediar.
+        Dado que el sistema de monitoreo energético propuesto se enfoca en procesamientos digitales, la potencia instantánea se calcula a partir de muestras discretas de corriente adquiridas por el microcontrolador ESP32. La ecuación discreta para la potencia instantánea en la muestra $n$ es:
+        \begin{equation}
+            p[n] = V_{constante} \cdot i[n]
+        \end{equation}
+        Donde $V_{constante}$ es el valor eficaz del voltaje de la red
+        (127V en México) y $i[n]$ es la muestra de corriente en el instante $n$.
 
-        \subsubsection{Valor Eficaz (RMS)}
+    \subsubsection{Valor Eficaz (RMS)}
+        El valor eficaz, comúnmente denominado RMS (del inglés Root Mean Square), es el parámetro estándar para cuantificar la magnitud de una señal de corriente alterna. Físicamente, el valor RMS de una corriente alterna se define como el valor equivalente de una corriente directa (CD) que produciría la misma disipación de calor (efecto Joule) en una resistencia óhmica idéntica.
+        
+        A diferencia del valor promedio de una onda senoidal pura (que es cero debido a la simetría de sus semiciclos positivo y negativo), el valor RMS proporciona una medida útil de la magnitud energética de la señal.
+
         Dado que el promedio de una onda sinusoidal pura es cero, la potencia instantánea por sí sola es difícil de interpretar para el usuario final. Para cuantificar la capacidad efectiva de la corriente para realizar trabajo (disipar calor), se utiliza el valor de la Raíz Cuadrática Media (RMS). 
         
         El sistema propuesto implementa el algoritmo digital para calcular el voltaje y corriente RMS a partir de $N$ muestras tomadas durante un ciclo de red (16.6 ms a 60Hz):
@@ -188,11 +226,15 @@ La solución técnica consiste en una arquitectura distribuida de nodos de adqui
         \begin{equation}
             I_{RMS} = \sqrt{\frac{1}{N} \sum_{n=0}^{N-1} i^2[n]}
         \end{equation}
+        Donde: 
+        $N$: Número total de muestras capturadas en el intervalo de medición. \\
+        $i[n]$: Valor de la corriente de la muestra $n$-ésima.
 
         Este valor RMS es el estándar utilizado por la Comisión Federal de Electricidad (CFE) y los multímetros comerciales, permitiendo validar la precisión del prototipo.
 
-        \subsubsection{Potencia Aparente ($S$)}
-        La Potencia Aparente es la magnitud total de potencia que debe suministrar la red eléctrica a la vivienda, independientemente de si se consume útilmente o se regresa a la red (reactiva). Se representa con la letra $S$ y su unidad es el Volt-Ampere (VA).
+    \subsubsection{Potencia Aparente ($S$)}
+        La Potencia Aparente es la magnitud total de potencia que debe suministrar la red eléctrica a la vivienda. Se define como el producto del valor eficaz del voltaje y el valor eficaz de la corriente, sin considerar el desfase entre ambas.  
+        Fisicamente, la Potencia Aparente indica la capacidad total que la red debe proporcionar para alimentar la carga, incluyendo tanto la potencia activa (real) como la potencia reactiva. Se representa con la letra $S$ y su unidad es el Volt-Ampere (VA).
 
         Matemáticamente, se obtiene del producto de los valores eficaces calculados previamente:
 
