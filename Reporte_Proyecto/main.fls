@@ -427,7 +427,6 @@ INPUT .\img\AC.png
 INPUT .\img\AC.png
 INPUT .\img\AC.png
 INPUT .\img\AC.png
-INPUT C:\Program Files\MiKTeX\fonts\tfm\adobe\palatino\pplr8t.tfm
 INPUT .\img\AC_amplitud.png
 INPUT .\img\AC_amplitud.png
 INPUT .\img\AC_amplitud.png
@@ -435,15 +434,6 @@ INPUT .\img\AC_amplitud.png
 INPUT .\img\AC_amplitud.png
 INPUT .\img\AC_amplitud.png
 INPUT .\img\AC_amplitud.png
-INPUT C:\Program Files\MiKTeX\fonts\vf\adobe\palatino\pplr8t.vf
-INPUT C:\Program Files\MiKTeX\fonts\tfm\adobe\palatino\pplr8r.tfm
-INPUT .\img\AC_voltaje.png
-INPUT .\img\AC_voltaje.png
-INPUT .\img\AC_voltaje.png
-INPUT .\img\AC_voltaje.png
-INPUT .\img\AC_voltaje.png
-INPUT .\img\AC_voltaje.png
-INPUT .\img\AC_voltaje.png
 INPUT C:\Program Files\MiKTeX\fonts\tfm\adobe\palatino\pplri8t.tfm
 INPUT C:\Program Files\MiKTeX\fonts\vf\adobe\palatino\pplri8t.vf
 INPUT C:\Program Files\MiKTeX\fonts\tfm\adobe\palatino\pplri8r.tfm
