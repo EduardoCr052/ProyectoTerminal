@@ -437,6 +437,12 @@ INPUT .\img\AC_amplitud.png
 INPUT C:\Program Files\MiKTeX\fonts\tfm\adobe\palatino\pplri8t.tfm
 INPUT C:\Program Files\MiKTeX\fonts\vf\adobe\palatino\pplri8t.vf
 INPUT C:\Program Files\MiKTeX\fonts\tfm\adobe\palatino\pplri8r.tfm
+INPUT C:\Program Files\MiKTeX\fonts\tfm\adobe\palatino\pplbi8t.tfm
+INPUT C:\Program Files\MiKTeX\fonts\tfm\adobe\palatino\pplr8t.tfm
+INPUT C:\Program Files\MiKTeX\fonts\vf\adobe\palatino\pplbi8t.vf
+INPUT C:\Program Files\MiKTeX\fonts\tfm\adobe\palatino\pplbi8r.tfm
+INPUT C:\Program Files\MiKTeX\fonts\vf\adobe\palatino\pplr8t.vf
+INPUT C:\Program Files\MiKTeX\fonts\tfm\adobe\palatino\pplr8r.tfm
 INPUT .\main.bbl
 INPUT .\main.bbl
 INPUT main.bbl
@@ -468,6 +474,8 @@ INPUT C:\Program Files\MiKTeX\fonts\type1\public\amsfonts\cm\cmsy8.pfb
 INPUT C:\Program Files\MiKTeX\fonts\type1\public\amsfonts\cm\cmsy8.pfb
 INPUT C:\Program Files\MiKTeX\fonts\type1\urw\palatino\uplb8a.pfb
 INPUT C:\Program Files\MiKTeX\fonts\type1\urw\palatino\uplb8a.pfb
+INPUT C:\Program Files\MiKTeX\fonts\type1\urw\palatino\uplbi8a.pfb
+INPUT C:\Program Files\MiKTeX\fonts\type1\urw\palatino\uplbi8a.pfb
 INPUT C:\Program Files\MiKTeX\fonts\type1\urw\palatino\uplr8a.pfb
 INPUT C:\Program Files\MiKTeX\fonts\type1\urw\palatino\uplr8a.pfb
 INPUT C:\Program Files\MiKTeX\fonts\type1\urw\palatino\uplri8a.pfb

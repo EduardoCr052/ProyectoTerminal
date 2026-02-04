@@ -90,16 +90,9 @@ W.~H. Hayt, J.~E. Kemmerly, and S.~M. Durbin, \emph{Análisis de circuitos en
   ingeniería}, 8th~ed.\hskip 1em plus 0.5em minus 0.4em\relax McGraw-Hill,
   2012.
 
-\bibitem{halliday2014}
-D.~Halliday, R.~Resnick, and J.~Walker, \emph{Fundamentals of Physics},
-  10th~ed.\hskip 1em plus 0.5em minus 0.4em\relax Wiley, 2014.
-
-\bibitem{atmel2005}
-{Atmel Corporation}, \emph{AVR465: Single-Phase Power/Energy Meter with Tamper
-  Detection}, Microchip Technology, 2005, application Note.
-
-\bibitem{chapman2012}
-S.~J. Chapman, \emph{Máquinas eléctricas}, 5th~ed.\hskip 1em plus 0.5em minus
-  0.4em\relax McGraw-Hill, 2012.
+\bibitem{programarfacil}
+{Del Valle, Luis}, ``Medir consumo eléctrico con arduino y el sensor
+  sct-013,'' ProgramarFácil, 2023, recuperado de:
+  \url{https://programarfacil.com/blog/arduino-blog/sct-013-consumo-electrico-arduino/}.
 
 \end{thebibliography}

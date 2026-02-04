@@ -1,4 +1,4 @@
-This is BibTeX, Version 0.99e
+This is BibTeX, Version 0.99d
 Capacity: max_strings=200000, hash_size=200000, hash_prime=170003
 The top-level auxiliary file: main.aux
 Reallocating 'name_of_file' (item size: 1) to 12 items.
@@ -14,51 +14,52 @@ Reallocating 'singl_function' (item size: 4) to 100 items.
 Reallocating 'wiz_functions' (item size: 4) to 6000 items.
 Reallocating 'singl_function' (item size: 4) to 100 items.
 Database file #1: piic.bib
+Warning--I didn't find a database entry for "openenergy"
 Warning--I didn't find a database entry for "naylamp2023sct"
 -- IEEEtran.bst version 1.14 (2015/08/26) by Michael Shell.
 -- http://www.michaelshell.org/tex/ieeetran/bibtex/
 -- See the "IEEEtran_bst_HOWTO.pdf" manual for usage information.
 
 Done.
-You've used 16 entries,
+You've used 14 entries,
             4087 wiz_defined-function locations,
-            914 strings with 10198 characters,
-and the built_in function-call counts, 7460 in all, are:
-= -- 559
-> -- 157
-< -- 24
-+ -- 68
-- -- 32
-* -- 306
-:= -- 1239
-add.period$ -- 32
-call.type$ -- 16
-change.case$ -- 16
-chr.to.int$ -- 66
-cite$ -- 16
-duplicate$ -- 599
-empty$ -- 753
-format.name$ -- 39
-if$ -- 1725
+            907 strings with 10137 characters,
+and the built_in function-call counts, 6599 in all, are:
+= -- 507
+> -- 135
+< -- 19
++ -- 60
+- -- 28
+* -- 269
+:= -- 1108
+add.period$ -- 29
+call.type$ -- 14
+change.case$ -- 15
+chr.to.int$ -- 51
+cite$ -- 14
+duplicate$ -- 524
+empty$ -- 656
+format.name$ -- 34
+if$ -- 1519
 int.to.chr$ -- 0
-int.to.str$ -- 16
-missing$ -- 118
-newline$ -- 71
-num.names$ -- 16
-pop$ -- 318
+int.to.str$ -- 14
+missing$ -- 106
+newline$ -- 65
+num.names$ -- 14
+pop$ -- 283
 preamble$ -- 1
 purify$ -- 0
 quote$ -- 2
-skip$ -- 586
+skip$ -- 520
 stack$ -- 0
-substring$ -- 105
-swap$ -- 358
+substring$ -- 93
+swap$ -- 319
 text.length$ -- 2
 text.prefix$ -- 0
 top$ -- 5
-type$ -- 16
+type$ -- 14
 warning$ -- 0
-while$ -- 29
-width$ -- 18
-write$ -- 152
-(There was 1 warning)
+while$ -- 25
+width$ -- 16
+write$ -- 138
+(There were 2 warnings)

@@ -163,7 +163,7 @@ La solución técnica consiste en una arquitectura distribuida de nodos de adqui
     El desarrollo de sistemas de monitoreo energético requiere una comprensión profunda de la interacción entre la teoría de circuitos de corriente alterna, la instrumentación electrónica y las arquitecturas de comunicación en red.
 
     \subsection{La corriente alterna}
-        La corriente alterna (AC) es el tipo de corriente eléctrica predominante en las redes de distribución residencial a nivel mundial. Según Alexander y Sadiku \cite{sadiku2013}, a diferencia de la corriente continua (DC), donde el flujo de electrones es unidireccional, en la corriente alterna la magnitud y dirección varían periódicamente siguiendo una forma de onda sinusoidal. Esta forma de onda se justifica por la eficiencia en la transmisión de energía y la naturaleza de los generadores rotativos.
+        La corriente alterna (AC) es el tipo de corriente eléctrica predominante en las redes de distribución residencial a nivel mundial. Se dice que a  diferencia de la corriente continua (DC), donde el flujo de electrones es unidireccional, en la corriente alterna la magnitud y dirección varían periódicamente siguiendo una forma de onda sinusoidal \cite{sadiku2013}. Esta forma de onda se justifica por la eficiencia en la transmisión de energía y la naturaleza de los generadores rotativos.
 
         En el contexto nacional, la Norma Oficial Mexicana NOM-001-SEDE-2012 establece que la red eléctrica residencial suministra una tensión nominal de 127V a 60Hz \cite{nom2012}. Esta frecuencia implica que la señal completa se repite 60 veces por segundo, resultando en un periodo de $T \approx 16.67$ milisegundos por ciclo.
 
@@ -188,16 +188,10 @@ La solución técnica consiste en una arquitectura distribuida de nodos de adqui
         \end{figure}
 
     \subsubsection{Potencia Instantánea}
-        En un circuito de AC, la potencia no es estática. De acuerdo con Hayt et al. \cite{hayt2012}, la potencia instantánea $p(t)$ se define como el producto del voltaje y la corriente en un instante específico:
+        La potencia instantánea se considera como el producto de la tensión y la corriente en un instante dado. Lo cual resulta muy util durante las oscilaciones y nos proporciona medios para calcular la potencia promedio. En un circuito de AC, la potencia no es estática \cite{hayt2012}, y se define como el producto del voltaje y la corriente en un instante específico:
 
         \begin{equation}
             p(t) = v(t) \cdot i(t)
-        \end{equation}
-
-        Para una carga lineal con un desfase $\phi$, esta ecuación se expande mostrando un componente constante (potencia activa) y uno oscilatorio de frecuencia $2\omega$:
-
-        \begin{equation}
-            p(t) = V_{pico} I_{pico} \sin(\omega t) \sin(\omega t - \phi)
         \end{equation}
 
         Dado que el sistema propuesto utiliza procesamiento digital en un microcontrolador ESP32, la señal continua se discretiza. Según la teoría de monitoreo digital documentada por OpenEnergyMonitor \cite{openenergymonitor}, la potencia instantánea para la muestra $n$-ésima se calcula como:
@@ -208,27 +202,115 @@ La solución técnica consiste en una arquitectura distribuida de nodos de adqui
 
         \noindent \textit{Nota: En implementaciones donde no se cuenta con sensor de voltaje, $v[n]$ puede aproximarse como una constante $V_{rms}$, aunque la definición teórica rigurosa requiere el muestreo de ambas señales.}
 
-    \subsubsection{Valor Eficaz (RMS)}
-        El valor eficaz o RMS (*Root Mean Square*) es el estándar para cuantificar la magnitud de una señal AC. Físicamente, representa el valor de corriente directa que produciría la misma disipación de calor por efecto Joule en una resistencia equivalente \cite{halliday2014}.
+    \subsubsection{Potencia Promedio (Potencia Activa)}
 
-        A diferencia del promedio simple (que sería cero en una onda senoidal pura), el RMS cuantifica la capacidad energética real. Para la implementación digital, la integral continua se reemplaza por una suma de Riemann. Según las notas de aplicación para medidores de energía de estado sólido \cite{atmel2005}, la fórmula implementada en el firmware para $N$ muestras es:
+        Si bien la potencia instantánea describe el flujo de energía en cada momento, para propósitos de facturación y diseño de máquinas es necesario conocer el promedio de esta energía a lo largo del tiempo. Este valor se denomina Potencia Promedio o Potencia Activa ($P$).
+
+        Según explican Hayt, Kemmerly y Durbin \cite{hayt2012}, la potencia promedio se define matemáticamente como la integral de la potencia instantánea $p(t)$ sobre un periodo completo $T$, dividida por la duración de dicho periodo:
+
+        \begin{equation}
+            P = \frac{1}{T} \int_{0}^{T} p(t) \, dt = \frac{1}{T} \int_{0}^{T} v(t) i(t) \, dt
+        \end{equation}
+
+        Físicamente, la Potencia Activa representa la cantidad de energía eléctrica que es irreversiblemente transformada en otra forma de energía (mecánica, térmica o lumínica) por unidad de tiempo. Su unidad es el Watt ($W$).
+
+        \paragraph{Cálculo Discreto en el Microcontrolador} \hfill \break
+        A diferencia de la Potencia Aparente (que se calcula multiplicando $V_{RMS} \cdot I_{RMS}$), la Potencia Activa real debe calcularse integrando muestra por muestra antes de promediar, para capturar correctamente el desfase entre voltaje y corriente.
+
+        En el firmware del sistema propuesto, se aplica la sumatoria discreta documentada por las notas de aplicación de monitoreo energético \cite{programarfacil}:
+
+        \begin{equation}
+            P = \frac{1}{N} \sum_{n=0}^{N-1} (v[n] \cdot i[n])
+        \end{equation}
+
+        Donde $v[n]$ e $i[n]$ son las muestras instantáneas emparejadas. Este método es crucial porque permite medir el consumo real ($Watts$) independientemente del factor de potencia de la carga.
+
+    \subsubsection{Valor Eficaz (RMS)}
+
+        En el análisis de circuitos de corriente alterna, la magnitud de la corriente varía instante a instante, lo que dificulta establecer un valor único que represente su capacidad de trabajo. Para resolver esto se utiliza el Valor Eficaz o RMS (del inglés \textit{Root Mean Square}).
+
+        De acuerdo con Hayt, Kemmerly y Durbin \cite{hayt2012}, el valor RMS se define físicamente como el valor equivalente de una corriente directa (DC) que produciría la misma disipación de potencia promedio (calor) al circular por una resistencia óhmica idéntica. Matemáticamente, para una función continua en el tiempo $i(t)$, este valor se obtiene mediante la raíz cuadrada del promedio del cuadrado de la señal a lo largo de un periodo $T$:
+
+        \begin{equation}
+            I_{RMS} = \sqrt{\frac{1}{T} \int_{0}^{T} i^2(t) \, dt}
+        \end{equation}
+
+        Esta definición es relevante, ya que, vincula una señal oscilatoria con un valor escalar de potencia real, permitiendo comparar sistemas de AC y DC bajo un mismo estándar energético.
+
+        Para la implementación del sistema de monitoreo, no es viable aplicar un promedio aritmético simple a la señal capturada. Como se detalla en la documentación técnica \cite{programarfacil}, la naturaleza sinusoidal de la corriente alterna presenta simetría entre sus semiciclos positivos y negativos. En consecuencia, la suma directa de todos los valores instantáneos durante un ciclo completo resultaría matemáticamente en cero, lo cual no refleja el flujo real de energía.
+
+        Para solucionar esta limitante física y obtener una medición útil, el firmware del sistema implementa el algoritmo de \textbf{Raíz Cuadrática Media} en el dominio discreto. Este proceso consta de tres etapas secuenciales que justifican la fórmula utilizada:
+
+        \begin{enumerate}
+            \item \textbf{Cuadrar (\textit{Square}):} Se eleva al cuadrado cada muestra digital $i[n]$. Esta operación matemática tiene el efecto físico de convertir todos los valores negativos de la onda en positivos, representando la magnitud de la energía sin importar la dirección del flujo.
+            \item \textbf{Promediar (\textit{Mean}):} Se calcula la media aritmética de estos valores cuadráticos acumulados durante el periodo de muestreo.
+            \item \textbf{Raíz (\textit{Root}):} Se aplica la raíz cuadrada al resultado para devolver la magnitud a su unidad lineal original (Amperios).
+        \end{enumerate}
+
+        Por lo tanto, la ecuación que rige el funcionamiento del algoritmo en el microcontrolador, sustituyendo la integral continua por una sumatoria de $N$ muestras, es:
 
         \begin{equation}
             I_{RMS} = \sqrt{\frac{1}{N} \sum_{n=0}^{N-1} i[n]^2}
         \end{equation}
 
-        Donde $N$ es el número de muestras tomadas durante al menos un ciclo completo de red. Este método, conocido como "True RMS", permite medir con precisión incluso ante la presencia de ruido o distorsión armónica.
+        Este método de cálculo, conocido técnicamente como "True RMS", garantiza que el sistema reporte el consumo energético real incluso ante la presencia de cargas no lineales que distorsionen la forma de onda perfecta.
 
-        \subsubsection{Potencia Aparente ($S$)}
-        La Potencia Aparente ($S$) representa la capacidad total de suministro requerida por la red. Se define como el producto de los valores eficaces de tensión y corriente, sin considerar el ángulo de fase \cite{chapman2012}:
+    \subsubsection{Potencia Aparente ($S$)}
+        Mientras que la potencia activa representa el trabajo útil, en el análisis de sistemas eléctricos es necesario cuantificar la magnitud total de la potencia que circula por el circuito, independientemente de si esta se consume o se almacena temporalmente en campos electromagnéticos. Este parámetro se denomina Potencia Aparente.
+
+        Según definen Hayt, Kemmerly y Durbin \cite{hayt2012}, la Potencia Aparente ($S$) es el producto de los valores eficaces (RMS) de voltaje y corriente. El término "aparente" deriva del hecho de que, si se miden el voltaje y la corriente por separado con un multímetro convencional, el producto de estas lecturas parece ser la potencia total del sistema.
+
+        Matemáticamente, se define como:
 
         \begin{equation}
             S = V_{RMS} \cdot I_{RMS}
         \end{equation}
 
-        Su unidad es el Volt-Ampere (VA). En el contexto del monitoreo residencial, $S$ es una métrica crítica para dimensionar la carga total del sistema y detectar consumos fantasmas en los electrodomésticos.
+        Su unidad de medida es el Volt-Amperio ($VA$), distinción necesaria para diferenciarla de la potencia activa ($Watts$).
 
-        \newpage
+        \paragraph{Relación Vectorial y Relevancia en el Monitoreo} \hfill \break
+        Desde la perspectiva de la teoría de circuitos, la potencia aparente corresponde a la magnitud vectorial de la potencia compleja, relacionando la potencia activa ($P$) y la potencia reactiva ($Q$) mediante el teorema de Pitágoras, conformando lo que se conoce como el triángulo de potencias:
+
+        \begin{equation}
+            S = \sqrt{P^2 + Q^2}
+        \end{equation}
+
+        \textbf{Implementación en el Sistema:}
+        Para el prototipo de monitoreo energético desarrollado, el cálculo de $S$ es una operación aritmética directa derivada de los bloques de procesamiento anteriores. Una vez que el microcontrolador ha obtenido el voltaje RMS (ya sea medido o definido como constante nominal de 127V) y la corriente RMS (calculada mediante el algoritmo de suma de cuadrados del sensor SCT-013), el firmware realiza el producto de ambas magnitudes.
+
+        Esta métrica es crítica para el proyecto porque representa la carga total que la instalación eléctrica debe soportar. Un valor de potencia aparente significativamente mayor que la potencia activa indica un bajo factor de potencia, lo que implica ineficiencias en el consumo energético de la vivienda.
+
+    \subsubsection{Factor de potencia}
+        El Factor de Potencia ($FP$) es el indicador de calidad y eficiencia más relevante en un sistema de corriente alterna. Se define como la relación adimensional entre la Potencia Activa ($P$), que realiza trabajo útil, y la Potencia Aparente ($S$), que es la energía total suministrada por la red.
+
+        Según Alexander y Sadiku \cite{sadiku2013}, este parámetro representa qué porcentaje de la energía aparente se está transformando realmente en trabajo. Matemáticamente se expresa como:
+
+        \begin{equation}
+            FP = \frac{P}{S}
+        \end{equation}
+
+        En sistemas con cargas lineales y ondas sinusoidales puras, el factor de potencia equivale al coseno del ángulo de desfase ($\theta$) entre la onda de voltaje y la de corriente:
+
+        \begin{equation}
+            FP = \cos(\theta)
+        \end{equation}
+
+        \paragraph{Interpretación Física} \hfill \break
+        El valor del $FP$ oscila entre 0 y 1.
+        \begin{itemize}
+            \item \textbf{$FP = 1$ (Unitario):} Ideal. Toda la energía suministrada se convierte en trabajo (cargas puramente resistivas).
+            \item \textbf{$FP < 1$:} Indica ineficiencia debida a la presencia de Potencia Reactiva ($Q$). Esto ocurre comúnmente en cargas inductivas (motores, refrigeradores) que retrasan la corriente respecto al voltaje.
+        \end{itemize}
+
+        \paragraph{Cálculo Computacional} \hfill \break
+        Para la implementación digital en el sistema de monitoreo, no se mide directamente el desfase temporal entre las ondas debido a la complejidad de detectar cruces por cero precisos en presencia de ruido eléctrico. En su lugar, tal como documenta la metodología de OpenEnergyMonitor \cite{openenergy}, el factor de potencia se deriva aritméticamente de los valores totales acumulados:
+
+        \begin{equation}
+            FP = \frac{\frac{1}{N}\sum (v[n] \cdot i[n])}{V_{RMS} \cdot I_{RMS}}
+        \end{equation}
+
+        Esta aproximación es computacionalmente eficiente y permite al sistema identificar cargas que degradan la calidad de la energía en la instalación residencial.
+    \newpage
 
     \subsection{Instrumentación y Sensores (SCT-013)}
         La medición de corriente se realiza mediante el método no invasivo utilizando sensores de la serie SCT-013, los cuales operan bajo el principio de los Transformadores de Corriente (CT). En esta configuración, el conductor de la instalación eléctrica actúa como el **devanado primario** (una sola espira), mientras que el sensor integra un núcleo de ferrita partido y un **devanado secundario** con un número elevado de vueltas (típicamente 2000), lo que establece la relación de transformación de corriente \cite{naylamp2023sct}.
