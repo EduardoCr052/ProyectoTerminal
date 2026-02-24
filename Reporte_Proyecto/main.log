@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.27 (MiKTeX 25.4) (preloaded format=pdflatex 2025.11.17)  3 FEB 2026 22:19
+This is pdfTeX, Version 3.141592653-2.6-1.40.28 (MiKTeX 25.12) (preloaded format=pdflatex 2026.1.8)  14 FEB 2026 19:50
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -6,7 +6,7 @@ entering extended mode
 **c:/Users/eduar/Documents/GitHub/ProyectoTerminal/Reporte_Proyecto/main.tex
 (c:/Users/eduar/Documents/GitHub/ProyectoTerminal/Reporte_Proyecto/main.tex
 LaTeX2e <2025-11-01>
-L3 programming layer <2025-10-24>
+L3 programming layer <2025-12-24>
 (C:\Program Files\MiKTeX\tex/latex/base\article.cls
 Document Class: article 2025/01/22 v1.4n Standard LaTeX document class
 (C:\Program Files\MiKTeX\tex/latex/base\size12.clo
@@ -483,25 +483,23 @@ Package caption Info: New subtype `subfigure' on input line 238.
 Package caption Info: New subtype `subtable' on input line 238.
 \c@subtable=\count353
 ) (C:\Program Files\MiKTeX\tex/generic/babel\babel.sty
-Package: babel 2025/10/22 v25.14 The multilingual framework for LuaLaTeX, pdfLaTeX and XeLaTeX
+Package: babel 2025/12/11 v25.17 The multilingual framework for LuaLaTeX, pdfLaTeX and XeLaTeX
 \babel@savecnt=\count354
-LaTeX Encoding Info:    Redeclaring text command \ij (encoding OT1) on input line 2050.
-LaTeX Encoding Info:    Redeclaring text command \IJ (encoding OT1) on input line 2052.
-LaTeX Encoding Info:    Redeclaring text command \ij (encoding T1) on input line 2054.
-LaTeX Encoding Info:    Redeclaring text command \IJ (encoding T1) on input line 2055.
-LaTeX Encoding Info:    Ignoring declaration for text command \ij (encoding ?) on input line 2056.
-LaTeX Encoding Info:    Ignoring declaration for text command \IJ (encoding ?) on input line 2058.
-LaTeX Encoding Info:    Ignoring declaration for text command \SS (encoding ?) on input line 2083.
+LaTeX Encoding Info:    Redeclaring text command \ij (encoding OT1) on input line 2068.
+LaTeX Encoding Info:    Redeclaring text command \IJ (encoding OT1) on input line 2070.
+LaTeX Encoding Info:    Redeclaring text command \ij (encoding T1) on input line 2072.
+LaTeX Encoding Info:    Redeclaring text command \IJ (encoding T1) on input line 2073.
+LaTeX Encoding Info:    Ignoring declaration for text command \ij (encoding ?) on input line 2074.
+LaTeX Encoding Info:    Ignoring declaration for text command \IJ (encoding ?) on input line 2076.
+LaTeX Encoding Info:    Ignoring declaration for text command \SS (encoding ?) on input line 2101.
 \U@D=\dimen299
 \l@unhyphenated=\language80
  (C:\Program Files\MiKTeX\tex/generic/babel\txtbabel.def)
 \bbl@readstream=\read3
 \bbl@dirlevel=\count355
-
-
-Package babel Warning: Configuration files are deprecated, as
-(babel)                they can break document portability.
-(babel)                Reported on input line 4172.
+Package babel Info: Configuration files are deprecated, as
+(babel)             they can break document portability.
+(babel)             Reported on input line 4196.
 
 *************************************
 * Local config file bblopts.cfg used
@@ -510,7 +508,7 @@ Package babel Warning: Configuration files are deprecated, as
 File: bblopts.cfg 2005/09/08 v0.1 add Arabic and Farsi to "declared" options of babel
 ) (C:\Program Files\MiKTeX\tex/generic/babel/locale/es\babel-spanish.tex)
 Package babel Info: Importing font and identification data for spanish
-(babel)             from babel-es.ini. Reported on input line 4295.
+(babel)             from babel-es.ini. Reported on input line 4320.
  (C:\Program Files\MiKTeX\tex/latex/babel-spanish\spanish.ldf
 Language: spanish.ldf 2021/05/27 v5.0q Spanish support from the babel system
 \es@quottoks=\toks34
@@ -685,141 +683,36 @@ LaTeX Info: Redefining \[ on input line 2950.
 LaTeX Info: Redefining \] on input line 2951.
 ) (C:\Program Files\MiKTeX\tex/latex/comment\comment.sty
 \CommentStream=\write5
- Excluding comment 'comment') (C:\Program Files\MiKTeX\tex/latex/listings\listings.sty \lstset,
+ Excluding comment 'comment') (C:\Program Files\MiKTeX\tex/latex/listings\listings.sty
 \lst@mode=\count382
- 
-new hook `InitVars',
-
-new hook `EndGroup',
-
-new hook `ExitVars',
-
-new hook `ModeTrue',
-
-new hook `EOL',
 \lst@gtempboxa=\box119
 \lst@token=\toks44
 \lst@length=\count383
-
-new hook `InitVarsBOL',
 \lst@currlwidth=\dimen318
 \lst@column=\count384
 \lst@pos=\count385
 \lst@lostspace=\dimen319
 \lst@width=\dimen320
-basewidth, 
-new hook `FontAdjust',
-fontadjust, 
-new hook `PostOutput',
-
-new hook `OutputBox',
-
-new hook `InitBOL',
-columns, flexiblecolumns,
 \lst@newlines=\count386
- 
-new hook `OnNewLine',
-emptylines, 
-new hook `OnEmptyLine',
-identifierstyle, 
-new hook `EmptyStyle',
-
-new hook `OutputOther',
-
-new hook `Output',
-tabsize, showtabs, tab, showspaces, keepspaces, 
-new hook `Init',
-formfeed, upquote, SelectCharTable, MoreSelectCharTable, 
-new hook `SetLanguage',
-extendedchars, useoutput, rescanchars, alsoletter, alsodigit, alsoother, 
-new hook `SelectCharTable',
-excludedelims, delim, moredelim, deletedelim, literate, basicstyle, inputencoding, multicols, 
-new hook `EveryLine',
 \lst@lineno=\count387
-print, firstline, lastline, 
-new hook `PreSet',
-nolol, linerange, consecutivenumbers, rangeprefix, rangesuffix, rangebeginprefix, rangebeginsuffix, rangeendprefix, rangeendsuffix, includerangemarker, 
-new hook `DeInit',
-captionpos, abovecaptionskip, belowcaptionskip, label, title, caption, 
-new hook `TextStyle',
-\lstlistingname, \lstlistingnamestyle, numberbychapter, boxpos, float, floatplacement, aboveskip, belowskip, everydisplay, 
-new hook `DisplayStyle',
-
-new hook `PreInit',
-
-new hook `EveryPar',
-showlines,
 \lst@maxwidth=\dimen321
- 
-new hook `InitVarsEOL',
-gobble, name, \lstlistlistingname, \lstlistoflistings, inputpath, \lstnewenvironment, fancyvrb, (C:\Program Files\MiKTeX\tex/latex/listings\lstpatch.sty
-File: lstpatch.sty 2025/10/06 1.11 (Carsten Heinz)
+ (C:\Program Files\MiKTeX\tex/latex/listings\lstpatch.sty
+File: lstpatch.sty 2025/11/14 1.11b (Carsten Heinz)
 ) (C:\Program Files\MiKTeX\tex/latex/listings\lstmisc.sty
-File: lstmisc.sty 2025/10/06 1.11 (Carsten Heinz)
- 
-Define lst-aspect `strings': string, morestring, deletestring, stringstyle, showstringspaces, 
-new hook `ExcludeDelims',
-
-Allocs: none
-
-Define lst-aspect `comments': comment, morecomment, deletecomment, commentstyle, 
-new hook `AfterBeginComment',
-
-Allocs: none
-
-Define lst-aspect `escape': texcl, escapebegin, escapeend, escapechar, escapeinside, mathescape, 
-Allocs: none
-
-Define lst-aspect `keywords': sensitive, 
-new hook `TrackKeywords',
-
-new hook `PostTrackKeywords',
-
-new hook `DetectKeywords',
-classoffset, keywords, morekeywords, deletekeywords, keywordstyle, keywordstyle, ndkeywords, morendkeywords, deletendkeywords, ndkeywordstyle, keywordsprefix, otherkeywords, 
-Allocs: none
-
-Define lst-aspect `emph': emph, moreemph, deleteemph, emphstyle, 
-Allocs: none
-
-Define lst-aspect `index': index, moreindex, deleteindex, indexstyle, \lstindexmacro, 
-Allocs: none
-
-Define lst-aspect `style': \lststylefiles, \lstdefinestyle, \lst@definestyle, style, 
-new hook `SetStyle',
-
-Allocs: none
-
-Define lst-aspect `language': \lstlanguagefiles, \lstdefinelanguage, \lst@definelanguage, language, alsolanguage, \lstalias, defaultdialect, 
-Allocs: none
-
-Define lst-aspect `labels': numbers, stepnumber, numberfirstline, numberstyle, numbersep, numberblanklines, firstnumber,
+File: lstmisc.sty 2025/11/14 1.11b (Carsten Heinz)
 \c@lstnumber=\count388
 \lst@skipnumbers=\count389
- 
-Allocs: 2\count, 
-
-Define lst-aspect `lineshape': xleftmargin, xrightmargin, resetmargins, 
-new hook `BoxUnsafe',
-linewidth, lineskip, breaklines, breakindent, breakautoindent, breakatwhitespace, prebreak, postbreak, 
-Allocs: none
-
-Define lst-aspect `frames': framexleftmargin, framexrightmargin, framextopmargin, framexbottommargin, backgroundcolor, fillcolor, rulecolor, rulesepcolor, rulesep, framerule, framesep, frameshape, frameround, frame,
 \lst@framebox=\box120
- 
-Allocs: 1\box, 
-) 
-Allocs: 8\count, 4\dimen, 2\box, 1\toks, 
-(C:\Program Files\MiKTeX\tex/latex/listings\listings.cfg
-File: listings.cfg 2025/10/06 1.11 listings configuration
+) (C:\Program Files\MiKTeX\tex/latex/listings\listings.cfg
+File: listings.cfg 2025/11/14 1.11b listings configuration
 ))
-Package: listings 2025/10/06 1.11 (Carsten Heinz)
+Package: listings 2025/11/14 1.11b (Carsten Heinz)
 
 ==> First Aid for listings.sty no longer applied!
     Expected:
         2024/09/23 1.10c (Carsten Heinz)
     but found:
-        2025/10/06 1.11 (Carsten Heinz)
+        2025/11/14 1.11b (Carsten Heinz)
     so I'm assuming it got fixed.
 (C:\Program Files\MiKTeX\tex/latex/graphics\dvipsnam.def
 File: dvipsnam.def 2016/06/17 v3.0m Driver-dependent file (DPC,SPQR)
@@ -1057,6 +950,11 @@ LaTeX Info: Redefining \% on input line 1.
 ] (main.lof
 LaTeX Info: Redefining \. on input line 1.
 LaTeX Info: Redefining \% on input line 1.
+
+Underfull \hbox (badness 4403) in paragraph at lines 5--5
+ [][] [][]\T1/ppl/m/n/12 Diagrama a blo-ques del sis-te-ma pro-pues-to (Re-pre-sen-ta-ción de la 
+ []
+
 )
 \tf@lof=\write8
 \openout8 = `main.lof'.
@@ -1148,82 +1046,100 @@ Underfull \hbox (badness 1067) in paragraph at lines 155--156
  []
 
 [7]
-Underfull \hbox (badness 1205) in paragraph at lines 170--171
-[]\T1/ppl/m/n/12 La na-tu-ra-le-za os-ci-la-to-ria de la co-rrien-te al-ter-na in-tro-du-ce com-ple-ji-da-des en la
- []
-
-<img/AC.png, id=242, 652.4375pt x 401.5pt>
+<img/AC.png, id=268, 895.09406pt x 249.18094pt>
 File: img/AC.png Graphic file (type png)
 <use img/AC.png>
-Package pdftex.def Info: img/AC.png  used on input line 174.
-(pdftex.def)             Requested size: 328.82707pt x 202.36073pt.
-<img/AC_amplitud.png, id=244, 652.4375pt x 401.5pt>
+Package pdftex.def Info: img/AC.png  used on input line 175.
+(pdftex.def)             Requested size: 469.75502pt x 130.7763pt.
+<img/AC_amplitud.png, id=274, 944.7797pt x 275.15297pt>
 File: img/AC_amplitud.png Graphic file (type png)
 <use img/AC_amplitud.png>
-Package pdftex.def Info: img/AC_amplitud.png  used on input line 185.
-(pdftex.def)             Requested size: 328.82707pt x 202.36073pt.
-[8 <./img/AC.png>] [9 <./img/AC_amplitud.png>]
-Underfull \hbox (badness 1117) in paragraph at lines 226--227
-\T1/ppl/m/n/12 por-que per-mi-te me-dir el con-su-mo real ($\OML/cmm/m/it/12 Watts$\T1/ppl/m/n/12 ) in-de-pen-dien-te-men-te del fac-tor de
- []
-
-[10]
-Underfull \hbox (badness 4531) in paragraph at lines 250--251
+Package pdftex.def Info: img/AC_amplitud.png  used on input line 187.
+(pdftex.def)             Requested size: 469.75502pt x 136.81201pt.
+ [8 <./img/AC.png>] [9 <./img/AC_amplitud.png>] [10]
+Underfull \hbox (badness 4531) in paragraph at lines 259--260
 []\T1/ppl/m/n/12 Por lo tan-to, la ecua-ción que ri-ge el fun-cio-na-mien-to del al-go-rit-mo en el
  []
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `math shift' on input line 258.
+(hyperref)                removing `math shift' on input line 268.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `math shift' on input line 258.
+(hyperref)                removing `math shift' on input line 268.
 
-[11]
-Underfull \hbox (badness 4981) in paragraph at lines 278--280
-[]\T1/ppl/b/n/12 Implementación en el Sis-te-ma: \T1/ppl/m/n/12 Pa-ra el pro-to-ti-po de mo-ni-to-reo ener-gé-ti-co
- []
+[11] [12]
+<img/sct_diagrama.png, id=347, 363.60844pt x 171.26485pt>
+File: img/sct_diagrama.png Graphic file (type png)
+<use img/sct_diagrama.png>
+Package pdftex.def Info: img/sct_diagrama.png  used on input line 328.
+(pdftex.def)             Requested size: 375.80544pt x 177.01625pt.
 
-
-LaTeX Warning: Citation `openenergy' on page 12 undefined on input line 306.
-
-[12] [13]
-
-LaTeX Warning: Citation `naylamp2023sct' on page 14 undefined on input line 316.
-
-
-LaTeX Warning: Citation `naylamp2023sct' on page 14 undefined on input line 322.
-
-
-Underfull \hbox (badness 3158) in paragraph at lines 322--323
+Underfull \hbox (badness 3158) in paragraph at lines 339--340
 []\T1/ppl/b/n/12 Salida de Vol-ta-je (SCT-013-030): \T1/ppl/m/n/12 In-clu-ye una re-sis-ten-cia de car-ga in-ter-na,
  []
 
-
-LaTeX Warning: Citation `naylamp2023sct' on page 14 undefined on input line 328.
-
-
-Underfull \hbox (badness 1024) in paragraph at lines 328--329
-[]\T1/ppl/m/n/12 Este cir-cui-to de-be aña-dir un vol-ta-je de des-pla-za-mien-to (\T1/ppl/m/it/12 DC Off-set\T1/ppl/m/n/12 ) a la se-ñal,
- []
-
-
-Underfull \hbox (badness 1796) in paragraph at lines 330--331
-[]\T1/ppl/m/n/12 Para el mo-de-lo SCT-013-000 se-lec-cio-na-do (100A), la re-sis-ten-cia \T1/ppl/m/it/12 bur-den \T1/ppl/m/n/12 ($\OML/cmm/m/it/12 R[]$\T1/ppl/m/n/12 )
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 342--343
+[13 <./img/sct_diagrama.png>]
+Underfull \hbox (badness 10000) in paragraph at lines 361--362
 []\T1/ppl/b/n/12 Actuadores In-te-li-gen-tes (Smart Swit-ches): \T1/ppl/m/n/12 Dis-po-si-ti-vos ba-sa-dos en
  []
 
-[14]
-Underfull \hbox (badness 4132) in paragraph at lines 349--350
+
+Underfull \hbox (badness 4132) in paragraph at lines 368--369
 []\T1/ppl/b/n/12 Grafana: \T1/ppl/m/n/12 Pla-ta-for-ma de vi-sua-li-za-ción que per-mi-te crear ta-ble-ros de con-trol
  []
 
-[15] [16] [17] [18] Excluding 'comment' comment.) [19] (main.bbl
+[14]
+Underfull \hbox (badness 2285) in paragraph at lines 373--376
+\T1/ppl/m/n/12 en-mas-ca-ra-das en una me-di-ción ge-ne-ral. El ser-vi-dor cen-tra-li-za el pro-ce-sa-mien-to,
+ []
+
+<img/diagrama_bloques.png, id=366, 1731.5892pt x 904.3386pt>
+File: img/diagrama_bloques.png Graphic file (type png)
+<use img/diagrama_bloques.png>
+Package pdftex.def Info: img/diagrama_bloques.png  used on input line 382.
+(pdftex.def)             Requested size: 516.73338pt x 269.86856pt.
+
+Overfull \hbox (46.97836pt too wide) in paragraph at lines 382--383
+ [][] 
+ []
+
+[15 <./img/diagrama_bloques.png>]
+LaTeX Font Info:    Trying to load font information for TS1+ppl on input line 396.
+ (C:\Program Files\MiKTeX\tex/latex/psnfss\ts1ppl.fd
+File: ts1ppl.fd 2001/06/04 font definitions for TS1/ppl.
+)
+Underfull \hbox (badness 1038) in paragraph at lines 418--420
+[]\T1/ppl/b/n/12 InfluxDB: \T1/ppl/m/n/12 Es la ba-se de da-tos op-ti-mi-za-da pa-ra se-ries tem-po-ra-les. Al-ma-ce-na
+ []
+
+
+Underfull \hbox (badness 1577) in paragraph at lines 418--420
+\T1/ppl/m/n/12 efi-cien-te-men-te los da-tos de con-su-mo des-agre-ga-dos por no-do (Ha-bi-ta-ción 1,
+ []
+
+[16]
+Underfull \hbox (badness 1655) in paragraph at lines 426--427
+\T1/ppl/m/n/12 pro-ce-sa los da-tos y en-vía aler-tas pun-tua-les o re-ci-be co-man-dos de usua-rio,
+ []
+
+
+Underfull \hbox (badness 3942) in paragraph at lines 428--430
+[]\T1/ppl/b/n/12 Actuadores In-te-li-gen-tes (Smart Swit-ches): \T1/ppl/m/n/12 En sus-ti-tu-ción de un es-que-ma
+ []
+
+
+Underfull \hbox (badness 7047) in paragraph at lines 428--430
+\T1/ppl/m/n/12 cen-tra-li-za-do, se im-ple-men-tan mó-du-los de in-te-rrup-ción Wi-Fi ba-sa-dos en
+ []
+
+
+Underfull \hbox (badness 3049) in paragraph at lines 428--430
+\T1/ppl/m/n/12 mi-cro-con-tro-la-do-res (ti-po So-noff Ba-sic) ins-ta-la-dos en ca-da ha-bi-ta-ción. Es-tos
+ []
+
+[17] [18] [19] [20] Excluding 'comment' comment.) [21] (main.bbl
 Underfull \hbox (badness 10000) in paragraph at lines 94--97
 []\T1/ppl/m/n/10.95 Del Va-lle, Luis, ``Me-dir con-su-mo eléc-tri-co con ar-duino y el sen-sor sct-013,''
  []
@@ -1233,33 +1149,29 @@ Underfull \hbox (badness 3312) in paragraph at lines 94--97
 \T1/ppl/m/n/10.95 Pro-gra-mar-Fá-cil, 2023, re-cu-pe-ra-do de: []$https : / / programarfacil . com / blog / arduino-[]blog /
  []
 
-) [20] (main.aux (portada.aux)
+) [22] (main.aux (portada.aux)
 LaTeX Info: Redefining \. on input line 12.
 LaTeX Info: Redefining \% on input line 12.
  (declaratoria.aux))
  ***********
 LaTeX2e <2025-11-01>
-L3 programming layer <2025-10-24>
+L3 programming layer <2025-12-24>
  ***********
-
-
-LaTeX Warning: There were undefined references.
-
 Package rerunfilecheck Info: File `main.out' has not changed.
-(rerunfilecheck)             Checksum: 7364E3CC9C8BC831DFEC861214BA43AF;5743.
+(rerunfilecheck)             Checksum: BA4176248C2203C6C386E93A93F24D47;6584.
  ) 
 Here is how much of TeX's memory you used:
- 29532 strings out of 467871
- 552518 string characters out of 5428442
- 980313 words of memory out of 5000000
- 57794 multiletter control sequences out of 15000+600000
- 650956 words of font info for 80 fonts, out of 8000000 for 9000
+ 29607 strings out of 467871
+ 553861 string characters out of 5428444
+ 981066 words of memory out of 5000000
+ 57851 multiletter control sequences out of 15000+600000
+ 653570 words of font info for 86 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  104i,15n,121p,3421b,609s stack positions out of 10000i,1000n,20000p,200000b,200000s
 <C:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmex10.pfb><C:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi12.pfb><C:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi8.pfb><C:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmr12.pfb><C:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmr8.pfb><C:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy8.pfb><C:/Program Files/MiKTeX/fonts/type1/urw/palatino/uplb8a.pfb><C:/Program Files/MiKTeX/fonts/type1/urw/palatino/uplbi8a.pfb><C:/Program Files/MiKTeX/fonts/type1/urw/palatino/uplr8a.pfb><C:/Program Files/MiKTeX/fonts/type1/urw/palatino/uplri8a.pfb>
-Output written on main.pdf (25 pages, 254632 bytes).
+Output written on main.pdf (27 pages, 3013835 bytes).
 PDF statistics:
- 408 PDF objects out of 1000 (max. 8388607)
- 90 named destinations out of 1000 (max. 500000)
- 247 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 477 PDF objects out of 1000 (max. 8388607)
+ 102 named destinations out of 1000 (max. 500000)
+ 289 words of extra memory for PDF output out of 10000 (max. 10000000)
 

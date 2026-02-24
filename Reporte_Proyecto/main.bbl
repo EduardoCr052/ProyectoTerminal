@@ -95,4 +95,11 @@ W.~H. Hayt, J.~E. Kemmerly, and S.~M. Durbin, \emph{Análisis de circuitos en
   sct-013,'' ProgramarFácil, 2023, recuperado de:
   \url{https://programarfacil.com/blog/arduino-blog/sct-013-consumo-electrico-arduino/}.
 
+\bibitem{naylamp2023sct}
+\BIBentryALTinterwordspacing
+{Naylamp Mechatronics}, ``Tutorial sensor de corriente ac no invasivo
+  sct-013,'' s.f., recuperado el 14 de febrero de 2026. [Online]. Available:
+  \url{https://naylampmechatronics.com/blog/51_tutorial-sensor-de-corriente-ac-no-invasivo-sct-013.html}
+\BIBentrySTDinterwordspacing
+
 \end{thebibliography}

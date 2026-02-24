@@ -27,17 +27,20 @@
 \contentsline {subsection}{\numberline {6.2}Fundamentos de Medición Eléctrica}{8}{subsection.6.2}%
 \contentsline {subsubsection}{\numberline {6.2.1}Potencia Instantánea}{9}{subsubsection.6.2.1}%
 \contentsline {subsubsection}{\numberline {6.2.2}Potencia Promedio (Potencia Activa)}{9}{subsubsection.6.2.2}%
-\contentsline {paragraph}{Cálculo Discreto en el Microcontrolador}{10}{equation.3}%
 \contentsline {subsubsection}{\numberline {6.2.3}Valor Eficaz (RMS)}{10}{subsubsection.6.2.3}%
 \contentsline {subsubsection}{\numberline {6.2.4}Potencia Aparente ($S$)}{11}{subsubsection.6.2.4}%
-\contentsline {paragraph}{Relación Vectorial y Relevancia en el Monitoreo}{12}{equation.7}%
-\contentsline {subsubsection}{\numberline {6.2.5}Factor de potencia}{12}{subsubsection.6.2.5}%
-\contentsline {paragraph}{Interpretación Física}{12}{equation.10}%
-\contentsline {paragraph}{Cálculo Computacional}{13}{equation.10}%
-\contentsline {subsection}{\numberline {6.3}Instrumentación y Sensores (SCT-013)}{14}{subsection.6.3}%
+\contentsline {subsubsection}{\numberline {6.2.5}Factor de Potencia y Eficiencia Energética}{12}{subsubsection.6.2.5}%
+\contentsline {subsection}{\numberline {6.3}Sensor SCT-013}{13}{subsection.6.3}%
 \contentsline {subsection}{\numberline {6.4}Hardware del Sistema}{14}{subsection.6.4}%
-\contentsline {subsection}{\numberline {6.5}Plataformas de Software}{15}{subsection.6.5}%
-\contentsline {section}{\numberline {7}Desarrollo del proyecto}{16}{section.7}%
-\contentsline {section}{\numberline {8}Resultados}{17}{section.8}%
-\contentsline {section}{\numberline {9}Análisis de resultados}{18}{section.9}%
-\contentsline {section}{\numberline {10}Conclusiones}{19}{section.10}%
+\contentsline {subsection}{\numberline {6.5}Plataformas de Software}{14}{subsection.6.5}%
+\contentsline {section}{\numberline {7}Metodología - Descripción Técnica}{15}{section.7}%
+\contentsline {subsection}{\numberline {7.1}Diagrama a Bloques del Sistema}{15}{subsection.7.1}%
+\contentsline {subsection}{\numberline {7.2}Descripción de Subsistemas}{16}{subsection.7.2}%
+\contentsline {paragraph}{1. Subsistema de Medición Distribuido (Nodos ESP32):}{16}{subsection.7.2}%
+\contentsline {paragraph}{2. Subsistema Servidor Local (Raspberry Pi):}{16}{subsection.7.2}%
+\contentsline {paragraph}{3. Subsistema de Control y Notificación:}{17}{subsection.7.2}%
+\contentsline {subsection}{\numberline {7.3}Especificaciones Técnicas}{17}{subsection.7.3}%
+\contentsline {section}{\numberline {8}Desarrollo del proyecto}{18}{section.8}%
+\contentsline {section}{\numberline {9}Resultados}{19}{section.9}%
+\contentsline {section}{\numberline {10}Análisis de resultados}{20}{section.10}%
+\contentsline {section}{\numberline {11}Conclusiones}{21}{section.11}%

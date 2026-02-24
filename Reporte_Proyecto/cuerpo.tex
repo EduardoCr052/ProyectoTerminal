@@ -163,175 +163,194 @@ La solución técnica consiste en una arquitectura distribuida de nodos de adqui
     El desarrollo de sistemas de monitoreo energético requiere una comprensión profunda de la interacción entre la teoría de circuitos de corriente alterna, la instrumentación electrónica y las arquitecturas de comunicación en red.
 
     \subsection{La corriente alterna}
-        La corriente alterna (AC) es el tipo de corriente eléctrica predominante en las redes de distribución residencial a nivel mundial. Se dice que a  diferencia de la corriente continua (DC), donde el flujo de electrones es unidireccional, en la corriente alterna la magnitud y dirección varían periódicamente siguiendo una forma de onda sinusoidal \cite{sadiku2013}. Esta forma de onda se justifica por la eficiencia en la transmisión de energía y la naturaleza de los generadores rotativos.
 
-        En el contexto nacional, la Norma Oficial Mexicana NOM-001-SEDE-2012 establece que la red eléctrica residencial suministra una tensión nominal de 127V a 60Hz \cite{nom2012}. Esta frecuencia implica que la señal completa se repite 60 veces por segundo, resultando en un periodo de $T \approx 16.67$ milisegundos por ciclo.
+        La corriente alterna (AC) es el tipo de corriente eléctrica predominante en las redes de distribución residencial a nivel mundial. Se dice que, a diferencia de la corriente continua (DC), donde el flujo de electrones es unidireccional, en la corriente alterna la magnitud y dirección varían periódicamente siguiendo una forma de onda sinusoidal \cite{sadiku2013}. Como se aprecia en la \textbf{Figura \ref{fig:AC}}, esta oscilación característica permite una transmisión más eficiente de la energía y responde a la naturaleza mecánica de los generadores rotativos.
 
-        La naturaleza oscilatoria de la corriente alterna introduce complejidades en la medición, ya que voltaje y corriente son funciones dependientes del tiempo $v(t)$ e $i(t)$, requiriendo técnicas de muestreo digital para su análisis \cite{boylestad2011}.
+        En el contexto nacional, la Norma Oficial Mexicana NOM-001-SEDE-2012 establece que la red eléctrica residencial suministra una tensión nominal de 127V a 60Hz \cite{nom2012}. Esta frecuencia implica que la señal completa se repite 60 veces por segundo, resultando en un periodo temporal de $T \approx 16.67$ milisegundos por ciclo.
+
+        La naturaleza variable de la corriente alterna introduce complejidades en la medición, ya que voltaje y corriente son funciones dependientes del tiempo $v(t)$ e $i(t)$, lo que requiere técnicas de muestreo digital para su correcto análisis \cite{boylestad2011}.
 
         \begin{figure}[H]
             \centering
-            \includegraphics[width=0.7\textwidth]{img/AC.png}
-            \caption[Representación de una señal de corriente alterna]{Representación de una señal de corriente alterna.}
+            \includegraphics[width=1\textwidth]{img/AC.png}
+            \caption[Representación de una señal de corriente alterna]{Representación de una señal de corriente alterna\footnotemark}
             \label{fig:AC}
         \end{figure}
+        \footnotetext{Fuente: Elaboración propia utilizando GeoGebra.}
 
     \subsection{Fundamentos de Medición Eléctrica}
 
-        Para la gestión eficiente de energía, es imperativo comprender la dinámica de las variables físicas. La amplitud define los valores máximos y mínimos de la señal, mientras que la frecuencia determina la velocidad de oscilación \cite{boylestad2011}.
+        Para la gestión eficiente de energía, es imperativo comprender la dinámica de las variables físicas \cite{boylestad2011}. Como se observa en la \textbf{Figura \ref{fig:AC_amplitud}}, la amplitud define los valores máximos y mínimos de la señal, mientras que la frecuencia determina la velocidad de oscilación.
 
         \begin{figure}[H]
             \centering
-            \includegraphics[width=0.7\textwidth]{img/AC_amplitud.png}
-            \caption[Amplitud de una señal de corriente alterna]{Amplitud de una señal de corriente alterna.}
+            \includegraphics[width=1\textwidth]{img/AC_amplitud.png}
+            \caption[Amplitud de una señal de corriente alterna]{Amplitud de una señal de corriente alterna\footnotemark}
             \label{fig:AC_amplitud}
         \end{figure}
+        \footnotetext{Fuente: Elaboración propia utilizando GeoGebra y Paint.}
 
-    \subsubsection{Potencia Instantánea}
-        La potencia instantánea se considera como el producto de la tensión y la corriente en un instante dado. Lo cual resulta muy util durante las oscilaciones y nos proporciona medios para calcular la potencia promedio. En un circuito de AC, la potencia no es estática \cite{hayt2012}, y se define como el producto del voltaje y la corriente en un instante específico:
+        \subsubsection{Potencia Instantánea}
 
-        \begin{equation}
-            p(t) = v(t) \cdot i(t)
-        \end{equation}
+            La potencia instantánea se define como la tasa de transferencia de energía en un momento específico. Matemáticamente, corresponde al producto de la tensión $v(t)$ y la corriente $i(t)$ en dicho instante. En un circuito de corriente alterna esta magnitud no es estática, sino que fluctúa en el tiempo \cite{hayt2012}, tal como se expresa en la Ecuación \ref{eq:potencia_t}:
 
-        Dado que el sistema propuesto utiliza procesamiento digital en un microcontrolador ESP32, la señal continua se discretiza. Según la teoría de monitoreo digital documentada por OpenEnergyMonitor \cite{openenergymonitor}, la potencia instantánea para la muestra $n$-ésima se calcula como:
+            \begin{equation}
+                p(t) = v(t) \cdot i(t)
+                \label{eq:potencia_t}
+            \end{equation}
 
-        \begin{equation}
-            p[n] = v[n] \cdot i[n]
-        \end{equation}
+            Esta relación es fundamental porque proporciona la base para el cálculo posterior de la potencia promedio y el consumo energético real.
 
-        \noindent \textit{Nota: En implementaciones donde no se cuenta con sensor de voltaje, $v[n]$ puede aproximarse como una constante $V_{rms}$, aunque la definición teórica rigurosa requiere el muestreo de ambas señales.}
+            Dado que el sistema propuesto utiliza procesamiento digital en un microcontrolador ESP32, la señal continua debe ser discretizada para su análisis. Asi que, la potencia instantánea para la muestra $n$-ésima se calcula mediante el producto de las muestras digitales \cite{openenergymonitor}, como se muestra en la Ecuación \ref{eq:potencia_n}:
 
-    \subsubsection{Potencia Promedio (Potencia Activa)}
+            \begin{equation}
+                p[n] = v[n] \cdot i[n]
+                \label{eq:potencia_n}
+            \end{equation}
 
-        Si bien la potencia instantánea describe el flujo de energía en cada momento, para propósitos de facturación y diseño de máquinas es necesario conocer el promedio de esta energía a lo largo del tiempo. Este valor se denomina Potencia Promedio o Potencia Activa ($P$).
+            \vspace{0.3cm}
+            \noindent \textit{\textbf{Nota técnica:} En implementaciones donde no se cuenta con un sensor de voltaje y se asume una tensión fija (ej. 127V), el término $v[n]$ en la Ecuación \ref{eq:potencia_n} se sustituye por una constante $V_{rms}$. Sin embargo, la definición teórica rigurosa para el cálculo de potencia real requiere el muestreo simultáneo de ambas señales.}
 
-        Según explican Hayt, Kemmerly y Durbin \cite{hayt2012}, la potencia promedio se define matemáticamente como la integral de la potencia instantánea $p(t)$ sobre un periodo completo $T$, dividida por la duración de dicho periodo:
+        \subsubsection{Potencia Promedio (Potencia Activa)}
 
-        \begin{equation}
-            P = \frac{1}{T} \int_{0}^{T} p(t) \, dt = \frac{1}{T} \int_{0}^{T} v(t) i(t) \, dt
-        \end{equation}
+            Si bien la potencia instantánea describe el flujo de energía en cada momento, para propósitos de facturación y diseño de máquinas es necesario conocer el promedio de esta energía a lo largo del tiempo. Este valor se denomina Potencia Promedio o Potencia Activa ($P$).
 
-        Físicamente, la Potencia Activa representa la cantidad de energía eléctrica que es irreversiblemente transformada en otra forma de energía (mecánica, térmica o lumínica) por unidad de tiempo. Su unidad es el Watt ($W$).
-
-        \paragraph{Cálculo Discreto en el Microcontrolador} \hfill \break
-        A diferencia de la Potencia Aparente (que se calcula multiplicando $V_{RMS} \cdot I_{RMS}$), la Potencia Activa real debe calcularse integrando muestra por muestra antes de promediar, para capturar correctamente el desfase entre voltaje y corriente.
-
-        En el firmware del sistema propuesto, se aplica la sumatoria discreta documentada por las notas de aplicación de monitoreo energético \cite{programarfacil}:
-
-        \begin{equation}
-            P = \frac{1}{N} \sum_{n=0}^{N-1} (v[n] \cdot i[n])
-        \end{equation}
-
-        Donde $v[n]$ e $i[n]$ son las muestras instantáneas emparejadas. Este método es crucial porque permite medir el consumo real ($Watts$) independientemente del factor de potencia de la carga.
-
-    \subsubsection{Valor Eficaz (RMS)}
-
-        En el análisis de circuitos de corriente alterna, la magnitud de la corriente varía instante a instante, lo que dificulta establecer un valor único que represente su capacidad de trabajo. Para resolver esto se utiliza el Valor Eficaz o RMS (del inglés \textit{Root Mean Square}).
-
-        De acuerdo con Hayt, Kemmerly y Durbin \cite{hayt2012}, el valor RMS se define físicamente como el valor equivalente de una corriente directa (DC) que produciría la misma disipación de potencia promedio (calor) al circular por una resistencia óhmica idéntica. Matemáticamente, para una función continua en el tiempo $i(t)$, este valor se obtiene mediante la raíz cuadrada del promedio del cuadrado de la señal a lo largo de un periodo $T$:
-
-        \begin{equation}
-            I_{RMS} = \sqrt{\frac{1}{T} \int_{0}^{T} i^2(t) \, dt}
-        \end{equation}
-
-        Esta definición es relevante, ya que, vincula una señal oscilatoria con un valor escalar de potencia real, permitiendo comparar sistemas de AC y DC bajo un mismo estándar energético.
-
-        Para la implementación del sistema de monitoreo, no es viable aplicar un promedio aritmético simple a la señal capturada. Como se detalla en la documentación técnica \cite{programarfacil}, la naturaleza sinusoidal de la corriente alterna presenta simetría entre sus semiciclos positivos y negativos. En consecuencia, la suma directa de todos los valores instantáneos durante un ciclo completo resultaría matemáticamente en cero, lo cual no refleja el flujo real de energía.
-
-        Para solucionar esta limitante física y obtener una medición útil, el firmware del sistema implementa el algoritmo de \textbf{Raíz Cuadrática Media} en el dominio discreto. Este proceso consta de tres etapas secuenciales que justifican la fórmula utilizada:
-
-        \begin{enumerate}
-            \item \textbf{Cuadrar (\textit{Square}):} Se eleva al cuadrado cada muestra digital $i[n]$. Esta operación matemática tiene el efecto físico de convertir todos los valores negativos de la onda en positivos, representando la magnitud de la energía sin importar la dirección del flujo.
-            \item \textbf{Promediar (\textit{Mean}):} Se calcula la media aritmética de estos valores cuadráticos acumulados durante el periodo de muestreo.
-            \item \textbf{Raíz (\textit{Root}):} Se aplica la raíz cuadrada al resultado para devolver la magnitud a su unidad lineal original (Amperios).
-        \end{enumerate}
-
-        Por lo tanto, la ecuación que rige el funcionamiento del algoritmo en el microcontrolador, sustituyendo la integral continua por una sumatoria de $N$ muestras, es:
-
-        \begin{equation}
-            I_{RMS} = \sqrt{\frac{1}{N} \sum_{n=0}^{N-1} i[n]^2}
-        \end{equation}
-
-        Este método de cálculo, conocido técnicamente como "True RMS", garantiza que el sistema reporte el consumo energético real incluso ante la presencia de cargas no lineales que distorsionen la forma de onda perfecta.
-
-    \subsubsection{Potencia Aparente ($S$)}
-        Mientras que la potencia activa representa el trabajo útil, en el análisis de sistemas eléctricos es necesario cuantificar la magnitud total de la potencia que circula por el circuito, independientemente de si esta se consume o se almacena temporalmente en campos electromagnéticos. Este parámetro se denomina Potencia Aparente.
-
-        Según definen Hayt, Kemmerly y Durbin \cite{hayt2012}, la Potencia Aparente ($S$) es el producto de los valores eficaces (RMS) de voltaje y corriente. El término "aparente" deriva del hecho de que, si se miden el voltaje y la corriente por separado con un multímetro convencional, el producto de estas lecturas parece ser la potencia total del sistema.
-
-        Matemáticamente, se define como:
-
-        \begin{equation}
-            S = V_{RMS} \cdot I_{RMS}
-        \end{equation}
-
-        Su unidad de medida es el Volt-Amperio ($VA$), distinción necesaria para diferenciarla de la potencia activa ($Watts$).
-
-        \paragraph{Relación Vectorial y Relevancia en el Monitoreo} \hfill \break
-        Desde la perspectiva de la teoría de circuitos, la potencia aparente corresponde a la magnitud vectorial de la potencia compleja, relacionando la potencia activa ($P$) y la potencia reactiva ($Q$) mediante el teorema de Pitágoras, conformando lo que se conoce como el triángulo de potencias:
-
-        \begin{equation}
-            S = \sqrt{P^2 + Q^2}
-        \end{equation}
-
-        \textbf{Implementación en el Sistema:}
-        Para el prototipo de monitoreo energético desarrollado, el cálculo de $S$ es una operación aritmética directa derivada de los bloques de procesamiento anteriores. Una vez que el microcontrolador ha obtenido el voltaje RMS (ya sea medido o definido como constante nominal de 127V) y la corriente RMS (calculada mediante el algoritmo de suma de cuadrados del sensor SCT-013), el firmware realiza el producto de ambas magnitudes.
-
-        Esta métrica es crítica para el proyecto porque representa la carga total que la instalación eléctrica debe soportar. Un valor de potencia aparente significativamente mayor que la potencia activa indica un bajo factor de potencia, lo que implica ineficiencias en el consumo energético de la vivienda.
-
-    \subsubsection{Factor de potencia}
-        El Factor de Potencia ($FP$) es el indicador de calidad y eficiencia más relevante en un sistema de corriente alterna. Se define como la relación adimensional entre la Potencia Activa ($P$), que realiza trabajo útil, y la Potencia Aparente ($S$), que es la energía total suministrada por la red.
-
-        Según Alexander y Sadiku \cite{sadiku2013}, este parámetro representa qué porcentaje de la energía aparente se está transformando realmente en trabajo. Matemáticamente se expresa como:
-
-        \begin{equation}
-            FP = \frac{P}{S}
-        \end{equation}
-
-        En sistemas con cargas lineales y ondas sinusoidales puras, el factor de potencia equivale al coseno del ángulo de desfase ($\theta$) entre la onda de voltaje y la de corriente:
-
-        \begin{equation}
-            FP = \cos(\theta)
-        \end{equation}
-
-        \paragraph{Interpretación Física} \hfill \break
-        El valor del $FP$ oscila entre 0 y 1.
-        \begin{itemize}
-            \item \textbf{$FP = 1$ (Unitario):} Ideal. Toda la energía suministrada se convierte en trabajo (cargas puramente resistivas).
-            \item \textbf{$FP < 1$:} Indica ineficiencia debida a la presencia de Potencia Reactiva ($Q$). Esto ocurre comúnmente en cargas inductivas (motores, refrigeradores) que retrasan la corriente respecto al voltaje.
-        \end{itemize}
-
-        \paragraph{Cálculo Computacional} \hfill \break
-        Para la implementación digital en el sistema de monitoreo, no se mide directamente el desfase temporal entre las ondas debido a la complejidad de detectar cruces por cero precisos en presencia de ruido eléctrico. En su lugar, tal como documenta la metodología de OpenEnergyMonitor \cite{openenergy}, el factor de potencia se deriva aritméticamente de los valores totales acumulados:
-
-        \begin{equation}
-            FP = \frac{\frac{1}{N}\sum (v[n] \cdot i[n])}{V_{RMS} \cdot I_{RMS}}
-        \end{equation}
-
-        Esta aproximación es computacionalmente eficiente y permite al sistema identificar cargas que degradan la calidad de la energía en la instalación residencial.
-    \newpage
-
-    \subsection{Instrumentación y Sensores (SCT-013)}
-        La medición de corriente se realiza mediante el método no invasivo utilizando sensores de la serie SCT-013, los cuales operan bajo el principio de los Transformadores de Corriente (CT). En esta configuración, el conductor de la instalación eléctrica actúa como el **devanado primario** (una sola espira), mientras que el sensor integra un núcleo de ferrita partido y un **devanado secundario** con un número elevado de vueltas (típicamente 2000), lo que establece la relación de transformación de corriente \cite{naylamp2023sct}.
-
-        \textbf{Principio de Transducción:}
-        La corriente que circula por el primario induce un flujo magnético en el núcleo, el cual genera una corriente proporcionalmente menor en el secundario. Existen dos variantes principales en esta familia de sensores:
-        \begin{itemize}
-            \item \textbf{Salida de Corriente (SCT-013-000):} Entrega una señal de corriente (ej. 50 mA por cada 100 A). Requiere una resistencia de carga externa (\textit{Burden Resistor}) para convertir esta corriente en una señal de voltaje legible por el microcontrolador.
-            \item \textbf{Salida de Voltaje (SCT-013-030):} Incluye una resistencia de carga interna, entregando directamente una señal de voltaje (ej. 1 V por cada 30 A) \cite{naylamp2023sct}.
-        \end{itemize}
-
-        \textbf{Acondicionamiento de Señal (Offset DC):}
-        Dado que la salida del sensor es una señal de corriente alterna (AC) que oscila entre valores positivos y negativos, y considerando que el convertidor analógico-digital (ADC) del ESP32 opera únicamente con voltajes positivos (0V a 3.3V), es necesario implementar un circuito de acondicionamiento.
+            Matemáticamente, la potencia promedio se define como la integral de la potencia instantánea $p(t)$ sobre un periodo completo $T$, dividida por la duración de dicho periodo \cite{hayt2012}, como se muestra en la ecucación \ref{eq:potencia_activa_t}
         
-        Este circuito debe añadir un voltaje de desplazamiento (\textit{DC Offset}) a la señal, típicamente de $V_{CC}/2$ (1.65V para el ESP32), centrando la onda sinusoidal en el rango dinámico del ADC. Sin este acondicionamiento, los semiciclos negativos de la corriente alterna serían recortados o podrían dañar la entrada del microcontrolador \cite{naylamp2023sct}.
+            \begin{equation}
+                P = \frac{1}{T} \int_{0}^{T} p(t) \, dt = \frac{1}{T} \int_{0}^{T} v(t) i(t) \, dt
+                \label{eq:potencia_activa_t}
+            \end{equation}
 
-        Para el modelo SCT-013-000 seleccionado (100A), la resistencia \textit{burden} ($R_{carga}$) necesaria para obtener un voltaje pico deseado ($V_{pico}$) se calcula mediante la Ley de Ohm aplicada al secundario:
+            Físicamente, la Potencia Activa representa la cantidad de energía eléctrica que es irreversiblemente transformada en otra forma de energía (mecánica, térmica o lumínica) por unidad de tiempo. Su unidad es el Watt ($W$).
+
+            Para la implementación digital en el microcontrolador, el cálculo difiere del utilizado para la Potencia Aparente. La Potencia Activa real requiere integrar muestra por muestra antes de promediar para capturar correctamente el desfase entre voltaje y corriente. En el firmware del sistema propuesto, se aplica la sumatoria discreta documentada en las notas de aplicación de monitoreo energético \cite{programarfacil}, tal como se expresa en la Ecuación \ref{eq:potencia_activa_n}:
+
+            \begin{equation}
+                P = \frac{1}{N} \sum_{n=0}^{N-1} (v[n] \cdot i[n])
+                \label{eq:potencia_activa_n}
+            \end{equation}
+
+            Donde $v[n]$ e $i[n]$ son las muestras instantáneas emparejadas. Este método permite medir el consumo real ($Watts$) independientemente del factor de potencia de la carga, asegurando una lectura fiel a lo que registra un medidor comercial.
+
+        \subsubsection{Valor Eficaz (RMS)}
+
+            En el análisis de circuitos de corriente alterna, la magnitud de la corriente varía instante a instante, lo que dificulta establecer un valor único que represente su capacidad de trabajo. Para resolver esto se utiliza el Valor Eficaz o RMS (del inglés \textit{Root Mean Square}).
+
+            Físicamente, el valor RMS se define como el valor equivalente de una corriente directa (DC) que produciría la misma disipación de potencia promedio (calor) al circular por una resistencia óhmica idéntica \cite{hayt2012}. Matemáticamente, para una función continua en el tiempo $i(t)$, este valor se obtiene mediante la raíz cuadrada del promedio del cuadrado de la señal a lo largo de un periodo $T$, tal como se expresa en la Ecuación \ref{eq:rms_integral}:
+
+            \begin{equation}
+                I_{RMS} = \sqrt{\frac{1}{T} \int_{0}^{T} i^2(t) \, dt}
+                \label{eq:rms_integral}
+            \end{equation}
+
+            Esta definición es relevante porque vincula una señal oscilatoria con un valor escalar de potencia real, permitiendo comparar sistemas de AC y DC bajo un mismo estándar energético.
+
+            Para la implementación del sistema de monitoreo, no es viable aplicar un promedio aritmético simple a la señal capturada. La naturaleza sinusoidal de la corriente alterna presenta simetría entre sus semiciclos positivos y negativos \cite{programarfacil}. En consecuencia, la suma directa de todos los valores instantáneos durante un ciclo completo resultaría matemáticamente en cero, lo cual no refleja el flujo real de energía.
+
+            Para solucionar esta limitante física y obtener una medición útil, el firmware del sistema implementa el algoritmo de \textbf{Raíz Cuadrática Media} en el dominio discreto. Este proceso consta de tres etapas secuenciales que justifican la fórmula utilizada:
+
+            \begin{enumerate}
+                \item \textbf{Cuadrar (\textit{Square}):} Se eleva al cuadrado cada muestra digital $i[n]$. Esta operación matemática tiene el efecto físico de convertir todos los valores negativos de la onda en positivos, representando la magnitud de la energía sin importar la dirección del flujo.
+                \item \textbf{Promediar (\textit{Mean}):} Se calcula la media aritmética de estos valores cuadráticos acumulados durante el periodo de muestreo.
+                \item \textbf{Raíz (\textit{Root}):} Se aplica la raíz cuadrada al resultado para devolver la magnitud a su unidad lineal original (Amperios).
+            \end{enumerate}
+
+            Por lo tanto, la ecuación que rige el funcionamiento del algoritmo en el microcontrolador, sustituyendo la integral continua por una sumatoria de $N$ muestras, se define en la Ecuación \ref{eq:rms_discreto}:
+
+            \begin{equation}
+                I_{RMS} = \sqrt{\frac{1}{N} \sum_{n=0}^{N-1} i[n]^2}
+                \label{eq:rms_discreto}
+            \end{equation}
+
+            Este método de cálculo, conocido técnicamente como "True RMS", garantiza que el sistema reporte el consumo energético real incluso ante la presencia de cargas no lineales que distorsionen la forma de onda perfecta.
+
+        \subsubsection{Potencia Aparente ($S$)}
+
+            Mientras que la potencia activa representa el trabajo útil, en el análisis de sistemas eléctricos es necesario cuantificar la magnitud total de la potencia que circula por el circuito, independientemente de si esta se consume o se almacena temporalmente en campos electromagnéticos. Este parámetro se denomina Potencia Aparente.
+
+            La Potencia Aparente ($S$) se define como el producto de los valores eficaces (RMS) de voltaje y corriente \cite{hayt2012}. El término "aparente" deriva del hecho de que, si se miden el voltaje y la corriente por separado con un multímetro convencional, el producto de estas lecturas parece ser la potencia total del sistema.
+
+            Matemáticamente, esta relación se expresa en la Ecuación \ref{eq:potencia_aparente}:
+
+            \begin{equation}
+                S = V_{RMS} \cdot I_{RMS}
+                \label{eq:potencia_aparente}
+            \end{equation}
+
+            Su unidad de medida es el Volt-Amperio ($VA$), distinción necesaria para diferenciarla de la potencia activa ($Watts$).
+
+            Desde la perspectiva de la teoría de circuitos, la potencia aparente corresponde a la magnitud vectorial de la potencia compleja. Esta magnitud relaciona la potencia activa ($P$) y la potencia reactiva ($Q$) mediante el teorema de Pitágoras, conformando lo que se conoce como el triángulo de potencias, tal como se muestra en la Ecuación \ref{eq:triangulo_potencias}:
+
+            \begin{equation}
+                S = \sqrt{P^2 + Q^2}
+                \label{eq:triangulo_potencias}
+            \end{equation}
+
+            Para el prototipo de monitoreo energético desarrollado, el cálculo de $S$ es una operación aritmética directa derivada de los bloques de procesamiento anteriores. Una vez que el microcontrolador ha obtenido el voltaje RMS (ya sea medido o definido como constante nominal de 127V) y la corriente RMS (calculada mediante el algoritmo de suma de cuadrados del sensor SCT-013), el firmware realiza el producto de ambas magnitudes.
+
+            Esta métrica es crítica para el proyecto porque representa la carga total que la instalación eléctrica debe soportar. Un valor de potencia aparente significativamente mayor que la potencia activa indica un bajo factor de potencia, lo que implica ineficiencias en el consumo energético de la vivienda.
+
+        \subsubsection{Factor de Potencia y Eficiencia Energética}
+            La relevancia del \textbf{Factor de Potencia ($FP$)} trasciende la teoría de circuitos, impactando directamente en la economía de la distribución eléctrica. La eficiencia en la transferencia de energía determina los costos de infraestructura: una instalación con un bajo factor de potencia exige a la compañía suministradora una mayor capacidad de corriente para entregar la misma cantidad de potencia útil \cite{hayt2012}. En consecuencia, los consumidores que presentan una baja eficiencia de transmisión suelen incurrir en tarifas más elevadas por kilowatt-hora ($kWh$) para compensar la inversión adicional en equipos de distribución.
+
+            Para cuantificar este fenómeno, se define el Factor de Potencia como la razón entre la \textbf{Potencia Promedio ($P$)}, que realiza el trabajo real, y la \textbf{Potencia Aparente ($S$)}, que dimensiona la capacidad total del sistema.
+
+            Matemáticamente, considerando un sistema lineal donde la tensión $v(t)$ tiene un ángulo de fase $\theta$ y la corriente $i(t)$ un ángulo $\phi$:
+
+            \begin{equation}
+                v(t) = V_m \cos(\omega t + \theta)
+                \label{eq:tension_fase}
+            \end{equation}
+            \begin{equation}
+                i(t) = I_m \cos(\omega t + \phi)
+                \label{eq:corriente_fase}
+            \end{equation}
+
+            El factor de potencia se calcula como el coseno de la diferencia angular entre ambas señales, tal como se expresa en la Ecuación \ref{eq:fp_analitico}:
+
+            \begin{equation}
+                FP = \frac{P}{S} = \cos(\theta - \phi)
+                \label{eq:fp_analitico}
+            \end{equation}
+
+            El signo y magnitud del ángulo $(\theta - \phi)$ permiten clasificar el comportamiento de la carga conectada a la red. En el caso de \textbf{cargas resistivas}, la tensión y la corriente oscilan al unísono (en fase), resultando en un factor de potencia unitario donde toda la potencia aparente es igual a la potencia útil. Por el contrario, en \textbf{cargas inductivas}, comunes en motores y transformadores, la corriente alcanza su pico después que el voltaje, generando un ángulo de fase positivo conocido como \textbf{retraso}. Finalmente, en \textbf{cargas capacitivas}, la corriente se anticipa al voltaje, generando un \textbf{adelanto} de fase.
+
+            Para fines de este proyecto, el microcontrolador calcula la relación $P/S$ directamente de las muestras acumuladas, lo que permite diagnosticar si el consumo doméstico es eficiente o si existen cargas inductivas predominantes que degradan la red.
+        \newpage
+
+    \subsection{Sensor SCT-013}
+
+        La medición de corriente se realiza mediante el método no invasivo utilizando sensores de la serie \textbf{SCT-013}, los cuales operan bajo el principio de los \textbf{Transformadores de Corriente (CT)}. En esta configuración, el conductor de la instalación eléctrica actúa como el devanado primario (una sola espira), mientras que el sensor integra un núcleo de ferrita partido y un devanado secundario con un número elevado de vueltas (típicamente 2000), lo que establece la relación de transformación de corriente \cite{naylamp2023sct}. Como se muestra en la \textbf{Figura \ref{fig:sct_diagrama}}.
+
+        \begin{figure}[H]
+            \centering
+            \includegraphics[width=0.8\textwidth]{img/sct_diagrama.png}
+            \caption[Diagrama de funcionamiento del sensor SCT-013]{Diagrama de funcionamiento del sensor SCT-013\footnotemark}
+            \label{fig:sct_diagrama}
+        \end{figure}
+        \footnotetext{Fuente: Elaboración propia utilizando paint.}    
+
+
+        Físicamente, la corriente que circula por el primario induce un flujo magnético en el núcleo, el cual genera una corriente proporcionalmente menor en el secundario. Existen dos variantes principales en esta familia de sensores:
+
+        \begin{itemize}
+            \item \textbf{Salida de Corriente (SCT-013-000):} Entrega una señal de corriente pura (ej. 50 mA por cada 100 A). Requiere una resistencia de carga externa (\textit{Burden Resistor}) para convertir esta corriente en una señal de voltaje legible.
+            \item \textbf{Salida de Voltaje (SCT-013-030):} Incluye una resistencia de carga interna, entregando directamente una señal de voltaje (ej. 1 V por cada 30 A).
+        \end{itemize}
+
+        Dado que la salida del sensor es una señal de corriente alterna (AC) que oscila entre valores positivos y negativos, y considerando que el convertidor analógico-digital (ADC) del ESP32 opera únicamente con voltajes positivos (0V a 3.3V), es necesario implementar un circuito de acondicionamiento de señal.
+
+        Este circuito añade un voltaje de desplazamiento (\textit{DC Offset}) a la señal, típicamente de $V_{CC}/2$ (1.65V para el ESP32), centrando la onda sinusoidal en el rango dinámico del ADC. Como advierte Naylamp Mechatronics \cite{naylamp2023sct}, sin este acondicionamiento los semiciclos negativos de la corriente alterna serían recortados (clipping) o podrían dañar irreversiblemente la entrada del microcontrolador.
+
+        Para el modelo \textbf{SCT-013-000} seleccionado para este proyecto (100A), la resistencia \textit{burden} ($R_{carga}$) necesaria para obtener un voltaje pico deseado ($V_{pico}$) se calcula mediante la Ley de Ohm aplicada al secundario, tal como se muestra en la Ecuación \ref{eq:burden_resistor}:
+
         \begin{equation}
             R_{carga} = \frac{V_{pico}}{I_{secundario}}
+            \label{eq:burden_resistor}
         \end{equation}
-        Donde $I_{secundario}$ es la corriente de salida nominal del sensor (0.05 A).
+
+        Donde $I_{secundario}$ corresponde a la corriente de salida nominal del sensor (0.05 A).
         
 
     \subsection{Hardware del Sistema}
@@ -349,6 +368,81 @@ La solución técnica consiste en una arquitectura distribuida de nodos de adqui
         \textbf{Grafana:} Plataforma de visualización que permite crear tableros de control (\textit{dashboards}) interactivos para que el usuario final monitoree las variables eléctricas y el estado de los actuadores en tiempo real.
 \newpage
 
+\section{Metodología - Descripción Técnica}
+
+    El sistema evoluciona hacia una arquitectura IoT distribuida para el monitoreo y control del consumo eléctrico residencial. A diferencia de los sistemas centralizados que miden únicamente la acometida principal, esta propuesta implementa una topología de \textbf{nodos distribuidos por habitación}.
+    El prototipo se compone de \textbf{dos nodos de adquisición independientes} basados en microcontroladores ESP32 y un servidor local centralizado en una Raspberry Pi. Esta configuración permite desagregar el consumo por zonas, facilitando la identificación puntual de cargas fantasma que quedarían enmascaradas en una medición general.
+    El servidor centraliza el procesamiento, almacenamiento, visualización y control del sistema. La comunicación entre los nodos de adquisición, los actuadores y el servidor se realiza mediante el protocolo de mensajería MQTT a través de una red WiFi local.
+
+    \subsection{Diagrama a Bloques del Sistema}
+        La arquitectura del sistema propuesto se divide en tres subsistemas funcionales principales, como se ilustra en el diagrama a bloques de la Figura \ref{fig:diagrama_bloques}.
+        Estos subsistemas son: 1) Los Nodos de Medición y Adquisición, 2) El Servidor Local de Procesamiento, y 3) El Subsistema de Control.
+        \begin{figure}[H]
+            \centering
+            \includegraphics[width=1.1\textwidth]{img/diagrama_bloques.png}
+            \caption{Diagrama a bloques del sistema propuesto (Representación de la arquitectura general).}
+            \label{fig:diagrama_bloques}
+        \end{figure}
+
+         \newpage
+
+    \subsection{Descripción de Subsistemas}
+        \paragraph{1. Subsistema de Medición Distribuido (Nodos ESP32):}
+        Es el componente encargado de la adquisición de datos en el borde. Para este prototipo, se implementan \textbf{dos nodos idénticos}, cada uno asignado a un circuito o habitación específica. Cada nodo opera de forma autónoma y consta de:
+        \begin{itemize}
+            \item \textbf{Sensor (SCT-013):} Es un transformador de corriente no invasivo de núcleo partido.
+            Su función es medir la corriente alterna (AC) que fluye por el conductor de la zona asignada sin contacto eléctrico.
+            \begin{itemize}
+                    \item \textit{Entrada:} Corriente AC (0-100A) de la línea de fase.
+                    \item \textit{Salida:} Una señal de corriente AC pequeña, proporcional a la entrada (ej. 50mA).
+            \end{itemize}
+            \item \textbf{Acondicionamiento de Señal:} Este circuito convierte la señal de corriente AC del sensor en una señal de voltaje DC con un desfase (offset), adaptada para ser leída por el ESP32 (ej. 0-3.3V).
+            \begin{itemize}
+                    \item \textit{Entrada:} Señal de corriente AC del sensor.
+                    \item \textit{Salida:} Señal de voltaje DC (0-3.3V) al ADC del ESP32.
+            \end{itemize}
+            \item \textbf{Procesamiento (ESP32):} El microcontrolador ESP32 muestrea la señal del ADC, realiza los cálculos para obtener la potencia instantánea (W) y la potencia aparente (VA), y se conecta a la red WiFi local.
+            \begin{itemize}
+                    \item \textit{Entrada:} Señal de voltaje del acondicionador.
+                    \item \textit{Salida:} Paquetes de datos MQTT (Protocolo: MQTT v3.1.1).
+                \end{itemize}
+        \end{itemize}
+
+        \paragraph{2. Subsistema Servidor Local (Raspberry Pi):}
+        Es el cerebro del sistema.
+        Centraliza la recepción, procesamiento y almacenamiento de datos.
+        \begin{itemize}
+            \item \textbf{Broker MQTT:} Se utilizará un broker (EMQX) que actúa como intermediario de mensajería.
+            Recibe los datos publicados por los nodos distribuidos.
+            \item \textbf{Node-RED:} Es la herramienta de programación visual que orquesta los flujos de datos y la lógica de control. Se suscribe al broker MQTT para recibir los datos de potencia y los procesa según reglas predefinidas. Además de detectar anomalías, este servicio gestiona la \textbf{automatización temporal}: mediante nodos de inyección cronológica (timers), envía comandos de encendido o apagado a los actuadores en horarios específicos (ej. corte de energía en horario laboral o nocturno) para optimizar el consumo.
+            \item \textbf{InfluxDB:} Es la base de datos optimizada para series temporales.
+            Almacena eficientemente los datos de consumo desagregados por nodo (Habitación 1, Habitación 2) con su marca de tiempo para consultas históricas.
+            \item \textbf{Grafana:} Es la plataforma de visualización. Se conecta a InfluxDB como fuente de datos y permite crear un dashboard web con gráficas, medidores e indicadores del consumo en tiempo real e histórico por zona.
+        \end{itemize}
+
+        \paragraph{3. Subsistema de Control y Notificación:}
+        Son los componentes que interactúan con el usuario o con la instalación eléctrica de forma activa.
+        \begin{itemize}
+            \item \textbf{Comunicación por Telegram:} La integración se realiza directamente desde el servidor local utilizando la comunicación mediante Telegram. La Raspberry Pi procesa los datos y envía alertas puntuales o recibe comandos de usuario, manteniendo la privacidad de los datos históricos.
+            
+            \item \textbf{Actuadores Inteligentes (Smart Switches):}
+            En sustitución de un esquema centralizado, se implementan módulos de interrupción WiFi basados en microcontroladores (tipo Sonoff Basic) instalados en cada habitación. Estos dispositivos actúan como relevadores inalámbricos conectados al servidor. Su función es ejecutar las órdenes de corte o reconexión provenientes de Node-RED, ya sean disparadas por una alerta de seguridad, una decisión manual del usuario o una \textbf{rutina de horario programado}, permitiendo una gestión eficiente y granular de la energía por zonas.
+        \end{itemize}
+
+    \subsection{Especificaciones Técnicas}
+        El prototipo a desarrollar buscará cumplir con las siguientes especificaciones:
+        \begin{itemize}
+            \item \textbf{Rango de Medición:} 0 – 100 Amperes (AC) por nodo.
+            \item \textbf{Voltaje de Operación (Medición):} 127V AC (Monofásico).
+            \item \textbf{Precisión Esperada (Potencia):} $\pm 5\%$ comparado con un medidor comercial.
+            \item \textbf{Frecuencia de Muestreo (ESP32):} Envío de datos al servidor cada 10 segundos.
+            \item \textbf{Plataforma (Servidor):} Raspberry Pi 3B+ o superior.
+            \item \textbf{Protocolo de Comunicación:} MQTT sobre WiFi (red local).
+            \item \textbf{Interfaz de Usuario:} Dashboard en Grafana accesible vía navegador web en la red local.
+            \item \textbf{Sistema de Control:} Actuación distribuida mediante interruptores WiFi (Smart Switches) de 10A, controlados vía Wi-Fi.
+            \item \textbf{Automatización:} Capacidad de programación de horarios de encendido y apagado automático por nodos (Habitación).
+        \end{itemize}
+\newpage
 \section{Desarrollo del proyecto}
 \newpage
 

@@ -427,22 +427,47 @@ INPUT .\img\AC.png
 INPUT .\img\AC.png
 INPUT .\img\AC.png
 INPUT .\img\AC.png
-INPUT .\img\AC_amplitud.png
-INPUT .\img\AC_amplitud.png
-INPUT .\img\AC_amplitud.png
-INPUT .\img\AC_amplitud.png
-INPUT .\img\AC_amplitud.png
-INPUT .\img\AC_amplitud.png
-INPUT .\img\AC_amplitud.png
-INPUT C:\Program Files\MiKTeX\fonts\tfm\adobe\palatino\pplri8t.tfm
-INPUT C:\Program Files\MiKTeX\fonts\vf\adobe\palatino\pplri8t.vf
-INPUT C:\Program Files\MiKTeX\fonts\tfm\adobe\palatino\pplri8r.tfm
-INPUT C:\Program Files\MiKTeX\fonts\tfm\adobe\palatino\pplbi8t.tfm
 INPUT C:\Program Files\MiKTeX\fonts\tfm\adobe\palatino\pplr8t.tfm
-INPUT C:\Program Files\MiKTeX\fonts\vf\adobe\palatino\pplbi8t.vf
-INPUT C:\Program Files\MiKTeX\fonts\tfm\adobe\palatino\pplbi8r.tfm
+INPUT C:\Program Files\MiKTeX\fonts\tfm\public\amsfonts\cmextra\cmex7.tfm
+INPUT C:\Program Files\MiKTeX\fonts\tfm\public\amsfonts\cmextra\cmex7.tfm
+INPUT C:\Program Files\MiKTeX\fonts\tfm\adobe\palatino\pplr8t.tfm
+INPUT .\img\AC_amplitud.png
+INPUT .\img\AC_amplitud.png
+INPUT .\img\AC_amplitud.png
+INPUT .\img\AC_amplitud.png
+INPUT .\img\AC_amplitud.png
+INPUT .\img\AC_amplitud.png
+INPUT .\img\AC_amplitud.png
 INPUT C:\Program Files\MiKTeX\fonts\vf\adobe\palatino\pplr8t.vf
 INPUT C:\Program Files\MiKTeX\fonts\tfm\adobe\palatino\pplr8r.tfm
+INPUT C:\Program Files\MiKTeX\fonts\vf\adobe\palatino\pplr8t.vf
+INPUT C:\Program Files\MiKTeX\fonts\tfm\adobe\palatino\pplr8r.tfm
+INPUT C:\Program Files\MiKTeX\fonts\tfm\adobe\palatino\pplri8t.tfm
+INPUT C:\Program Files\MiKTeX\fonts\tfm\adobe\palatino\pplbi8t.tfm
+INPUT C:\Program Files\MiKTeX\fonts\vf\adobe\palatino\pplbi8t.vf
+INPUT C:\Program Files\MiKTeX\fonts\tfm\adobe\palatino\pplbi8r.tfm
+INPUT C:\Program Files\MiKTeX\fonts\vf\adobe\palatino\pplri8t.vf
+INPUT C:\Program Files\MiKTeX\fonts\tfm\adobe\palatino\pplri8r.tfm
+INPUT .\img\sct_diagrama.png
+INPUT .\img\sct_diagrama.png
+INPUT .\img\sct_diagrama.png
+INPUT .\img\sct_diagrama.png
+INPUT .\img\sct_diagrama.png
+INPUT .\img\sct_diagrama.png
+INPUT .\img\sct_diagrama.png
+INPUT .\img\diagrama_bloques.png
+INPUT .\img\diagrama_bloques.png
+INPUT .\img\diagrama_bloques.png
+INPUT .\img\diagrama_bloques.png
+INPUT .\img\diagrama_bloques.png
+INPUT .\img\diagrama_bloques.png
+INPUT .\img\diagrama_bloques.png
+INPUT C:\Program Files\MiKTeX\tex\latex\psnfss\ts1ppl.fd
+INPUT C:\Program Files\MiKTeX\tex\latex\psnfss\ts1ppl.fd
+INPUT C:\Program Files\MiKTeX\tex\latex\psnfss\ts1ppl.fd
+INPUT C:\Program Files\MiKTeX\fonts\tfm\adobe\palatino\pplr8c.tfm
+INPUT C:\Program Files\MiKTeX\fonts\vf\adobe\palatino\pplr8c.vf
+INPUT C:\Program Files\MiKTeX\fonts\tfm\public\mathpazo\fplmr.tfm
 INPUT .\main.bbl
 INPUT .\main.bbl
 INPUT main.bbl
