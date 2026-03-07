@@ -1,4 +1,4 @@
-This is BibTeX, Version 0.99e
+This is BibTeX, Version 0.99d
 Capacity: max_strings=200000, hash_size=200000, hash_prime=170003
 The top-level auxiliary file: main.aux
 Reallocating 'name_of_file' (item size: 1) to 12 items.
@@ -19,44 +19,44 @@ Database file #1: piic.bib
 -- See the "IEEEtran_bst_HOWTO.pdf" manual for usage information.
 
 Done.
-You've used 15 entries,
+You've used 22 entries,
             4087 wiz_defined-function locations,
-            911 strings with 10335 characters,
-and the built_in function-call counts, 7009 in all, are:
-= -- 543
-> -- 139
+            942 strings with 11392 characters,
+and the built_in function-call counts, 9454 in all, are:
+= -- 782
+> -- 146
 < -- 19
-+ -- 62
++ -- 69
 - -- 29
-* -- 285
-:= -- 1188
-add.period$ -- 31
-call.type$ -- 15
-change.case$ -- 17
+* -- 390
+:= -- 1685
+add.period$ -- 38
+call.type$ -- 22
+change.case$ -- 24
 chr.to.int$ -- 51
-cite$ -- 15
-duplicate$ -- 557
-empty$ -- 693
+cite$ -- 22
+duplicate$ -- 760
+empty$ -- 889
 format.name$ -- 35
-if$ -- 1608
+if$ -- 2141
 int.to.chr$ -- 0
-int.to.str$ -- 15
-missing$ -- 114
-newline$ -- 70
+int.to.str$ -- 22
+missing$ -- 163
+newline$ -- 105
 num.names$ -- 15
-pop$ -- 305
+pop$ -- 396
 preamble$ -- 1
 purify$ -- 0
 quote$ -- 2
-skip$ -- 552
+skip$ -- 769
 stack$ -- 0
-substring$ -- 96
-swap$ -- 338
+substring$ -- 110
+swap$ -- 464
 text.length$ -- 2
 text.prefix$ -- 0
 top$ -- 5
-type$ -- 15
+type$ -- 22
 warning$ -- 0
 while$ -- 26
-width$ -- 17
-write$ -- 149
+width$ -- 24
+write$ -- 226

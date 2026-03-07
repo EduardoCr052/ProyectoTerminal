@@ -10,16 +10,14 @@ const float voltajeNominal = 127.0; // Voltaje residencial estándar
 const float constanteCalibracion = 60.6; // Ajustar según tu resistencia burden
 
 void setup() {
-  // Inicializar comunicación serie a alta velocidad
   Serial.begin(115200);
-  
-  // Darle tiempo al monitor serie para abrir
   delay(1000);
-  Serial.println("=== Iniciando Sistema de Monitoreo ===");
+  
+  // SOLUCIÓN 1: Forzar el ADC a 10 bits para compatibilidad con EmonLib
+  analogReadResolution(10); 
 
-  // Configurar el pin y la calibración en EmonLib
-  // La constante 60.6 es típica para un SCT-013-000 con R_burden de 33 ohms
-  emon1.current(pinSCT, constanteCalibracion); 
+  // Configurar el pin y la calibración
+  emon1.current(pinSCT, 30.0);
 }
 
 void loop() {

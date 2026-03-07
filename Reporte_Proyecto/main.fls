@@ -387,9 +387,9 @@ INPUT .\main.toc
 INPUT .\main.toc
 INPUT main.toc
 INPUT C:\Program Files\MiKTeX\fonts\tfm\adobe\palatino\pplb8t.tfm
-OUTPUT main.toc
 INPUT C:\Program Files\MiKTeX\fonts\vf\adobe\palatino\pplb8t.vf
 INPUT C:\Program Files\MiKTeX\fonts\tfm\adobe\palatino\pplb8r.tfm
+OUTPUT main.toc
 INPUT .\main.lof
 INPUT .\main.lof
 INPUT main.lof

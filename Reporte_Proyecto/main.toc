@@ -32,15 +32,22 @@
 \contentsline {subsubsection}{\numberline {6.2.5}Factor de Potencia y Eficiencia Energética}{12}{subsubsection.6.2.5}%
 \contentsline {subsection}{\numberline {6.3}Sensor SCT-013}{13}{subsection.6.3}%
 \contentsline {subsection}{\numberline {6.4}Hardware del Sistema}{14}{subsection.6.4}%
-\contentsline {subsection}{\numberline {6.5}Plataformas de Software}{14}{subsection.6.5}%
-\contentsline {section}{\numberline {7}Metodología - Descripción Técnica}{15}{section.7}%
-\contentsline {subsection}{\numberline {7.1}Diagrama a Bloques del Sistema}{15}{subsection.7.1}%
-\contentsline {subsection}{\numberline {7.2}Descripción de Subsistemas}{16}{subsection.7.2}%
-\contentsline {paragraph}{1. Subsistema de Medición Distribuido (Nodos ESP32):}{16}{subsection.7.2}%
-\contentsline {paragraph}{2. Subsistema Servidor Local (Raspberry Pi):}{16}{subsection.7.2}%
-\contentsline {paragraph}{3. Subsistema de Control y Notificación:}{17}{subsection.7.2}%
-\contentsline {subsection}{\numberline {7.3}Especificaciones Técnicas}{17}{subsection.7.3}%
-\contentsline {section}{\numberline {8}Desarrollo del proyecto}{18}{section.8}%
-\contentsline {section}{\numberline {9}Resultados}{19}{section.9}%
-\contentsline {section}{\numberline {10}Análisis de resultados}{20}{section.10}%
-\contentsline {section}{\numberline {11}Conclusiones}{21}{section.11}%
+\contentsline {subsubsection}{\numberline {6.4.1}Microcontrolador ESP32}{14}{subsubsection.6.4.1}%
+\contentsline {subsubsection}{\numberline {6.4.2}Raspberry Pi (Servidor Central y Puerta de Enlace Local)}{15}{subsubsection.6.4.2}%
+\contentsline {subsubsection}{\numberline {6.4.3}Actuadores Inteligentes (Sonoff Basic R4)}{15}{subsubsection.6.4.3}%
+\contentsline {subsection}{\numberline {6.5}Plataformas de Software}{16}{subsection.6.5}%
+\contentsline {subsubsection}{\numberline {6.5.1}Intermediario de Mensajería MQTT (EMQX)}{16}{subsubsection.6.5.1}%
+\contentsline {subsubsection}{\numberline {6.5.2}Entorno de Programación Visual (Node-RED)}{17}{subsubsection.6.5.2}%
+\contentsline {subsubsection}{\numberline {6.5.3}Base de Datos de Series Temporales (InfluxDB)}{18}{subsubsection.6.5.3}%
+\contentsline {subsubsection}{\numberline {6.5.4}Plataforma de Visualización y Análisis (Grafana)}{18}{subsubsection.6.5.4}%
+\contentsline {section}{\numberline {7}Metodología - Descripción Técnica}{20}{section.7}%
+\contentsline {subsection}{\numberline {7.1}Diagrama a Bloques del Sistema}{20}{subsection.7.1}%
+\contentsline {subsection}{\numberline {7.2}Descripción de Subsistemas}{21}{subsection.7.2}%
+\contentsline {paragraph}{1. Subsistema de Medición Distribuido (Nodos ESP32):}{21}{subsection.7.2}%
+\contentsline {paragraph}{2. Subsistema Servidor Local (Raspberry Pi):}{21}{subsection.7.2}%
+\contentsline {paragraph}{3. Subsistema de Control y Notificación:}{22}{subsection.7.2}%
+\contentsline {subsection}{\numberline {7.3}Especificaciones Técnicas}{22}{subsection.7.3}%
+\contentsline {section}{\numberline {8}Desarrollo del proyecto}{23}{section.8}%
+\contentsline {section}{\numberline {9}Resultados}{24}{section.9}%
+\contentsline {section}{\numberline {10}Análisis de resultados}{25}{section.10}%
+\contentsline {section}{\numberline {11}Conclusiones}{26}{section.11}%

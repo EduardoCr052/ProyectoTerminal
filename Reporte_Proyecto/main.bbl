@@ -102,4 +102,53 @@ W.~H. Hayt, J.~E. Kemmerly, and S.~M. Durbin, \emph{Análisis de circuitos en
   \url{https://naylampmechatronics.com/blog/51_tutorial-sensor-de-corriente-ac-no-invasivo-sct-013.html}
 \BIBentrySTDinterwordspacing
 
+\bibitem{espressif2023esp32}
+\BIBentryALTinterwordspacing
+\emph{ESP32 Series Datasheet}, {Espressif Systems}, 2023, versión 4.3.
+  Recuperado el 23 de febrero de 2026. [Online]. Available:
+  \url{https://www.espressif.com/sites/default/files/documentation/esp32_datasheet_en.pdf}
+\BIBentrySTDinterwordspacing
+
+\bibitem{raspberry2023doc}
+\BIBentryALTinterwordspacing
+\emph{Raspberry Pi Hardware Documentation}, {Raspberry Pi Ltd}, 2023,
+  recuperado el 23 de febrero de 2026. [Online]. Available:
+  \url{https://www.raspberrypi.com/documentation/computers/raspberry-pi.html}
+\BIBentrySTDinterwordspacing
+
+\bibitem{sonoff2023basicr4}
+\BIBentryALTinterwordspacing
+\emph{SONOFF BASICR4 Wi-Fi Smart Switch User Manual and Specifications}, {ITEAD
+  Intelligent Systems}, 2023, recuperado el 23 de febrero de 2026. [Online].
+  Available: \url{https://sonoff.tech/product/diy-smart-switches/basicr4/}
+\BIBentrySTDinterwordspacing
+
+\bibitem{emqx2026doc}
+\BIBentryALTinterwordspacing
+\emph{EMQX Enterprise Documentation: Scalable MQTT Broker for IoT}, {EMQ
+  Technologies Co., Ltd.}, s.f., recuperado el 1 de marzo de 2026. [Online].
+  Available: \url{https://www.emqx.com/en/resources}
+\BIBentrySTDinterwordspacing
+
+\bibitem{nodered2026doc}
+\BIBentryALTinterwordspacing
+\emph{Node-RED Documentation: Flow-based programming for the Internet of
+  Things}, {OpenJS Foundation}, s.f., recuperado el 1 de marzo de 2026.
+  [Online]. Available: \url{https://nodered.org/docs/}
+\BIBentrySTDinterwordspacing
+
+\bibitem{influxdata2026doc}
+\BIBentryALTinterwordspacing
+\emph{InfluxDB Documentation: Time Series Data Platform}, {InfluxData Inc.},
+  s.f., recuperado el 1 de marzo de 2026. [Online]. Available:
+  \url{https://docs.influxdata.com/}
+\BIBentrySTDinterwordspacing
+
+\bibitem{grafanalabs2026doc}
+\BIBentryALTinterwordspacing
+\emph{Grafana Documentation: The open observability platform}, {Grafana Labs},
+  s.f., recuperado el 1 de marzo de 2026. [Online]. Available:
+  \url{https://grafana.com/docs/grafana/latest/}
+\BIBentrySTDinterwordspacing
+
 \end{thebibliography}

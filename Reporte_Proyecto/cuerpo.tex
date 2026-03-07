@@ -321,46 +321,118 @@ La solución técnica consiste en una arquitectura distribuida de nodos de adqui
 
     \subsection{Sensor SCT-013}
 
-        La medición de corriente se realiza mediante el método no invasivo utilizando sensores de la serie \textbf{SCT-013}, los cuales operan bajo el principio de los \textbf{Transformadores de Corriente (CT)}. En esta configuración, el conductor de la instalación eléctrica actúa como el devanado primario (una sola espira), mientras que el sensor integra un núcleo de ferrita partido y un devanado secundario con un número elevado de vueltas (típicamente 2000), lo que establece la relación de transformación de corriente \cite{naylamp2023sct}. Como se muestra en la \textbf{Figura \ref{fig:sct_diagrama}}.
+        Para cuantificar el flujo de corriente sin intervenir físicamente la instalación eléctrica, el sistema emplea sensores no invasivos de la familia \textbf{SCT-013}. Estos dispositivos basan su funcionamiento en la teoría electromagnética de los \textbf{Transformadores de Corriente (CT)}. El diseño consiste en utilizar el cable conductor de la red como devanado primario de una sola espira, el cual es abrazado por un núcleo de ferrita seccionado. En el interior del sensor se encuentra un devanado secundario compuesto por múltiples vueltas,generalmente son 2000 vueltas, lo cual determina la relación de transformación \cite{naylamp2023sct}. Este principio de operación se ilustra en la \textbf{Figura \ref{fig:sct_diagrama}}.
 
         \begin{figure}[H]
             \centering
             \includegraphics[width=0.8\textwidth]{img/sct_diagrama.png}
-            \caption[Diagrama de funcionamiento del sensor SCT-013]{Diagrama de funcionamiento del sensor SCT-013\footnotemark}
+            \caption[Diagrama de funcionamiento del sensor SCT-013]{Diagrama interno y principio de funcionamiento del sensor SCT-013.\footnotemark}
             \label{fig:sct_diagrama}
         \end{figure}
-        \footnotetext{Fuente: Elaboración propia utilizando paint.}    
+        \footnotetext{Fuente: Elaboración propia.}    
 
-
-        Físicamente, la corriente que circula por el primario induce un flujo magnético en el núcleo, el cual genera una corriente proporcionalmente menor en el secundario. Existen dos variantes principales en esta familia de sensores:
+        A nivel electromagnético, el flujo de electrones en el cable primario induce un campo magnético en la ferrita, originando a su vez una corriente inducida a escala en el secundario. Comercial y técnicamente, esta serie de sensores se clasifica en dos topologías principales, lo cual son los siguientes:
 
         \begin{itemize}
-            \item \textbf{Salida de Corriente (SCT-013-000):} Entrega una señal de corriente pura (ej. 50 mA por cada 100 A). Requiere una resistencia de carga externa (\textit{Burden Resistor}) para convertir esta corriente en una señal de voltaje legible.
-            \item \textbf{Salida de Voltaje (SCT-013-030):} Incluye una resistencia de carga interna, entregando directamente una señal de voltaje (ej. 1 V por cada 30 A).
+            \item \textbf{Salida en corriente (SCT-013-000):} Proporciona una señal eléctrica pura en forma de corriente (por ejemplo, 50 mA a plena escala de 100 A). Esta variante exige la integración de una resistencia de carga externa, conocida como \textit{burden resistor}, para transformar dicha corriente en una caída de tensión medible.
+            \item \textbf{Salida en voltaje (SCT-013-030):} Posee una resistencia de carga ya integrada en su encapsulado, lo que le permite entregar una diferencia de potencial directa proporcional al flujo medido (por ejemplo, 1 V para 30 A).
         \end{itemize}
 
-        Dado que la salida del sensor es una señal de corriente alterna (AC) que oscila entre valores positivos y negativos, y considerando que el convertidor analógico-digital (ADC) del ESP32 opera únicamente con voltajes positivos (0V a 3.3V), es necesario implementar un circuito de acondicionamiento de señal.
+        Un detalle técnico inherente a la medición de líneas de corriente alterna es la naturaleza bipolar de la señal resultante, la cual cruza por cero hacia valores negativos. Puesto que los convertidores analógico-digitales (ADC) de microcontroladores como el ESP32 están diseñados para muestrear tensiones estrictamente positivas, con un rango de voltaje típicamente entre 0 V y 3.3 V, asi que, resulta obligatorio interponer una etapa de acondicionamiento de señal.
 
-        Este circuito añade un voltaje de desplazamiento (\textit{DC Offset}) a la señal, típicamente de $V_{CC}/2$ (1.65V para el ESP32), centrando la onda sinusoidal en el rango dinámico del ADC. Como advierte Naylamp Mechatronics \cite{naylamp2023sct}, sin este acondicionamiento los semiciclos negativos de la corriente alterna serían recortados (clipping) o podrían dañar irreversiblemente la entrada del microcontrolador.
 
-        Para el modelo \textbf{SCT-013-000} seleccionado para este proyecto (100A), la resistencia \textit{burden} ($R_{carga}$) necesaria para obtener un voltaje pico deseado ($V_{pico}$) se calcula mediante la Ley de Ohm aplicada al secundario, tal como se muestra en la Ecuación \ref{eq:burden_resistor}:
+        %[Image of LM358 op-amp voltage follower circuit for DC offset]
 
-        \begin{equation}
-            R_{carga} = \frac{V_{pico}}{I_{secundario}}
-            \label{eq:burden_resistor}
-        \end{equation}
+        Para resolver esto, el bloque analógico tiene la función de sumar un nivel de corriente continua (\textit{DC Offset}) equivalente a la mitad del voltaje de operación lógico. Para obtener una referencia estable que no se degrade por la impedancia del sensor, se implementa un circuito seguidor de tensión basado en un amplificador operacional (LM358). Es imperativo que este circuito se alimente estrictamente con los 3.3 V provenientes del regulador del ESP32, estableciendo así un punto de reposo exacto de 1.65 V. La literatura técnica especializada \cite{naylamp2023sct} recalca que omitir este paso, o utilizar niveles de voltaje superiores (como 5 V), provocaría un fenómeno de recorte en la onda conocido como (\textit{clipping}) y conllevaría un riesgo de daño permanente en el pin de entrada del microcontrolador.
 
-        Donde $I_{secundario}$ corresponde a la corriente de salida nominal del sensor (0.05 A).
+        A diferencia de las arquitecturas que requieren cálculos de adaptación, el presente proyecto implementa la variante \textbf{SCT-013-030} (rango de 30 A). Este modelo específico integra internamente su propia resistencia \textit{burden} calibrada de fábrica, lo que le permite entregar directamente una señal de diferencia de potencial de 1 V a su capacidad nominal máxima.
+
+        Al superponer esta señal alterna (que genera picos de aproximadamente $\pm 1$ V) sobre el nivel de continua de 1.65 V del amplificador operacional, la onda resultante oscila de manera segura en un rango de 0.65 V a 2.65 V. Esta configuración asegura que la medición transversal se mantenga siempre dentro de la ventana de lectura lineal del ADC de 12 bits del ESP32, permitiendo que la librería de software calcule la Corriente Eficaz ($I_{RMS}$) con alta fidelidad.
         
-
     \subsection{Hardware del Sistema}
-        \textbf{Microcontrolador ESP32:} Se selecciona este SoC (System on Chip) por su capacidad de procesamiento dual-core y conectividad WiFi integrada. Su convertidor analógico-digital (ADC) de 12 bits permite una resolución suficiente para digitalizar la señal proveniente de los sensores de corriente.
-        
-        \textbf{Raspberry Pi:} Actúa como el servidor de borde (\textit{Edge Server}). Es una computadora de placa reducida basada en Linux capaz de ejecutar el stack de software del servidor (Broker, Base de Datos y Dashboard) las 24 horas con un consumo energético mínimo.
-        
-        \textbf{Actuadores Inteligentes (Smart Switches):} Dispositivos basados en microcontroladores (tipo Sonoff Basic R4) que integran un relevador electromecánico y conectividad WiFi. Su función es interrumpir físicamente el circuito eléctrico al recibir un comando digital, permitiendo el control ON/OFF remoto.
+        Para materializar la arquitectura de monitoreo distribuido, la capa física del sistema se compone de componentes electrónicos seleccionados por su capacidad de procesamiento en el borde conocido como \textit{Edge Computing}, conectividad inalámbrica y viabilidad económica para su replicación en múltiples nodos residenciales.
 
-        \subsection{Plataformas de Software}
+        \subsubsection{Microcontrolador ESP32}
+
+            El núcleo de adquisición y procesamiento de cada nodo de medición es el microcontrolador ESP32, un Sistema en Chip (SoC) desarrollado por Espressif Systems. Este dispositivo de bajo consumo está diseñado específicamente para aplicaciones de Internet de las Cosas (IoT), integrando conectividad Wi-Fi de 2.4 GHz y Bluetooth de modo dual en un solo encapsulado \cite{espressif2023esp32}.
+
+            A nivel arquitectónico, el hardware cuenta con un microprocesador Tensilica Xtensa Dual-Core de 32 bits, capaz de operar a una frecuencia de reloj de hasta 240 MHz. Esta capacidad de procesamiento paralelo es un requerimiento crítico para el sistema de monitoreo: permite dedicar un núcleo exclusivamente al muestreo ininterrumpido a alta velocidad de la señal alterna proveniente del sensor de corriente, mientras el segundo núcleo gestiona asíncronamente la pila de red como los protocolos TCP/IP y la publicación de datos vía MQTT. Esta división de tareas garantiza que no existan tiempos muertos conocido como \textit{blocking} que corrompan el cálculo de la corriente eficaz durante las transmisiones de red.
+
+            Para la digitalización de las señales físicas, el bloque analógico del ESP32 incorpora Convertidores Analógico-Digitales (ADC) de aproximaciones sucesivas (SAR) con una resolución nativa de 12 bits \cite{espressif2023esp32}. Esta especificación determina que el rango dinámico de voltaje de entrada que es típicamente de 0 V a 3.3 V y se divide en 4096 niveles discretos. 
+
+            Dado que el algoritmo \textit{True RMS} implementado en el firmware depende de la integración de valores instantáneos precisos, esta resolución proporciona la granularidad matemática necesaria para reconstruir fielmente la onda sinusoidal, incluso ante la presencia de ruido eléctrico o distorsiones armónicas en la instalación de la vivienda.
+
+        \subsubsection{Raspberry Pi (Servidor Central y Puerta de Enlace Local)}
+
+            Para la capa de gestión, almacenamiento y toma de decisiones del sistema, se implementa una computadora de placa reducida (SBC, por sus siglas en inglés). A diferencia de los nodos de medición basados en microcontroladores, la Raspberry Pi actúa como el cerebro central y puerta de enlace (\textit{Gateway}) de la red local, proporcionando los recursos computacionales necesarios para ejecutar un sistema operativo completo basado en Linux \cite{raspberry2023doc}.
+
+            La justificación técnica para incorporar este hardware radica en su arquitectura basada en un procesador ARM Cortex multinúcleo y su memoria RAM dedicada, características indispensables para sostener operaciones de red continuas y manejo de bases de datos. En el contexto del monitoreo energético residencial, la Raspberry Pi asume la ejecución ininterrumpida del broker MQTT EMQX, encargado de organizar la mensajería asíncrona proveniente de todos los nodos ESP32 distribuidos en la vivienda.
+
+            Además de la gestión de red, la capacidad de procesamiento superior de la SBC permite desplazar la carga computacional pesada fuera de los nodos de borde. Mientras los ESP32 se limitan a medir y transmitir valores instantáneos de corriente y potencia, la Raspberry Pi recibe estos paquetes de datos en formato JSON, los procesa a través de scripts de alto nivel e integra la potencia activa en el dominio del tiempo para calcular el consumo acumulado en kilowatt-hora ($kWh$). 
+
+            Esta centralización de datos habilita la implementación de la lógica financiera del sistema. Al mantener un registro histórico en su almacenamiento local, la Raspberry Pi evalúa el consumo en tiempo real contra los umbrales de las tarifas eléctricas vigentes, generando alertas automatizadas o enviando comandos de corte a los microcontroladores en caso de detectar anomalías o riesgo de exceder límites de facturación críticos.
+
+        \subsubsection{Actuadores Inteligentes (Sonoff Basic R4)}
+
+            Para completar el lazo de control del sistema de gestión energética, la capa de ejecución física se implementa mediante actuadores inteligentes comerciales, seleccionando el modelo \textbf{Sonoff Basic R4}. Un actuador de este tipo es un módulo de conmutación electromecánica acoplado a un microcontrolador que proporciona conectividad a redes de área local. Su función principal es interrumpir o habilitar el flujo de corriente alterna hacia una carga específica mediante comandos digitales.
+
+            La selección de la versión R4 se justifica por su actualización arquitectónica que integra un \textbf{ESP32}, lo que homóloga la familia de microcontroladores de todo el proyecto al ecosistema de Espressif Systems. A nivel de potencia, el relé interno soporta una corriente nominal máxima de 10 A operando en rangos de 100 V a 240 V en corriente alterna, equivalente a una capacidad de manejo de 2400 W \cite{sonoff2023basicr4}. Esta especificación, sumada a su sensor de temperatura interno para protección contra sobrecalentamiento, garantiza un manejo seguro para la gran mayoría de electrodomésticos y circuitos derivados de iluminación en una instalación doméstica.
+
+            %[Image of Sonoff Basic R4 smart switch internal PCBA showing ESP32-C3 chip and 10A relay]
+
+            A nivel sistémico, el uso de estos dispositivos responde al requerimiento innegociable de mantener una topología de comunicación \textbf{completamente inalámbrica}. En un entorno residencial ya construido, el despliegue de cableado de control dedicado desde el servidor central (Raspberry Pi) hasta cada electrodoméstico resulta invasivo, económicamente inviable y propenso a fallas mecánicas. Al utilizar la infraestructura Wi-Fi existente (banda de 2.4 GHz), los actuadores eliminan esta barrera física, permitiendo una instalación modular y escalable a cualquier habitación sin requerir modificaciones en la obra civil.
+
+            Operativamente, la integración de los Sonoff Basic R4 cierra el ecosistema IoT. Los dispositivos operan como nodos clientes que se conectan vía Wi-Fi a la red local y reciben instrucciones a través del broker EMQX. Cuando la Raspberry Pi, actuando como el cerebro analítico del sistema, determina que el consumo acumulado se aproxima a un límite tarifario crítico, publica un mensaje de desconexión. El actuador recibe este comando inalámbrico en tiempo real y desenergiza el circuito correspondiente de manera automática, materializando así la protección económica del usuario mediante el control activo de la demanda.
+
+    \subsection{Plataformas de Software}
+        El hardware por sí solo carece de propósito sin una capa lógica que coordine la adquisición, el procesamiento de datos y la toma de decisiones. Así que, para este sistema de gestión energética, se seleccionaron plataformas de código abierto orientadas específicamente al ecosistema del IoT, garantizando interoperabilidad, baja latencia y un despliegue eficiente en el servidor central.
+
+        \subsubsection{Intermediario de Mensajería MQTT (EMQX)}
+            En una arquitectura de IoT distribuida, la comunicación directa punto a punto entre los nodos físicos y el servidor central resulta ineficiente y difícil de escalar. Asi que, para resolver este desafío de interconectividad, el sistema implementa el protocolo MQTT (\textit{Message Queuing Telemetry Transport}), un estándar de mensajería asíncrona ligero basado en el modelo de publicación y suscripción (\textit{Pub/Sub}).
+
+            El núcleo de esta red de comunicaciones es el broker de mensajería, para lo cual se seleccionó \textbf{EMQX}. Alojado localmente en la Raspberry Pi, EMQX es un broker MQTT de código abierto y grado empresarial, diseñado para procesar millones de conexiones concurrentes con latencias de submilisegundos \cite{emqx2026doc}. Su integración en el proyecto elimina el acoplamiento directo entre el hardware y el software, por lo que los dispositivos no necesitan conocer la dirección IP de la base de datos ni del panel de control, sino únicamente necesitan comunicarse con el broker.
+
+            %[Image of EMQX MQTT broker architecture showing publish and subscribe model with IoT edge devices]
+
+            Así que, el EMQX actúa como el enrutador central de toda la telemetría y los comandos de control. Por un lado, recibe las tramas de datos, los paquetes JSON con los valores de $I_{RMS}$ y la Potencia Aparente estimada que los microcontroladores ESP32 publican continuamente en tópicos específicos. Inmediatamente, el broker distribuye esta información a cualquier cliente suscrito a dicho tópico, siendo Node-RED el principal receptor para su procesamiento y almacenamiento posterior.
+
+            De manera inversa, cuando el algoritmo de gestión determina que es necesario interrumpir el suministro eléctrico, Node-RED publica un comando de apagado a través de EMQX en un tópico de control. Los actuadores Sonoff Basic R4, que se encuentran suscritos permanentemente a estos canales, reciben la instrucción a través del broker y accionan sus relés electromecánicos. Esta gestión centralizada del flujo de mensajes garantiza que la red residencial sea escalable, permitiendo agregar nuevos sensores o actuadores en el futuro sin necesidad de reescribir el código del servidor central.
+
+        \subsubsection{Entorno de Programación Visual (Node-RED)}
+
+            Para la implementación de la lógica central del sistema y la interfaz de usuario, se optó por \textbf{Node-RED}, una herramienta de desarrollo basada en flujo conocido como \textit{flow-based programming}, creada originalmente por IBM y actualmente gestionada por la OpenJS Foundation. A diferencia de los lenguajes de programación imperativos tradicionales, Node-RED permite construir aplicaciones interconectando bloques funcionales llamados nodos, a través de una interfaz gráfica accesible desde el navegador web \cite{nodered2026doc}.
+
+            La selección de esta plataforma como el que organizará el proyecto se justifica por su integración nativa con protocolos de mensajería asíncrona. Ejecutándose como un servicio continuo dentro del sistema operativo de la Raspberry Pi, Node-RED asume el rol de cliente/maestro. Su arquitectura de flujos está diseñada para suscribirse a los tópicos del broker EMQX, recibir las tramas de datos en formato JSON transmitidas por los nodos ESP32 que contienen variables eléctricas continuas como $I_{RMS}$ y $S$, y decodificar la información en tiempo real.
+
+            Una vez que los datos ingresan al entorno, Node-RED utiliza nodos de función programados en JavaScript para aplicar la lógica matemática y financiera. Es en esta capa donde el software integra los valores de potencia en el dominio del tiempo para calcular la energía acumulada en kilowatt-hora ($kWh$). Estos valores se comparan constantemente contra los umbrales tarifarios preestablecidos para el consumo residencial.
+
+            Además, es el encargado de cerrar el lazo de control automatizado. Si la lógica interna detecta una condición crítica o un consumo que amenaza con exceder el límite tarifario, el flujo dirige la señal hacia un nodo de salida MQTT, el cual publica un comando digital de interrupción. Este mensaje es recibido por los actuadores \textbf{Sonoff Basic R4}, los cuales desenergizan las cargas físicas. Esta capacidad de procesar entradas, ejecutar algoritmos de control y emitir respuestas en milisegundos, sumada a la integración de un tablero de visualización (\textit{Dashboard}) para la supervisión del usuario, consolida a Node-RED como el núcleo lógico del sistema.
+
+        \subsubsection{Base de Datos de Series Temporales (InfluxDB)}
+
+            El monitoreo continuo de variables eléctricas en múltiples nodos residenciales genera un volumen masivo de datos transaccionales. Al registrar métricas como la Corriente Eficaz ($I_{RMS}$) y la Potencia Aparente ($S$) a intervalos de pocos segundos, el uso de sistemas de gestión de bases de datos relacionales tradicionales como MySQL o PostgreSQL, resulta computacionalmente ineficiente debido a la sobrecarga generada por las operaciones de escritura continua. Asi que, para solucionar este cuello de botella, la arquitectura de persistencia del sistema se fundamenta en \textbf{InfluxDB}.
+
+            InfluxDB es un motor de base de datos de código abierto diseñado específicamente para manejar cargas de trabajo de \textbf{Series Temporales} (\textit{Time-Series Database} o TSDB). Su estructura interna está optimizada para la ingesta de alta velocidad, la compresión de datos y la consulta en tiempo real de métricas que están estrictamente indexadas mediante marcas de tiempo (\textit{timestamps}) \cite{influxdata2026doc}. 
+
+            En la topología de este proyecto, InfluxDB se despliega localmente en el servidor central (Raspberry Pi), operando en colaboración con Node-RED. Una vez que Node-RED recibe y decodifica las tramas MQTT provenientes de los ESP32, actúa como puente de escritura, formateando la información e insertándola en los repositorios o \textit{buckets} de almacenamiento de InfluxDB.
+
+            La justificación técnica central de esta elección radica en la capacidad del motor para ejecutar operaciones de agregación y análisis de tendencias energéticas. El cálculo real de los kilowatt-hora ($kWh$) facturables por la compañía suministradora requiere la integración de la potencia demandada a lo largo de semanas o meses. InfluxDB facilita este procesamiento mediante su lenguaje de consultas estructurado, permitiendo extraer rápidamente sumatorias, promedios y picos de demanda en ventanas de tiempo dinámicas.
+
+            Este registro histórico persistente es el fundamento principal del sistema analítico, ya que, no solo alimenta las gráficas de interfaz de usuario, sino que provee la base matemática sobre la cual el algoritmo de Node-RED proyecta el consumo futuro, prediciendo si la vivienda superará su umbral tarifario antes de que termine el ciclo de facturación.
+
+        \subsubsection{Plataforma de Visualización y Análisis (Grafana)}
+
+            El límite de un sistema de monitoreo inteligente no solo reside únicamente en la adquisición y almacenamiento de datos, sino en la capacidad de traducirlos en información digerible y accionable para el usuario final. Aunque el flujo lógico del sistema es gestionado por Node-RED, la interfaz de supervisión de alto nivel y el análisis histórico se manda a \textbf{Grafana}, una plataforma de código abierto líder en la industria para la observabilidad, visualización y análisis de métricas \cite{grafanalabs2026doc}.
+
+            %[Image of Grafana dashboard for IoT energy monitoring showing time-series graphs, gauges, and historical power consumption]
+
+            Implementado localmente en la Raspberry Pi junto al resto de los servicios, Grafana actúa como la capa de presentación (\textit{Front-end}) del servidor central. Su selección arquitectónica se fundamenta en su capacidad de integración nativa con bases de datos de series temporales (TSDB). A través de lenguajes de consulta especializados, Grafana se conecta directamente a los repositorios de InfluxDB para extraer e indexar los volúmenes masivos de datos generados por los nodos ESP32.
+
+            Esta plataforma permite la creación de tableros (\textit{dashboards}) dinámicos y altamente personalizables, superando las limitaciones de renderizado gráfico de herramientas de control más simples. En el contexto de este proyecto, Grafana despliega paneles interactivos que muestran en tiempo real las variables eléctricas críticas de cada habitación como la Corriente Eficaz ($I_{RMS}$), Potencia Aparente ($S$) y el consumo acumulado en kilowatt-hora ($kWh$).
+
+            Más allá de la lectura instantánea, el verdadero uso de Grafana radica en su potencial analítico. Permite al usuario superponer gráficas de diferentes circuitos a lo largo del tiempo, identificar picos anómalos de demanda (\textit{peaks}) y visualizar el comportamiento energético histórico del hogar. Esta representación visual detallada es importante para la \textbf{gestión energética}, ya que otorga al consumidor la visibilidad necesaria para auditar sus propios hábitos, comprender la estructura de las tarifas eléctricas y verificar la efectividad de las acciones de corte automatizadas ejecutadas por los actuadores Sonoff.    
+
+
         \textbf{Node-RED:} Herramienta de programación visual basada en flujos. Actúa como el orquestador lógico del sistema, procesando los mensajes MQTT, gestionando las reglas de automatización (horarios) y enrutando los datos.
         
         \textbf{InfluxDB:} Base de datos de series temporales (TSDB) optimizada para almacenar datos con marcas de tiempo precisas, ideal para registrar el historial de consumo eléctrico.
