@@ -17,7 +17,7 @@ void setup() {
   analogReadResolution(10); 
 
   // Configurar el pin y la calibración
-  emon1.current(pinSCT, 30.0);
+  emon1.current(pinSCT, 22.46);
 }
 
 void loop() {
@@ -46,5 +46,5 @@ void loop() {
   Serial.println(" VA");
 
   // Esperar 2 segundos antes de la siguiente lectura
-  delay(2000);
+  delay(100);
 }
