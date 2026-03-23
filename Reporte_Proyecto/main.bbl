@@ -45,7 +45,7 @@ D.~M. Ahumada~Mejía and J.~A. Barros~Cárdenas, ``Diseño de un prototipo de
   un sistema domótico para la monitorización del consumo de energía
   eléctrica en una vivienda a través de una aplicación móvil,'' Trabajo de
   grado (Ingeniero Electrónico), Universidad de la Costa (CUC), Barranquilla,
-  2021.
+  Colombia, 2021.
 
 \bibitem{LopezAlfaro2021}
 G.~A. L{\'o}pez-Alfaro, L.~{\'A}. Hern{\'a}ndez-Fern{\'a}ndez, J.~A.
@@ -68,8 +68,11 @@ M.~D. Cicutti, ``Diseño e implementación de un sistema de medición y
   Ingeniería, La Plata, Argentina, 2019.
 
 \bibitem{openenergymonitor}
+\BIBentryALTinterwordspacing
 {OpenEnergyMonitor Community}. (2025) Openenergymonitor documentation.
-  \url{https://docs.openenergymonitor.org/electricity-monitoring/ac-power-theory/arduino-maths.html}.
+  Recuperado el 23 de octubre de 2025. [Online]. Available:
+  \url{https://docs.openenergymonitor.org/electricity-monitoring/ac-power-theory/arduino-maths.html}
+\BIBentrySTDinterwordspacing
 
 \bibitem{sadiku2013}
 C.~K. Alexander and M.~N.~O. Sadiku, \emph{Fundamentos de circuitos
@@ -91,14 +94,16 @@ W.~H. Hayt, J.~E. Kemmerly, and S.~M. Durbin, \emph{Análisis de circuitos en
   2012.
 
 \bibitem{programarfacil}
-{Del Valle, Luis}, ``Medir consumo eléctrico con arduino y el sensor
-  sct-013,'' ProgramarFácil, 2023, recuperado de:
-  \url{https://programarfacil.com/blog/arduino-blog/sct-013-consumo-electrico-arduino/}.
+\BIBentryALTinterwordspacing
+L.~Del~Valle. (2023) Medir consumo eléctrico con arduino y el sensor sct-013.
+  Recuperado el 3 de febrero de 2026. [Online]. Available:
+  \url{https://programarfacil.com/blog/arduino-blog/sct-013-consumo-electrico-arduino/}
+\BIBentrySTDinterwordspacing
 
 \bibitem{naylamp2023sct}
 \BIBentryALTinterwordspacing
-{Naylamp Mechatronics}, ``Tutorial sensor de corriente ac no invasivo
-  sct-013,'' s.f., recuperado el 14 de febrero de 2026. [Online]. Available:
+{Naylamp Mechatronics}. (s.f.) Tutorial sensor de corriente ac no invasivo
+  sct-013. Recuperado el 14 de febrero de 2026. [Online]. Available:
   \url{https://naylampmechatronics.com/blog/51_tutorial-sensor-de-corriente-ac-no-invasivo-sct-013.html}
 \BIBentrySTDinterwordspacing
 

@@ -1,21 +1,21 @@
 # Fdb version 4
-["bibtex main"] 1772417480.81617 "main.aux" "main.bbl" "main" 1772417763.42464 0
-  "./piic.bib" 1772417473 8589 55e25d6040f805cd77533637b17f0e45 ""
+["bibtex main"] 1773631151.21919 "main.aux" "main.bbl" "main" 1773631157.00018 0
+  "./piic.bib" 1773631148 8753 bc00a57da81eee4e0233394ffd722899 ""
   "C:/Program Files/MiKTeX/bibtex/bst/ieeetran/IEEEtran.bst" 1440622569 57748 7c8250ecf02814ce6ddc0cdbb63df1dd ""
-  "declaratoria.aux" 1772417761 855 e4618591efacbed3ebecb3defc7acb86 "pdflatex"
-  "main.aux" 1772417762 11357 73646ce94edd566a22e8e2e3592fa080 "pdflatex"
-  "portada.aux" 1772417761 850 3b650cb61bed41ed616bbcd002a59d3b "pdflatex"
+  "declaratoria.aux" 1773631154 855 e4618591efacbed3ebecb3defc7acb86 "pdflatex"
+  "main.aux" 1773631156 11357 73646ce94edd566a22e8e2e3592fa080 "pdflatex"
+  "portada.aux" 1773631154 850 3b650cb61bed41ed616bbcd002a59d3b "pdflatex"
   (generated)
   "main.bbl"
   "main.blg"
   (rewritten before read)
-["makeindex main.idx"] 1763668582.00187 "main.idx" "main.ind" "main" 1772417763.42419 0
-  "main.idx" 1772417760 0 d41d8cd98f00b204e9800998ecf8427e "pdflatex"
+["makeindex main.idx"] 1763668582.00187 "main.idx" "main.ind" "main" 1773631156.99974 0
+  "main.idx" 1773631153 0 d41d8cd98f00b204e9800998ecf8427e "pdflatex"
   (generated)
   "main.ilg"
   "main.ind"
   (rewritten before read)
-["pdflatex"] 1772417760.3201 "c:/Users/eduar/Documents/GitHub/ProyectoTerminal/Reporte_Proyecto/main.tex" "main.pdf" "main" 1772417763.42565 0
+["pdflatex"] 1773631151.518 "c:/Users/eduar/Documents/GitHub/ProyectoTerminal/Reporte_Proyecto/main.tex" "main.pdf" "main" 1773631157.00122 0
   "C:/Program Files/MiKTeX/fonts/enc/dvips/base/8r.enc" 1458473887 4993 80dc9bab7f31fb78a000ccfed0e27cab ""
   "C:/Program Files/MiKTeX/fonts/tfm/adobe/palatino/pplb8r.tfm" 1136793854 2532 9ad73cf4dd2173a847f2a5f5608e0b9a ""
   "C:/Program Files/MiKTeX/fonts/tfm/adobe/palatino/pplb8t.tfm" 1136793854 3456 16dd534f88eb2bd21ebc7203786b436e ""
@@ -226,23 +226,23 @@
   "bibliotecas.tex" 1763661683 7103 4980a6681993d026965cf4ab16e31991 ""
   "c:/Users/eduar/Documents/GitHub/ProyectoTerminal/Reporte_Proyecto/main.tex" 1761239820 369 8e3e4a8c6b4391ee2c3b483b3c0e52c5 ""
   "cuerpo.tex" 1772417759 62122 b21c7dfa3affecc7780293368f37dd5c ""
-  "declaratoria.aux" 1772417761 855 e4618591efacbed3ebecb3defc7acb86 "pdflatex"
+  "declaratoria.aux" 1773631154 855 e4618591efacbed3ebecb3defc7acb86 "pdflatex"
   "declaratoria.tex" 1761300965 720 e994f8dc30f9d6f631a73db06ac054fa ""
   "img/AC.png" 1771894020 87822 613200541ce0803af39f070e4fe139cb ""
   "img/AC_amplitud.png" 1771894020 56740 f0ae9e6fbf247fc92990b84995badb4f ""
   "img/diagrama_bloques.png" 1765418428 2351499 439b13a42ac557390325d905d19a95fd ""
   "img/sct_diagrama.png" 1771894020 19939 541f964c655b5e64ea02596c4093ec1d ""
   "indice.tex" 1769545409 1158 e5ef753f8e6926a6aecf36fbea5aabc3 ""
-  "main.aux" 1772417762 11357 73646ce94edd566a22e8e2e3592fa080 "pdflatex"
-  "main.bbl" 1772417480 6726 c19b9c7e3ca97af4e39e4572e8a0e39f "bibtex main"
+  "main.aux" 1773631156 11357 73646ce94edd566a22e8e2e3592fa080 "pdflatex"
+  "main.bbl" 1773631151 6929 4c2620be18bed5767c698133f0b370a5 "bibtex main"
   "main.ind" 1763668582 0 d41d8cd98f00b204e9800998ecf8427e "makeindex main.idx"
-  "main.lof" 1772417762 568 e8e6f8b9df488e0955238409d20f9970 "pdflatex"
-  "main.lol" 1772417761 0 d41d8cd98f00b204e9800998ecf8427e "pdflatex"
-  "main.lot" 1772417762 160 f53668847a721afcf52952296cd51b74 "pdflatex"
-  "main.out" 1772417762 8664 305d0ac590d4a8fb5c2456d2f3941cd0 "pdflatex"
+  "main.lof" 1773631156 568 e8e6f8b9df488e0955238409d20f9970 "pdflatex"
+  "main.lol" 1773631154 0 d41d8cd98f00b204e9800998ecf8427e "pdflatex"
+  "main.lot" 1773631156 160 f53668847a721afcf52952296cd51b74 "pdflatex"
+  "main.out" 1773631156 8664 305d0ac590d4a8fb5c2456d2f3941cd0 "pdflatex"
   "main.tex" 1761239820 369 8e3e4a8c6b4391ee2c3b483b3c0e52c5 ""
-  "main.toc" 1772417762 4807 91009ba41c1050223cb3d7552ec88436 "pdflatex"
-  "portada.aux" 1772417761 850 3b650cb61bed41ed616bbcd002a59d3b "pdflatex"
+  "main.toc" 1773631156 4807 91009ba41c1050223cb3d7552ec88436 "pdflatex"
+  "portada.aux" 1773631154 850 3b650cb61bed41ed616bbcd002a59d3b "pdflatex"
   "portada.tex" 1769543330 1129 bced7b3e86b2144530c8d5eef5592690 ""
   (generated)
   "declaratoria.aux"

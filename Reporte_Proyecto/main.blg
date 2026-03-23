@@ -21,42 +21,42 @@ Database file #1: piic.bib
 Done.
 You've used 22 entries,
             4087 wiz_defined-function locations,
-            942 strings with 11392 characters,
-and the built_in function-call counts, 9454 in all, are:
-= -- 782
+            942 strings with 11421 characters,
+and the built_in function-call counts, 9469 in all, are:
+= -- 777
 > -- 146
 < -- 19
 + -- 69
 - -- 29
 * -- 390
-:= -- 1685
-add.period$ -- 38
+:= -- 1702
+add.period$ -- 40
 call.type$ -- 22
 change.case$ -- 24
 chr.to.int$ -- 51
 cite$ -- 22
-duplicate$ -- 760
-empty$ -- 889
+duplicate$ -- 755
+empty$ -- 887
 format.name$ -- 35
-if$ -- 2141
+if$ -- 2136
 int.to.chr$ -- 0
 int.to.str$ -- 22
-missing$ -- 163
-newline$ -- 105
+missing$ -- 164
+newline$ -- 109
 num.names$ -- 15
-pop$ -- 396
+pop$ -- 400
 preamble$ -- 1
 purify$ -- 0
 quote$ -- 2
-skip$ -- 769
+skip$ -- 762
 stack$ -- 0
-substring$ -- 110
-swap$ -- 464
+substring$ -- 111
+swap$ -- 468
 text.length$ -- 2
 text.prefix$ -- 0
 top$ -- 5
 type$ -- 22
 warning$ -- 0
-while$ -- 26
+while$ -- 27
 width$ -- 24
-write$ -- 226
+write$ -- 231
